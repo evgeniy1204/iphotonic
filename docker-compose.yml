@@ -1,16 +1,18 @@
 services:
     nginx:
-        build: './containers/nginx'
+        build:
+            context: support/docker/containers/nginx
+            dockerfile: Dockerfile
         volumes:
-            - ../../:/app
+            - ./:/app
         container_name: ${PROJECT_NAME}-nginx
         ports:
             - "8080:80"
 
     php_fpm:
-        build: './containers/php-fpm'
+        build: 'support/docker/containers/php-fpm'
         volumes:
-            - ../../:/app
+            - ./:/app
         container_name: ${PROJECT_NAME}-php-fpm
         depends_on:
             - mysql
@@ -18,10 +20,14 @@ services:
             - '9000:9000'
 
     php-cli:
-        build: './containers/php-cli'
+        build: 'support/docker/containers/php-cli'
         volumes:
-            - ../../:/app
+            - ./:/app
         container_name: ${PROJECT_NAME}-php-cli
+        environment:
+            - APP_ENV=${API_APP_ENV}
+            - APP_DEBUG=${API_APP_DEBUG}
+            - APP_SECRET=${API_APP_SECRET}
 
     mysql:
         image: mysql:8.0

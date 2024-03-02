@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+API_APP_ENV=prod XDEBUG_EXTENSION_ENABLED=0 docker-compose run --no-deps --rm -ePHP_IDE_CONFIG=serverName=docker php-cli php -dxdebug.mode=debug -dxdebug.client_host=172.100.0.1 $@
