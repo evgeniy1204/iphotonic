@@ -1,33 +1,41 @@
 services:
     nginx:
-        build:
-            context: support/docker/containers/nginx
-            dockerfile: Dockerfile
-        volumes:
-            - ./:/app
+        build: 'support/docker/containers/nginx'
         container_name: ${PROJECT_NAME}-nginx
         ports:
-            - "8080:80"
+            - '80:80'
+        volumes:
+            - ./:/var/www/app
+        networks:
+            - iphotonic_network
+        environment:
+            - DOMAIN
 
     php_fpm:
         build: 'support/docker/containers/php-fpm'
         volumes:
-            - ./:/app
+            - ./:/var/www/app
         container_name: ${PROJECT_NAME}-php-fpm
         depends_on:
             - mysql
         ports:
-            - '9000:9000'
+            - 9000:9000
+        networks:
+            - iphotonic_network
 
     php-cli:
         build: 'support/docker/containers/php-cli'
         volumes:
-            - ./:/app
+            - ./:/var/www/app
         container_name: ${PROJECT_NAME}-php-cli
         environment:
             - APP_ENV=${API_APP_ENV}
             - APP_DEBUG=${API_APP_DEBUG}
             - APP_SECRET=${API_APP_SECRET}
+            - API_HOST=api.${DOMAIN}
+            - WEB_BASE_HOST=${DOMAIN}
+        networks:
+            - iphotonic_network
 
     mysql:
         image: mysql:8.0
@@ -40,6 +48,8 @@ services:
             - "MYSQL_DATABASE=${MYSQL_DATABASE}"
             - "MYSQL_USER=${MYSQL_USER}"
             - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+        networks:
+            - iphotonic_network
 
 volumes:
     mysql:
