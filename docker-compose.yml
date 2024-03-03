@@ -10,6 +10,8 @@ services:
             - iphotonic_network
         environment:
             - DOMAIN
+        depends_on:
+            - php_fpm
 
     php_fpm:
         build: 'support/docker/containers/php-fpm'
