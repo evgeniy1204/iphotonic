@@ -16,8 +16,6 @@ To apply changes run source `source $HOME/.profile`
 
 3. cd iphotonic
 
-4. Run `composer install`
-
-5. Run `docker-compose up -d --build`
+4. Run `docker-compose up -d --build`
 
 Go to: `127.0.0.1`
