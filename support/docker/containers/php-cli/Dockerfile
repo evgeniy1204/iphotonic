@@ -15,3 +15,5 @@ RUN set -eux; \
     chown -R www-data:www-data /var/www/app
 
 RUN wget https://getcomposer.org/installer -O - -q | php -- --install-dir=/bin --filename=composer --quiet
+
+CMD composer install --no-scripts

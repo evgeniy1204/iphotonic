@@ -4,12 +4,17 @@ services:
         container_name: ${PROJECT_NAME}-nginx
         ports:
             - '80:80'
+            - '443:443'
         volumes:
-            - ./:/var/www/app
+            - './:/var/www/app'
+            - '${SSL_CERT}:/etc/nginx/ssl/fullchain.pem'
+            - '${SSL_PRIVATE_KEY}:/etc/nginx/ssl/privkey.pem'
         networks:
             - iphotonic_network
         environment:
             - DOMAIN
+        depends_on:
+            - php_fpm
 
     php_fpm:
         build: 'support/docker/containers/php-fpm'
@@ -32,7 +37,7 @@ services:
             - APP_ENV=${API_APP_ENV}
             - APP_DEBUG=${API_APP_DEBUG}
             - APP_SECRET=${API_APP_SECRET}
-            - API_HOST=api.${DOMAIN}
+            - API_HOST=${DOMAIN}
             - WEB_BASE_HOST=${DOMAIN}
         networks:
             - iphotonic_network
