@@ -22,8 +22,8 @@ class PartnerCrudController extends AbstractCrudController
             TextField::new('name'),
             TextEditorField::new('description'),
             ImageField::new('logo')
-                ->setBasePath(Partner::LOGO_BASE_PATH)
-                ->setUploadDir('public/' . Partner::LOGO_BASE_PATH),
+                ->setBasePath(Partner::PARTNERS_BASE_PATH)
+                ->setUploadDir('public/' . Partner::PARTNERS_BASE_PATH),
             TextEditorField::new('contacts')
         ];
     }

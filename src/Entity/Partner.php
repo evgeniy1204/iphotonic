@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'partners')]
 class Partner
 {
-    const LOGO_BASE_PATH = 'uploads/images';
+    const PARTNERS_BASE_PATH = 'uploads/images/partners';
     #[
         ORM\Id,
         ORM\GeneratedValue,
