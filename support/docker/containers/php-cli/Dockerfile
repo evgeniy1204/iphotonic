@@ -16,4 +16,5 @@ RUN set -eux; \
 
 RUN wget https://getcomposer.org/installer -O - -q | php -- --install-dir=/bin --filename=composer --quiet
 
-CMD composer install --no-scripts
+CMD composer install --no-scripts && \
+    php bin/console d:m:m --no-interaction
