@@ -7,23 +7,27 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PartnerRepository::class)]
+#[ORM\Table(name: 'partners')]
 class Partner
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    const LOGO_BASE_PATH = 'uploads/images';
+    #[
+        ORM\Id,
+        ORM\GeneratedValue,
+        ORM\Column
+    ]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name: 'name', length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(name: 'description', type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(name: 'logo', length: 255, nullable: true)]
     private ?string $logo = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(name: 'contacts',type: Types::TEXT)]
     private ?string $contacts = null;
 
     public function getId(): ?int
