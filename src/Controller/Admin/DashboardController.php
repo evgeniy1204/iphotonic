@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Event;
 use App\Entity\News;
 use App\Entity\Page;
 use App\Entity\Membership;
@@ -40,5 +41,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Pages', 'fa fa-file-text', Page::class);
         yield MenuItem::linkToCrud('Memberships', 'fa fa-ticket', Membership::class);
         yield MenuItem::linkToCrud('News', 'fa fa-newspaper-o', News::class);
+        yield MenuItem::linkToCrud('Events', 'fa fa-calendar', Event::class);
     }
 }
