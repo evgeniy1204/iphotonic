@@ -7,29 +7,32 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PageRepository::class)]
+#[ORM\Table(name: 'pages')]
 class Page
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[
+        ORM\Id,
+        ORM\GeneratedValue,
+        ORM\Column
+    ]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name: 'title', length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(name: 'description', type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name: 'metaTitle', length: 255)]
     private ?string $metaTitle = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name: 'metaDescription', length: 255)]
     private ?string $metaDescription = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name: 'metaKeywords', length: 255)]
     private ?string $metaKeywords = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name: 'type', length: 255)]
     private ?string $type = null;
 
     public function getId(): ?int
