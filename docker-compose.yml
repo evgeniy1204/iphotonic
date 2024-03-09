@@ -13,8 +13,6 @@ services:
             - iphotonic_network
         environment:
             - DOMAIN
-        depends_on:
-            - php_fpm
 
     php_fpm:
         build: 'support/docker/containers/php-fpm'
@@ -23,6 +21,7 @@ services:
         container_name: ${PROJECT_NAME}-php-fpm
         depends_on:
             - mysql
+            - php-fpm
         ports:
             - 9000:9000
         networks:
