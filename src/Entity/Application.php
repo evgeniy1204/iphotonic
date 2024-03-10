@@ -2,17 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\TechnologyRepository;
+use App\Repository\ApplicationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[
-    ORM\Entity(repositoryClass: TechnologyRepository::class),
-    ORM\Table(name: 'technologies')
+    ORM\Entity(repositoryClass: ApplicationRepository::class),
+    ORM\Table(name: 'applications')
 ]
-class Technology
+class Application
 {
     #[
         ORM\Id,
@@ -24,7 +24,7 @@ class Technology
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text = null;
 
-    #[ORM\ManyToMany(targetEntity: TechnologyCategory::class, inversedBy: 'technologies')]
+    #[ORM\ManyToMany(targetEntity: ApplicationCategory::class, inversedBy: 'applications')]
     private Collection $categories;
 
     public function __construct()
@@ -54,7 +54,7 @@ class Technology
         return $this->categories;
     }
 
-    public function addCategory(TechnologyCategory $category): static
+    public function addCategory(ApplicationCategory $category): static
     {
         if (!$this->categories->contains($category)) {
             $this->categories->add($category);
@@ -63,7 +63,7 @@ class Technology
         return $this;
     }
 
-    public function removeCategory(TechnologyCategory $category): static
+    public function removeCategory(ApplicationCategory $category): static
     {
         $this->categories->removeElement($category);
 

@@ -6,9 +6,11 @@ use App\Repository\NewsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: NewsRepository::class)]
-#[ORM\Table(name: 'news')]
-#[ORM\HasLifecycleCallbacks]
+#[
+    ORM\Entity(repositoryClass: NewsRepository::class),
+    ORM\Table(name: 'news'),
+    ORM\HasLifecycleCallbacks
+]
 class News
 {
     #[
@@ -49,10 +51,9 @@ class News
         return $this->createdAt;
     }
 
-    #[ORM\PrePersist]
-    public function setCreatedAt(): void
+    public function setCreatedAt(\DateTimeInterface $dateTime): void
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = $dateTime;
     }
 
     public function getText(): ?string

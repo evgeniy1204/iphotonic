@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TechnologyCategoryRepository::class)]
-#[ORM\Table(name: 'technology_categories')]
+#[
+    ORM\Entity(repositoryClass: TechnologyCategoryRepository::class),
+    ORM\Table(name: 'technology_categories')
+]
 class TechnologyCategory
 {
     #[
@@ -96,9 +98,6 @@ class TechnologyCategory
         return $this;
     }
 
-    /**
-     * @return Collection<int, Technology>
-     */
     public function getTechnologies(): Collection
     {
         return $this->technologies;

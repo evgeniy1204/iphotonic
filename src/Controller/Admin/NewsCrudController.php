@@ -22,7 +22,6 @@ class NewsCrudController extends AbstractCrudController
         return [
             TextField::new('title'),
             DateTimeField::new('createdAt')
-                ->hideOnForm()
                 ->setTimezone($this->getParameter('app.timezone_id')),
             TextEditorField::new('text'),
         ];

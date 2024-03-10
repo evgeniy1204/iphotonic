@@ -6,9 +6,10 @@ use App\Repository\EventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EventRepository::class)]
-#[ORM\Table(name: 'events')]
-#[ORM\HasLifecycleCallbacks]
+#[
+    ORM\Entity(repositoryClass: EventRepository::class),
+    ORM\Table(name: 'events'),
+]
 class Event
 {
     #[
@@ -21,11 +22,11 @@ class Event
     #[ORM\Column(name: 'title', length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(name: 'created_event_start', type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdEventStart = null;
+    #[ORM\Column(name: 'created_event_start_at', type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdEventStartAt = null;
 
-    #[ORM\Column(name: 'created_event_end', type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdEventEnd = null;
+    #[ORM\Column(name: 'created_event_end_at', type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdEventEndAt = null;
 
     #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
@@ -50,26 +51,26 @@ class Event
         return $this;
     }
 
-    public function getCreatedEventStart(): ?\DateTimeInterface
+    public function getCreatedEventStartAt(): ?\DateTimeInterface
     {
-        return $this->createdEventStart;
+        return $this->createdEventStartAt;
     }
 
-    public function setCreatedEventStart(\DateTimeInterface $createdEventStart): static
+    public function setCreatedEventStartAt(\DateTimeInterface $createdEventStartAt): static
     {
-        $this->createdEventStart = $createdEventStart;
+        $this->createdEventStartAt = $createdEventStartAt;
 
         return $this;
     }
 
-    public function getCreatedEventEnd(): ?\DateTimeInterface
+    public function getCreatedEventEndAt(): ?\DateTimeInterface
     {
-        return $this->createdEventEnd;
+        return $this->createdEventEndAt;
     }
 
-    public function setCreatedEventEnd(\DateTimeInterface $createdEventEnd): static
+    public function setCreatedEventEndAt(\DateTimeInterface $createdEventEndAt): static
     {
-        $this->createdEventEnd = $createdEventEnd;
+        $this->createdEventEndAt = $createdEventEndAt;
 
         return $this;
     }
@@ -79,10 +80,9 @@ class Event
         return $this->createdAt;
     }
 
-    #[ORM\PrePersist]
-    public function setCreatedAt(): void
+    public function setCreatedAt(\DateTimeInterface $dateTime): void
     {
-        $this->createdAt = new \DateTime('now');
+        $this->createdAt = $dateTime;
     }
 
     public function getText(): ?string

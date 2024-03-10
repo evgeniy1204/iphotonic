@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\ApplicationCategory;
 use App\Repository\ApplicationCategoryRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -26,16 +27,19 @@ class ApplicationCategoryCrudController extends AbstractCrudController
             AssociationField::new('parent'),
             AssociationField::new('children')
                 ->setFormTypeOptions(
-                [
-                    'query_builder' => function (ApplicationCategoryRepository $repo) use ($id) {
-                        return $repo->createQueryBuilder('pc')
-                            ->andWhere('pc.parent IS NULL')
-                            ->orWhere("pc.parent = :parent_id")
-                            ->setParameter("parent_id", $id);
-                    },
-                    'by_reference' => false
-                ]
-            ),
+                    [
+                        'query_builder' => function (ApplicationCategoryRepository $applicationCategoryRepository) use ($id) {
+                            return $applicationCategoryRepository->createQueryBuilder('ac')
+                                ->andWhere('ac.id != :parent_id')
+                                ->andWhere('ac.parent IS NULL')
+                                ->orWhere('ac.parent = :parent_id')
+                                ->setParameter("parent_id", $id);
+                        },
+                        'by_reference' => false
+                    ]
+                )
+                ->hideOnIndex(),
+            ArrayField::new('children')->hideOnForm()
         ];
     }
 }

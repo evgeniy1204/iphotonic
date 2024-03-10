@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\TechnologyCategory;
 use App\Repository\TechnologyCategoryRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -23,19 +24,22 @@ class TechnologyCategoryCrudController extends AbstractCrudController
 
         return [
             TextField::new('name'),
-            AssociationField::new('parent'),
+            AssociationField::new('parent')->hideOnForm(),
             AssociationField::new('children')
                 ->setFormTypeOptions(
-                [
-                    'query_builder' => function (TechnologyCategoryRepository $repo) use ($id) {
-                        return $repo->createQueryBuilder('pc')
-                            ->andWhere('pc.parent IS NULL')
-                            ->orWhere("pc.parent = :parent_id")
-                            ->setParameter("parent_id", $id);
-                    },
-                    'by_reference' => false
-                ]
-            ),
+                    [
+                        'query_builder' => function (TechnologyCategoryRepository $technologyCategoryRepository) use ($id) {
+                            return $technologyCategoryRepository->createQueryBuilder('tc')
+                                ->andWhere('tc.id != :parent_id')
+                                ->andWhere('tc.parent IS NULL')
+                                ->orWhere('tc.parent = :parent_id')
+                                ->setParameter("parent_id", $id);
+                        },
+                        'by_reference' => false
+                    ]
+                )
+                ->hideOnIndex(),
+            ArrayField::new('children')->hideOnForm()
         ];
     }
 }

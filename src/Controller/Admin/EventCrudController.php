@@ -20,12 +20,11 @@ class EventCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
-            DateTimeField::new('createdEventStart')
+            DateTimeField::new('createdEventStartAt')
                 ->setTimezone($this->getParameter('app.timezone_id')),
-            DateTimeField::new('createdEventEnd')
+            DateTimeField::new('createdEventEndAt')
                 ->setTimezone($this->getParameter('app.timezone_id')),
             DateTimeField::new('createdAt')
-                ->hideOnForm()
                 ->setTimezone($this->getParameter('app.timezone_id')),
             TextEditorField::new('text'),
         ];

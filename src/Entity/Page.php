@@ -6,8 +6,10 @@ use App\Repository\PageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PageRepository::class)]
-#[ORM\Table(name: 'pages')]
+#[
+    ORM\Entity(repositoryClass: PageRepository::class),
+    ORM\Table(name: 'pages')
+]
 class Page
 {
     #[
@@ -23,16 +25,16 @@ class Page
     #[ORM\Column(name: 'description', type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(name: 'metaTitle', length: 255)]
+    #[ORM\Column(name: 'metaTitle', length: 255, nullable: true)]
     private ?string $metaTitle = null;
 
-    #[ORM\Column(name: 'metaDescription', length: 255)]
+    #[ORM\Column(name: 'metaDescription', length: 255, nullable: true)]
     private ?string $metaDescription = null;
 
-    #[ORM\Column(name: 'metaKeywords', length: 255)]
+    #[ORM\Column(name: 'metaKeywords', length: 255, nullable: true)]
     private ?string $metaKeywords = null;
 
-    #[ORM\Column(name: 'type', length: 255)]
+    #[ORM\Column(name: 'type', length: 255, nullable: true)]
     private ?string $type = null;
 
     public function getId(): ?int

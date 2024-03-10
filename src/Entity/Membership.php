@@ -6,8 +6,10 @@ use App\Repository\MembershipRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MembershipRepository::class)]
-#[ORM\Table(name:'memberships')]
+#[
+    ORM\Entity(repositoryClass: MembershipRepository::class),
+    ORM\Table(name:'memberships')
+]
 class Membership
 {
     const MEMBERSHIPS_BASE_PATH = 'uploads/images/partners';

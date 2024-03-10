@@ -2,20 +2,20 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Technology;
-use App\Entity\TechnologyCategory;
-use App\Repository\TechnologyCategoryRepository;
+use App\Entity\Application;
+use App\Repository\ApplicationCategoryRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class TechnologyCrudController extends AbstractCrudController
+class ApplicationCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Technology::class;
+        return Application::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -24,12 +24,14 @@ class TechnologyCrudController extends AbstractCrudController
             TextEditorField::new('text'),
             AssociationField::new('categories')->setFormTypeOptions(
                 [
-                    'query_builder' => function (TechnologyCategoryRepository $technologyCategoryRepository) {
-                        return $technologyCategoryRepository->createQueryBuilder('tc')
-                            ->andWhere('tc.children IS EMPTY');
+                    'query_builder' => function (ApplicationCategoryRepository $applicationCategoryRepository) {
+                        return $applicationCategoryRepository->createQueryBuilder('ac')
+                            ->andWhere('ac.children IS EMPTY');
                     }
                 ]
             )
+                ->hideOnIndex(),
+            ArrayField::new('categories')->hideOnForm()
         ];
     }
 }

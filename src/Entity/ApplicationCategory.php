@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ApplicationCategoryRepository::class)]
-#[ORM\Table(name: 'application_categories')]
+#[
+    ORM\Entity(repositoryClass: ApplicationCategoryRepository::class),
+    ORM\Table(name: 'application_categories')
+]
 class ApplicationCategory
 {
     #[
@@ -27,9 +29,13 @@ class ApplicationCategory
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     private Collection $children;
 
+    #[ORM\ManyToMany(targetEntity: Application::class, mappedBy: 'categories')]
+    private Collection $applications;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->applications = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -87,6 +93,33 @@ class ApplicationCategory
             if ($child->getParent() === $this) {
                 $child->setParent(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Application>
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(Application $application): static
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications->add($application);
+            $application->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplication(Application $application): static
+    {
+        if ($this->applications->removeElement($application)) {
+            $application->removeCategory($this);
         }
 
         return $this;
