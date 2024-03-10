@@ -7,6 +7,7 @@ use App\Entity\News;
 use App\Entity\Page;
 use App\Entity\Membership;
 use App\Entity\Partner;
+use App\Entity\ProductCategory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -42,5 +43,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Memberships', 'fa fa-ticket', Membership::class);
         yield MenuItem::linkToCrud('News', 'fa fa-newspaper-o', News::class);
         yield MenuItem::linkToCrud('Events', 'fa fa-calendar', Event::class);
+        yield MenuItem::linkToCrud('Product categories', 'fa fa-bar-chart', ProductCategory::class);
     }
 }
