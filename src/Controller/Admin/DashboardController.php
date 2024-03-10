@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\ApplicationCategory;
 use App\Entity\Event;
 use App\Entity\News;
 use App\Entity\Page;
@@ -46,5 +47,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Events', 'fa fa-calendar', Event::class);
         yield MenuItem::linkToCrud('Product categories', 'fa fa-bar-chart', ProductCategory::class);
         yield MenuItem::linkToCrud('Technology categories', 'fa fa-bar-chart', TechnologyCategory::class);
+        yield MenuItem::linkToCrud('Application categories', 'fa fa-bar-chart', ApplicationCategory::class);
     }
 }
