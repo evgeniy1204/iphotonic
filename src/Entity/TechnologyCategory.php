@@ -27,9 +27,13 @@ class TechnologyCategory
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     private Collection $children;
 
+    #[ORM\ManyToMany(targetEntity: Technology::class, mappedBy: 'category')]
+    private Collection $technologies;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->technologies = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -87,6 +91,33 @@ class TechnologyCategory
             if ($child->getParent() === $this) {
                 $child->setParent(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Technology>
+     */
+    public function getTechnologies(): Collection
+    {
+        return $this->technologies;
+    }
+
+    public function addTechnology(Technology $technology): static
+    {
+        if (!$this->technologies->contains($technology)) {
+            $this->technologies->add($technology);
+            $technology->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnology(Technology $technology): static
+    {
+        if ($this->technologies->removeElement($technology)) {
+            $technology->removeCategory($this);
         }
 
         return $this;
