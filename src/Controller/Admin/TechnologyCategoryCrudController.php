@@ -2,17 +2,19 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\ProductCategory;
-use App\Repository\ProductCategoryRepository;
+use App\Entity\TechnologyCategory;
+use App\Repository\TechnologyCategoryRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class ProductCategoryCrudController extends AbstractCrudController
+class TechnologyCategoryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return ProductCategory::class;
+        return TechnologyCategory::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -25,7 +27,7 @@ class ProductCategoryCrudController extends AbstractCrudController
             AssociationField::new('children')
                 ->setFormTypeOptions(
                 [
-                    'query_builder' => function (ProductCategoryRepository $repo) use ($id) {
+                    'query_builder' => function (TechnologyCategoryRepository $repo) use ($id) {
                         return $repo->createQueryBuilder('pc')
                             ->andWhere('pc.parent IS NULL')
                             ->orWhere("pc.parent = :parent_id")
