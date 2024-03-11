@@ -8,8 +8,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ORM\Table(name: 'products')]
+#[
+    ORM\Entity(repositoryClass: ProductRepository::class),
+    ORM\Table(name: 'products')
+]
 class Product
 {
     #[
@@ -28,14 +30,16 @@ class Product
     #[ORM\ManyToMany(targetEntity: Application::class, inversedBy: 'products')]
     private Collection $applications;
 
-    #[ORM\ManyToMany(targetEntity: ProductCategory::class, inversedBy: 'products')]
-    private Collection $categories;
+    #[ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products')]
+    private ?ProductCategory $category = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
     public function __construct()
     {
         $this->technologies = new ArrayCollection();
         $this->applications = new ArrayCollection();
-        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,23 +101,26 @@ class Product
         return $this;
     }
 
-    public function getCategories(): Collection
+    public function getCategory(): ?ProductCategory
     {
-        return $this->categories;
+        return $this->category;
     }
 
-    public function addCategory(ProductCategory $category): static
+    public function setCategory(?ProductCategory $category): static
     {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-        }
+        $this->category = $category;
 
         return $this;
     }
 
-    public function removeCategory(ProductCategory $category): static
+    public function getName(): ?string
     {
-        $this->categories->removeElement($category);
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

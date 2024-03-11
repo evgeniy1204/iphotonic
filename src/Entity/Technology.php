@@ -24,21 +24,23 @@ class Technology
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text = null;
 
-    #[ORM\ManyToMany(targetEntity: TechnologyCategory::class, inversedBy: 'technologies')]
-    private Collection $categories;
+    #[ORM\ManyToOne(targetEntity: TechnologyCategory::class, inversedBy: 'technologies')]
+    private ?TechnologyCategory $category = null;
 
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'technologies')]
     private Collection $products;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
         $this->products = new ArrayCollection();
     }
 
     public function __toString():string
     {
-        return $this->text;
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -58,26 +60,18 @@ class Technology
         return $this;
     }
 
-    public function getCategories(): Collection
+    public function getCategory(): ?TechnologyCategory
     {
-        return $this->categories;
+        return $this->category;
     }
 
-    public function addCategory(TechnologyCategory $category): static
+    public function setCategory(?TechnologyCategory $category): static
     {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-        }
+        $this->category = $category;
 
         return $this;
     }
 
-    public function removeCategory(TechnologyCategory $category): static
-    {
-        $this->categories->removeElement($category);
-
-        return $this;
-    }
 
     public function getProducts(): Collection
     {
@@ -99,6 +93,18 @@ class Technology
         if ($this->products->removeElement($product)) {
             $product->removeTechnology($this);
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

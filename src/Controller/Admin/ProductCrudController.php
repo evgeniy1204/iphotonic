@@ -21,21 +21,20 @@ class ProductCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            TextField::new('name'),
             TextEditorField::new('text'),
             AssociationField::new('technologies')->hideOnIndex(),
             ArrayField::new('technologies')->hideOnForm(),
             AssociationField::new('applications')->hideOnIndex(),
             ArrayField::new('applications')->hideOnForm(),
-            AssociationField::new('categories')->setFormTypeOptions(
+            AssociationField::new('category')->setFormTypeOptions(
                 [
                     'query_builder' => function (ProductCategoryRepository $productCategoryRepository) {
                         return $productCategoryRepository->createQueryBuilder('pc')
                             ->andWhere('pc.children IS EMPTY');
                     }
                 ]
-            )->hideOnIndex(),
-            ArrayField::new('categories')->hideOnForm(),
-
+            )->setRequired(true),
         ];
     }
 }

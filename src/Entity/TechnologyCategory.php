@@ -29,7 +29,7 @@ class TechnologyCategory
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     private Collection $children;
 
-    #[ORM\ManyToMany(targetEntity: Technology::class, mappedBy: 'category')]
+    #[ORM\OneToMany(targetEntity: Technology::class, mappedBy: 'category')]
     private Collection $technologies;
 
     public function __construct()

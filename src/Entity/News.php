@@ -22,11 +22,16 @@ class News
     #[ORM\Column(name: 'title', length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeInterface $createdAt;
 
     #[ORM\Column(name: 'text', type: Types::TEXT)]
     private ?string $text = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {

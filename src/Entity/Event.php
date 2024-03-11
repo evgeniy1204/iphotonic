@@ -28,11 +28,16 @@ class Event
     #[ORM\Column(name: 'created_event_end_at', type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdEventEndAt = null;
 
-    #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeInterface $createdAt;
 
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {

@@ -24,21 +24,23 @@ class Application
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text = null;
 
-    #[ORM\ManyToMany(targetEntity: ApplicationCategory::class, inversedBy: 'applications')]
-    private Collection $categories;
+    #[ORM\ManyToOne(targetEntity: ApplicationCategory::class, inversedBy: 'applications')]
+    private ?ApplicationCategory $category = null;
 
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'applications')]
     private Collection $products;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
         $this->products = new ArrayCollection();
     }
 
     public function __toString(): string
     {
-        return $this->text;
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -58,23 +60,14 @@ class Application
         return $this;
     }
 
-    public function getCategories(): Collection
+    public function getCategory(): ?ApplicationCategory
     {
-        return $this->categories;
+        return $this->category;
     }
 
-    public function addCategory(ApplicationCategory $category): static
+    public function setCategory(?ApplicationCategory $category): static
     {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(ApplicationCategory $category): static
-    {
-        $this->categories->removeElement($category);
+        $this->category = $category;
 
         return $this;
     }
@@ -99,6 +92,18 @@ class Application
         if ($this->products->removeElement($product)) {
             $product->removeApplication($this);
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

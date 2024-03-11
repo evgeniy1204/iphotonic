@@ -21,17 +21,16 @@ class ApplicationCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            TextField::new('name'),
             TextEditorField::new('text'),
-            AssociationField::new('categories')->setFormTypeOptions(
+            AssociationField::new('category')->setFormTypeOptions(
                 [
                     'query_builder' => function (ApplicationCategoryRepository $applicationCategoryRepository) {
                         return $applicationCategoryRepository->createQueryBuilder('ac')
                             ->andWhere('ac.children IS EMPTY');
                     }
                 ]
-            )
-                ->hideOnIndex(),
-            ArrayField::new('categories')->hideOnForm()
+            )->setRequired(true)
         ];
     }
 }

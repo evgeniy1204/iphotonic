@@ -25,7 +25,8 @@ class EventCrudController extends AbstractCrudController
             DateTimeField::new('createdEventEndAt')
                 ->setTimezone($this->getParameter('app.timezone_id')),
             DateTimeField::new('createdAt')
-                ->setTimezone($this->getParameter('app.timezone_id')),
+                ->setTimezone($this->getParameter('app.timezone_id'))
+                ->hideOnForm(),
             TextEditorField::new('text'),
         ];
     }

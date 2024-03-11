@@ -29,7 +29,7 @@ class ProductCategory
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     private Collection $children;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'categories')]
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'categories')]
     private Collection $products;
 
     public function __construct()

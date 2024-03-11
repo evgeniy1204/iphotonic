@@ -22,17 +22,16 @@ class TechnologyCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            TextField::new('name'),
             TextEditorField::new('text'),
-            AssociationField::new('categories')->setFormTypeOptions(
+            AssociationField::new('category')->setFormTypeOptions(
                 [
                     'query_builder' => function (TechnologyCategoryRepository $technologyCategoryRepository) {
                         return $technologyCategoryRepository->createQueryBuilder('tc')
                             ->andWhere('tc.children IS EMPTY');
                     }
                 ]
-            )
-                ->hideOnIndex(),
-            ArrayField::new('categories')->hideOnForm()
+            )->setRequired(true)
         ];
     }
 }

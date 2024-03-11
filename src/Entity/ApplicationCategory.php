@@ -29,7 +29,7 @@ class ApplicationCategory
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     private Collection $children;
 
-    #[ORM\ManyToMany(targetEntity: Application::class, mappedBy: 'categories')]
+    #[ORM\OneToMany(targetEntity: Application::class, mappedBy: 'category')]
     private Collection $applications;
 
     public function __construct()
