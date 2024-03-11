@@ -27,9 +27,18 @@ class Application
     #[ORM\ManyToMany(targetEntity: ApplicationCategory::class, inversedBy: 'applications')]
     private Collection $categories;
 
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'applications')]
+    private Collection $products;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->products = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->text;
     }
 
     public function getId(): ?int
@@ -66,6 +75,30 @@ class Application
     public function removeCategory(ApplicationCategory $category): static
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): static
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->addApplication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): static
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeApplication($this);
+        }
 
         return $this;
     }

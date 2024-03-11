@@ -9,6 +9,7 @@ use App\Entity\News;
 use App\Entity\Page;
 use App\Entity\Membership;
 use App\Entity\Partner;
+use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Entity\Technology;
 use App\Entity\TechnologyCategory;
@@ -48,6 +49,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('News', 'fa fa-newspaper-o', News::class);
         yield MenuItem::linkToCrud('Events', 'fa fa-calendar', Event::class);
         yield MenuItem::linkToCrud('Product categories', 'fa fa-bar-chart', ProductCategory::class);
+        yield MenuItem::linkToCrud('Products', 'fa fa-cube', Product::class);
         yield MenuItem::linkToCrud('Technology categories', 'fa fa-bar-chart', TechnologyCategory::class);
         yield MenuItem::linkToCrud('Technologies', 'fa fa-laptop', Technology::class);
         yield MenuItem::linkToCrud('Application categories', 'fa fa-bar-chart', ApplicationCategory::class);

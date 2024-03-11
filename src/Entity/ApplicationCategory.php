@@ -98,9 +98,6 @@ class ApplicationCategory
         return $this;
     }
 
-    /**
-     * @return Collection<int, Application>
-     */
     public function getApplications(): Collection
     {
         return $this->applications;
