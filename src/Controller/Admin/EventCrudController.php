@@ -4,8 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Event;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -28,6 +28,7 @@ class EventCrudController extends AbstractCrudController
                 ->setTimezone($this->getParameter('app.timezone_id'))
                 ->hideOnForm(),
             TextEditorField::new('text'),
+			BooleanField::new('active')
         ];
     }
 }

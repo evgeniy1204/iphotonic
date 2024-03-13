@@ -14,7 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Product
 {
-    #[
+	public const PRODUCT_IMAGES_BASE_PATH = '/uploads/images/product/images/';
+
+	#[
         ORM\GeneratedValue,
         ORM\Column,
         ORM\Id
@@ -30,6 +32,9 @@ class Product
     #[ORM\ManyToMany(targetEntity: Application::class, inversedBy: 'products')]
     private Collection $applications;
 
+	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY)]
+	private array $images;
+
     #[ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products')]
     private ?ProductCategory $category = null;
 
@@ -40,6 +45,7 @@ class Product
     {
         $this->technologies = new ArrayCollection();
         $this->applications = new ArrayCollection();
+		$this->images = [];
     }
 
     public function getId(): ?int
@@ -124,4 +130,14 @@ class Product
 
         return $this;
     }
+
+	public function getImages(): array
+	{
+		return $this->images;
+	}
+
+	public function setImages(array $images): void
+	{
+		$this->images = $images;
+	}
 }

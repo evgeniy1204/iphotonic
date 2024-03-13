@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Application
 {
+	public const APPLICATION_IMAGES_BASE_PATH = '/uploads/images/application/images/';
+
     #[
         ORM\Id,
         ORM\GeneratedValue,
@@ -33,9 +35,13 @@ class Application
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY)]
+	private array $images;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+		$this->images = [];
     }
 
     public function __toString(): string
@@ -107,4 +113,14 @@ class Application
 
         return $this;
     }
+
+	public function getImages(): array
+	{
+		return $this->images;
+	}
+
+	public function setImages(array $images): void
+	{
+		$this->images = $images;
+	}
 }

@@ -4,11 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\News;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
 
 class NewsCrudController extends AbstractCrudController
 {
@@ -25,6 +24,7 @@ class NewsCrudController extends AbstractCrudController
                 ->setTimezone($this->getParameter('app.timezone_id'))
                 ->hideOnForm(),
             TextEditorField::new('text'),
+			BooleanField::new('active')
         ];
     }
 }

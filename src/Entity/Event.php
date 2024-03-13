@@ -34,9 +34,13 @@ class Event
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text = null;
 
+	#[ORM\Column(name: 'is_active', type: Types::BOOLEAN, options: ['default' => false])]
+	private bool $active;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+		$this->active = false;
     }
 
     public function getId(): ?int
@@ -101,4 +105,14 @@ class Event
 
         return $this;
     }
+
+	public function isActive(): bool
+	{
+		return $this->active;
+	}
+
+	public function setActive(bool $active): void
+	{
+		$this->active = $active;
+	}
 }

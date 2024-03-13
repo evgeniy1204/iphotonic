@@ -3,12 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Technology;
-use App\Entity\TechnologyCategory;
 use App\Repository\TechnologyCategoryRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -23,6 +21,10 @@ class TechnologyCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
+			ImageField::new('images')
+				->setBasePath(Technology::TECHNOLOGY_IMAGES_BASE_PATH)
+				->setUploadDir('public/' . Technology::TECHNOLOGY_IMAGES_BASE_PATH)
+				->setFormTypeOption('multiple', true),
             TextEditorField::new('text'),
             AssociationField::new('category')->setFormTypeOptions(
                 [

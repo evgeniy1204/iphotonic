@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Technology
 {
+	public const TECHNOLOGY_IMAGES_BASE_PATH = '/uploads/images/technology/images/';
+
     #[
         ORM\Id,
         ORM\GeneratedValue,
@@ -30,12 +32,16 @@ class Technology
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'technologies')]
     private Collection $products;
 
+	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY)]
+	private array $images;
+
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
+		$this->images = [];
     }
 
     public function __toString():string
@@ -108,4 +114,14 @@ class Technology
 
         return $this;
     }
+
+	public function getImages(): array
+	{
+		return $this->images;
+	}
+
+	public function setImages(array $images): void
+	{
+		$this->images = $images;
+	}
 }
