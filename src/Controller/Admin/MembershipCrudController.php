@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Membership;
+use App\Field\TinyMCEField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -20,7 +21,7 @@ class MembershipCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
-            TextEditorField::new('description'),
+            TinyMCEField::new('description')->hideOnIndex(),
             ImageField::new('logo')
                 ->setBasePath(Membership::MEMBERSHIPS_BASE_PATH)
                 ->setUploadDir('public/' . Membership::MEMBERSHIPS_BASE_PATH)

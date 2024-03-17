@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use App\SeoFieldsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -14,7 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Product
 {
-	public const PRODUCT_IMAGES_BASE_PATH = '/uploads/images/product/images/';
+	use SeoFieldsTrait;
+
+	public const PRODUCT_IMAGES_FOLDER = 'product';
 
 	#[
         ORM\GeneratedValue,
@@ -32,8 +35,8 @@ class Product
     #[ORM\ManyToMany(targetEntity: Application::class, inversedBy: 'products')]
     private Collection $applications;
 
-	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY)]
-	private array $images;
+	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
+	private ?array $images;
 
     #[ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products')]
     private ?ProductCategory $category = null;
@@ -41,11 +44,13 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+
+
     public function __construct()
     {
         $this->technologies = new ArrayCollection();
         $this->applications = new ArrayCollection();
-		$this->images = [];
+		$this->seo = new SeoEmbed();
     }
 
     public function getId(): ?int
@@ -136,7 +141,7 @@ class Product
 		return $this->images;
 	}
 
-	public function setImages(array $images): void
+	public function setImages(?array $images): void
 	{
 		$this->images = $images;
 	}

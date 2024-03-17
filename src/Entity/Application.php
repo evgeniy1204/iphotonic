@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ApplicationRepository;
+use App\SeoFieldsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -14,7 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Application
 {
-	public const APPLICATION_IMAGES_BASE_PATH = '/uploads/images/application/images/';
+	use SeoFieldsTrait;
+
+	public const APPLICATION_IMAGE_FOLDER= 'application';
 
     #[
         ORM\Id,
@@ -35,13 +38,12 @@ class Application
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY)]
-	private array $images;
+	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
+	private ?array $images = null;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
-		$this->images = [];
     }
 
     public function __toString(): string
@@ -119,7 +121,7 @@ class Application
 		return $this->images;
 	}
 
-	public function setImages(array $images): void
+	public function setImages(?array $images): void
 	{
 		$this->images = $images;
 	}

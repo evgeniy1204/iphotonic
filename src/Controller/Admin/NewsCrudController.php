@@ -2,11 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Constants;
 use App\Entity\News;
+use App\Field\TinyMCEField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class NewsCrudController extends AbstractCrudController
@@ -20,10 +22,13 @@ class NewsCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
+			ImageField::new('preview')
+				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . News::PREVIEW_IMAGE_FOLDER)
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . News::PREVIEW_IMAGE_FOLDER),
             DateTimeField::new('createdAt')
                 ->setTimezone($this->getParameter('app.timezone_id'))
                 ->hideOnForm(),
-            TextEditorField::new('text'),
+			TinyMCEField::new('text')->hideOnIndex(),
 			BooleanField::new('active')
         ];
     }

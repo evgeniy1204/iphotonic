@@ -36,7 +36,7 @@ services:
         environment:
             - APP_ENV=${API_APP_ENV}
             - APP_DEBUG=${API_APP_DEBUG}
-            - APP_SECRET=${API_APP_SECRET}
+            - APP_SECRET=${APP_SECRET}
             - API_HOST=${DOMAIN}
             - WEB_BASE_HOST=${DOMAIN}
         networks:

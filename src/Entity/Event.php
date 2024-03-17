@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Event
 {
+	public const PREVIEW_IMAGE_FOLDER = 'event_preview';
+
     #[
         ORM\Id,
         ORM\GeneratedValue,
@@ -33,6 +35,9 @@ class Event
 
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text = null;
+
+	#[ORM\Column(name: 'preview', length: 255, nullable: true)]
+	private ?string $preview = null;
 
 	#[ORM\Column(name: 'is_active', type: Types::BOOLEAN, options: ['default' => false])]
 	private bool $active;
@@ -114,5 +119,15 @@ class Event
 	public function setActive(bool $active): void
 	{
 		$this->active = $active;
+	}
+
+	public function getPreview(): ?string
+	{
+		return $this->preview;
+	}
+
+	public function setPreview(?string $preview): void
+	{
+		$this->preview = $preview;
 	}
 }

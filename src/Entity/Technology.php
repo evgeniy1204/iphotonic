@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TechnologyRepository;
+use App\SeoFieldsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -14,7 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Technology
 {
-	public const TECHNOLOGY_IMAGES_BASE_PATH = '/uploads/images/technology/images/';
+	use SeoFieldsTrait;
+
+	public const TECHNOLOGY_IMAGES_FOLDER = 'technology';
 
     #[
         ORM\Id,
@@ -32,8 +35,8 @@ class Technology
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'technologies')]
     private Collection $products;
 
-	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY)]
-	private array $images;
+	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
+	private ?array $images = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -41,7 +44,6 @@ class Technology
     public function __construct()
     {
         $this->products = new ArrayCollection();
-		$this->images = [];
     }
 
     public function __toString():string
@@ -120,7 +122,7 @@ class Technology
 		return $this->images;
 	}
 
-	public function setImages(array $images): void
+	public function setImages(?array $images): void
 	{
 		$this->images = $images;
 	}

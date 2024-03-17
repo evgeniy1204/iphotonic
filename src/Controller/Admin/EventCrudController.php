@@ -2,11 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Constants;
 use App\Entity\Event;
+use App\Field\TinyMCEField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class EventCrudController extends AbstractCrudController
@@ -20,14 +22,19 @@ class EventCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
+			ImageField::new('preview')
+				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Event::PREVIEW_IMAGE_FOLDER)
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Event::PREVIEW_IMAGE_FOLDER),
             DateTimeField::new('createdEventStartAt')
-                ->setTimezone($this->getParameter('app.timezone_id')),
+                ->setTimezone($this->getParameter('app.timezone_id'))
+				->setLabel('Event start'),
             DateTimeField::new('createdEventEndAt')
-                ->setTimezone($this->getParameter('app.timezone_id')),
+                ->setTimezone($this->getParameter('app.timezone_id'))
+				->setLabel('Event end'),
             DateTimeField::new('createdAt')
                 ->setTimezone($this->getParameter('app.timezone_id'))
                 ->hideOnForm(),
-            TextEditorField::new('text'),
+			TinyMCEField::new('text')->hideOnIndex(),
 			BooleanField::new('active')
         ];
     }
