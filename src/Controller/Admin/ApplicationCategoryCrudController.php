@@ -2,30 +2,27 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Partner;
-use App\Field\TinyMCEField;
+use App\Entity\ApplicationCategory;
+use App\Repository\ApplicationCategoryRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class PartnerCrudController extends AbstractCrudController
+class ApplicationCategoryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Partner::class;
+        return ApplicationCategory::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
             TextField::new('name'),
-            TinyMCEField::new('description')->hideOnIndex(),
-            ImageField::new('logo')
-                ->setBasePath(Partner::PARTNERS_BASE_PATH)
-                ->setUploadDir('public/' . Partner::PARTNERS_BASE_PATH),
-			TextEditorField::new('contacts')->hideOnIndex()
+            AssociationField::new('parent')
         ];
     }
 }

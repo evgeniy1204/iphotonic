@@ -5,8 +5,11 @@ RUN apt-get update && apt-get install -y \
     wget \
     zlib1g-dev \
     libmcrypt-dev \
+    libicu-dev \
     libzip-dev
 
-RUN docker-php-ext-install pdo pdo_mysql
+
+RUN docker-php-ext-configure intl && \
+    docker-php-ext-install pdo pdo_mysql intl
 
 WORKDIR /var/www/app
