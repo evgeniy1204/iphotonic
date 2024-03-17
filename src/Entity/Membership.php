@@ -2,17 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\PartnerRepository;
+use App\Repository\MembershipRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[
-    ORM\Entity(repositoryClass: PartnerRepository::class),
-    ORM\Table(name: 'partners')
+    ORM\Entity(repositoryClass: MembershipRepository::class),
+    ORM\Table(name:'memberships')
 ]
-class Partner
+class Membership
 {
-    const PARTNERS_FOLDER = 'partner';
+    const MEMBERSHIPS_FOLDER = 'membership';
+
     #[
         ORM\Id,
         ORM\GeneratedValue,
@@ -28,9 +29,6 @@ class Partner
 
     #[ORM\Column(name: 'logo', length: 255, nullable: true)]
     private ?string $logo = null;
-
-    #[ORM\Column(name: 'contacts',type: Types::TEXT)]
-    private ?string $contacts = null;
 
     public function getId(): ?int
     {
@@ -69,18 +67,6 @@ class Partner
     public function setLogo(?string $logo): static
     {
         $this->logo = $logo;
-
-        return $this;
-    }
-
-    public function getContacts(): ?string
-    {
-        return $this->contacts;
-    }
-
-    public function setContacts(string $contacts): static
-    {
-        $this->contacts = $contacts;
 
         return $this;
     }
