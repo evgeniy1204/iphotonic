@@ -25,4 +25,8 @@ public/uploads/technology/*
 !public/uploads/technology/.gitkeeper
 public/uploads/tiny/*
 !public/uploads/tiny/.gitkeeper
+public/uploads/partner/*
+!public/uploads/partner/.gitkeeper
+public/uploads/membership/*
+!public/uploads/membership/.gitkeeper
 ### docker

@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Membership
 {
-    const MEMBERSHIPS_BASE_PATH = 'uploads/images/partners';
+    const MEMBERSHIPS_FOLDER = 'membership';
 
     #[
         ORM\Id,

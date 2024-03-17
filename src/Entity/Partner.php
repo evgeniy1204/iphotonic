@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Partner
 {
-    const PARTNERS_BASE_PATH = 'uploads/images/partners';
+    const PARTNERS_FOLDER = 'partner';
     #[
         ORM\Id,
         ORM\GeneratedValue,

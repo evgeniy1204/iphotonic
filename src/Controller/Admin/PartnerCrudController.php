@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Constants;
 use App\Entity\Partner;
 use App\Field\TinyMCEField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -23,8 +24,8 @@ class PartnerCrudController extends AbstractCrudController
             TextField::new('name'),
             TinyMCEField::new('description')->hideOnIndex(),
             ImageField::new('logo')
-                ->setBasePath(Partner::PARTNERS_BASE_PATH)
-                ->setUploadDir('public/' . Partner::PARTNERS_BASE_PATH),
+                ->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Partner::PARTNERS_FOLDER)
+                ->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Partner::PARTNERS_FOLDER),
 			TextEditorField::new('contacts')->hideOnIndex()
         ];
     }
