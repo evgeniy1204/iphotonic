@@ -11,5 +11,18 @@
 .idea
 docker-compose.override.yml
 
-public/
+public/uploads/application/*
+!public/uploads/application/.gitkeeper
+public/uploads/event_preview/*
+!public/uploads/event_preview/.gitkeeper
+public/uploads/news_preview/*
+!public/uploads/news_preview/.gitkeeper
+public/uploads/product/*
+!public/uploads/product/.gitkeeper
+public/uploads/slider/*
+!public/uploads/slider/.gitkeeper
+public/uploads/technology/*
+!public/uploads/technology/.gitkeeper
+public/uploads/tiny/*
+!public/uploads/tiny/.gitkeeper
 ### docker

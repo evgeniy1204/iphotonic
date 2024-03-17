@@ -4,11 +4,17 @@ namespace App\Entity;
 
 use App\Repository\SettingRepository;
 use App\SeoFieldsTrait;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: SettingRepository::class)]
+#[
+	ORM\Entity(repositoryClass: SettingRepository::class),
+	ORM\Table(name: 'settings')
+]
 class Setting
 {
+	public const SLIDER_IMAGES_FOLDER = 'slider';
+
 	use SeoFieldsTrait;
 
     #[ORM\Id]
@@ -16,14 +22,17 @@ class Setting
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(name: 'linked_in', length: 255, nullable: true)]
     private ?string $linkedIn = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(name: 'youtube', length: 255, nullable: true)]
     private ?string $youtube = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(name: 'instagram', length: 255, nullable: true)]
     private ?string $instagram = null;
+
+	#[ORM\Column(name: 'slider_images', type: Types::SIMPLE_ARRAY, nullable: true)]
+	private ?array $sliderImages = null;
 
     public function getId(): ?int
     {
@@ -65,4 +74,14 @@ class Setting
 
         return $this;
     }
+
+	public function getSliderImages(): ?array
+	{
+		return $this->sliderImages;
+	}
+
+	public function setSliderImages(?array $sliderImages): void
+	{
+		$this->sliderImages = $sliderImages;
+	}
 }
