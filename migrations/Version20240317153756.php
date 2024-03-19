@@ -22,7 +22,6 @@ final class Version20240317153756 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE settings (id INT AUTO_INCREMENT NOT NULL, linked_in VARCHAR(255) DEFAULT NULL, youtube VARCHAR(255) DEFAULT NULL, instagram VARCHAR(255) DEFAULT NULL, slider_images LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:simple_array)\', metaTitle VARCHAR(255) DEFAULT NULL, metaDescription VARCHAR(255) DEFAULT NULL, metaKeywords VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
 		$this->addSql('INSERT INTO settings (id) VALUES (1)');
-		$this->addSql('DROP TABLE setting');
     }
 
     public function down(Schema $schema): void
