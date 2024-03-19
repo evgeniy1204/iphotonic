@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Constants;
-use App\Entity\Partner;
+use App\Entity\Membership;
 use App\Field\TinyMCEField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -11,11 +11,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class PartnerCrudController extends AbstractCrudController
+class MembershipCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Partner::class;
+        return Membership::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -24,9 +24,8 @@ class PartnerCrudController extends AbstractCrudController
             TextField::new('name'),
             TinyMCEField::new('description')->hideOnIndex(),
             ImageField::new('logo')
-                ->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Partner::PARTNERS_FOLDER)
-                ->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Partner::PARTNERS_FOLDER),
-			TextEditorField::new('contacts')->hideOnIndex()
+                ->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Membership::MEMBERSHIPS_FOLDER)
+                ->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Membership::MEMBERSHIPS_FOLDER)
         ];
     }
 }
