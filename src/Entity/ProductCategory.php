@@ -26,7 +26,7 @@ class ProductCategory
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     private ?self $parent = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $children;
 
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'categories')]
@@ -107,17 +107,13 @@ class ProductCategory
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->addCategory($this);
         }
-
         return $this;
     }
 
     public function removeProduct(Product $product): static
     {
-        if ($this->products->removeElement($product)) {
-            $product->removeCategory($this);
-        }
+        $this->products->removeElement($product);
 
         return $this;
     }

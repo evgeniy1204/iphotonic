@@ -26,7 +26,7 @@ class ApplicationCategory
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     private ?self $parent = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $children;
 
     #[ORM\OneToMany(targetEntity: Application::class, mappedBy: 'category')]
@@ -107,7 +107,6 @@ class ApplicationCategory
     {
         if (!$this->applications->contains($application)) {
             $this->applications->add($application);
-            $application->addCategory($this);
         }
 
         return $this;
@@ -115,9 +114,7 @@ class ApplicationCategory
 
     public function removeApplication(Application $application): static
     {
-        if ($this->applications->removeElement($application)) {
-            $application->removeCategory($this);
-        }
+        $this->applications->removeElement($application);
 
         return $this;
     }

@@ -26,7 +26,7 @@ class TechnologyCategory
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     private ?self $parent = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $children;
 
     #[ORM\OneToMany(targetEntity: Technology::class, mappedBy: 'category')]
@@ -107,7 +107,6 @@ class TechnologyCategory
     {
         if (!$this->technologies->contains($technology)) {
             $this->technologies->add($technology);
-            $technology->addCategory($this);
         }
 
         return $this;
@@ -115,9 +114,8 @@ class TechnologyCategory
 
     public function removeTechnology(Technology $technology): static
     {
-        if ($this->technologies->removeElement($technology)) {
-            $technology->removeCategory($this);
-        }
+        $this->technologies->removeElement($technology);
+
 
         return $this;
     }
