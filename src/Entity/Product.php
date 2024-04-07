@@ -17,7 +17,7 @@ class Product
 {
 	use SeoFieldsTrait;
 
-	public const PRODUCT_IMAGES_FOLDER = 'product';
+	public const PRODUCT_FILES_FOLDER = 'product';
 
 	#[
         ORM\GeneratedValue,
@@ -29,6 +29,9 @@ class Product
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text = null;
 
+	#[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
+	private ?string $summary = null;
+
     #[ORM\ManyToMany(targetEntity: Technology::class, inversedBy: 'products')]
     private Collection $technologies;
 
@@ -37,6 +40,9 @@ class Product
 
 	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
 	private ?array $images;
+
+	#[ORM\Column(name: 'files', type: Types::SIMPLE_ARRAY, nullable: true)]
+	private ?array $files;
 
     #[ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products')]
     private ?ProductCategory $category = null;
@@ -52,6 +58,11 @@ class Product
         $this->applications = new ArrayCollection();
 		$this->seo = new SeoEmbed();
     }
+
+	public function __toString():string
+	{
+		return $this->name;
+	}
 
     public function getId(): ?int
     {
@@ -144,5 +155,25 @@ class Product
 	public function setImages(?array $images): void
 	{
 		$this->images = $images;
+	}
+
+	public function getSummary(): ?string
+	{
+		return $this->summary;
+	}
+
+	public function setSummary(?string $summary): void
+	{
+		$this->summary = $summary;
+	}
+
+	public function getFiles(): ?array
+	{
+		return $this->files;
+	}
+
+	public function setFiles(?array $files): void
+	{
+		$this->files = $files;
 	}
 }

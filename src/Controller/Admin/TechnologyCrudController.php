@@ -27,19 +27,21 @@ class TechnologyCrudController extends AbstractCrudController
         return [
 			FormField::addTab('General fields'),
             TextField::new('name'),
+			AssociationField::new('category')->setFormTypeOptions(
+				[
+					'query_builder' => function (TechnologyCategoryRepository $technologyCategoryRepository) {
+						return $technologyCategoryRepository->createQueryBuilder('tc')
+							->andWhere('tc.children IS EMPTY');
+					}
+				]
+			)->setRequired(true),
 			ImageField::new('images')
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Technology::TECHNOLOGY_IMAGES_FOLDER)
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Technology::TECHNOLOGY_IMAGES_FOLDER)
 				->setFormTypeOption('multiple', true),
 			TinyMCEField::new('text')->hideOnIndex(),
-            AssociationField::new('category')->setFormTypeOptions(
-                [
-                    'query_builder' => function (TechnologyCategoryRepository $technologyCategoryRepository) {
-                        return $technologyCategoryRepository->createQueryBuilder('tc')
-                            ->andWhere('tc.children IS EMPTY');
-                    }
-                ]
-            )->setRequired(true),
+			AssociationField::new('products')
+				->setLabel('Equipments'),
 			...$this->getSeoFields(),
         ];
     }

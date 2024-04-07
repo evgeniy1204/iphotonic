@@ -24,6 +24,9 @@ class Event
     #[ORM\Column(name: 'title', length: 255)]
     private ?string $title = null;
 
+	#[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
+	private ?string $summary = null;
+
     #[ORM\Column(name: 'created_event_start_at', type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdEventStartAt = null;
 
@@ -129,5 +132,15 @@ class Event
 	public function setPreview(?string $preview): void
 	{
 		$this->preview = $preview;
+	}
+
+	public function getSummary(): ?string
+	{
+		return $this->summary;
+	}
+
+	public function setSummary(?string $summary): void
+	{
+		$this->summary = $summary;
 	}
 }

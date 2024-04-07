@@ -34,6 +34,12 @@ class SettingCrudController extends AbstractCrudController
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::SLIDER_IMAGES_FOLDER)
 				->setFormTypeOption('multiple', true)
 				->setRequired(false),
+			FormField::addTab('Membership'),
+			ImageField::new('membershipLogos')
+				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Setting::MEMBERSHIP_IMAGES_FOLDER)
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::MEMBERSHIP_IMAGES_FOLDER)
+				->setFormTypeOption('multiple', true)
+				->setRequired(false),
 			...$this->getSeoFields(),
 		];
 	}
