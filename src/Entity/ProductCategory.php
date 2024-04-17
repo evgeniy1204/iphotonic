@@ -19,7 +19,7 @@ class ProductCategory
         ORM\GeneratedValue,
         ORM\Column
     ]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(name: 'name', length: 255)]
     private ?string $name = null;
@@ -47,6 +47,7 @@ class ProductCategory
 
     public function __construct()
     {
+		$this->id = 0;
         $this->children = new ArrayCollection();
         $this->equipments = new ArrayCollection();
     }
@@ -56,7 +57,7 @@ class ProductCategory
         return $this->name;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
