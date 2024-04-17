@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
+use App\Enum\SearchResultTypeEnum;
 use App\Repository\ProductRepository;
 use App\SeoFieldsTrait;
+use App\Service\SearchResultAwareInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -13,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
     ORM\Entity(repositoryClass: ProductRepository::class),
     ORM\Table(name: 'products')
 ]
-class Product
+class Product implements SearchResultAwareInterface
 {
 	use SeoFieldsTrait;
 
@@ -175,5 +177,25 @@ class Product
 	public function setFiles(?array $files): void
 	{
 		$this->files = $files;
+	}
+
+	public function getSearchResultType(): SearchResultTypeEnum
+	{
+		return SearchResultTypeEnum::TYPE_PRODUCT;
+	}
+
+	public function getSearchResultTitle(): string
+	{
+		return $this->name;
+	}
+
+	public function getSearchResultSlug(): string
+	{
+		return $this->name;
+	}
+
+	public function getSearchedResultShortText(): string
+	{
+		return 'sfdsfsdf';
 	}
 }
