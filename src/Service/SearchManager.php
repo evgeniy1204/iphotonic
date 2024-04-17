@@ -6,14 +6,20 @@ namespace App\Service;
 
 use App\Enum\SearchResultTypeEnum;
 use App\Repository\ProductRepository;
+use App\Repository\SearchEntityAwareInterface;
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Routing\RouterInterface;
 
 readonly class SearchManager
 {
+	/**
+	 * @param RouterInterface $router
+	 * @param iterable<SearchEntityAwareInterface> $searchRepositories
+	 */
 	public function __construct(
-		private ProductRepository $productRepository,
-		private RouterInterface $router
-	){
+		private RouterInterface $router,
+		#[TaggedIterator(tag: SearchEntityAwareInterface::SEARCH_ENTITY_TAG)] private iterable $searchRepositories
+	) {
 	}
 
 	/**
@@ -22,17 +28,18 @@ readonly class SearchManager
 	 */
 	public function searchByText(string $searchText): \Generator
 	{
-		//TODO: to like query to search
-		foreach ($this->productRepository->findAll() as $product) {
-			yield $product;
+		foreach ($this->searchRepositories as $searchRepository) {
+			foreach ($searchRepository->search($searchText) as $searchResult) {
+				if (!$searchResult instanceof SearchResultAwareInterface) {
+					continue;
+				}
+				yield $searchResult;
+			}
 		}
-		//TODO: add technology
-		//TODO: add news
-		//TODO: add events
 	}
 
 	public function generateResultUrl(SearchResultTypeEnum $typeEnum, string $slug): string
 	{
-		return '';//$this->router->generate('home');
+		return 'will be url';//$this->router->generate('home');
 	}
 }

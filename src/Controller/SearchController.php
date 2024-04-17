@@ -32,6 +32,7 @@ class SearchController extends AbstractController
 				));
 			}
 		}
+		dump($searchResponseCollection);
 
 		return $this->render('base.html.twig', ['searchResponse' => $searchResponseCollection]);
 	}
