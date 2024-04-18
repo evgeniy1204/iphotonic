@@ -6,20 +6,15 @@ namespace App\Service;
 
 use App\Enum\SearchResultTypeEnum;
 use App\Repository\ProductRepository;
-use App\Repository\SearchEntityAwareInterface;
-use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Routing\RouterInterface;
 
 readonly class SearchManager
 {
-	/**
-	 * @param RouterInterface $router
-	 * @param iterable<SearchEntityAwareInterface> $searchRepositories
-	 */
 	public function __construct(
-		private RouterInterface $router,
-		#[TaggedIterator(tag: SearchEntityAwareInterface::SEARCH_ENTITY_TAG)] private iterable $searchRepositories
-	) {
+		private RouterInterface   $router,
+		private ProductRepository $productRepository
+	)
+	{
 	}
 
 	/**
@@ -28,13 +23,8 @@ readonly class SearchManager
 	 */
 	public function searchByText(string $searchText): \Generator
 	{
-		foreach ($this->searchRepositories as $searchRepository) {
-			foreach ($searchRepository->search($searchText) as $searchResult) {
-				if (!$searchResult instanceof SearchResultAwareInterface) {
-					continue;
-				}
-				yield $searchResult;
-			}
+		foreach ($this->productRepository->search($searchText) as $searchResult) {
+			yield $searchResult;
 		}
 	}
 
