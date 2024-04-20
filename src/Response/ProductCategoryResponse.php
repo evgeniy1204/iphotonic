@@ -13,7 +13,7 @@ readonly class ProductCategoryResponse
      */
     public function __construct(
         private array $productCategories,
-        private ProductCategory $chosenProductCategory
+        private ?ProductCategory $chosenProductCategory
     )
     {
     }
