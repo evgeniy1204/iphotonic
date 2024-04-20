@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Dto\MainPageQueryParams;
+use App\Dto\Query\MainPageQueryParams;
 use App\Repository\EventRepository;
 use App\Repository\NewsRepository;
 use App\Repository\ProductCategoryRepository;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\Routing\Attribute\Route;
 
-class MainPageController extends AbstractController
+class MainController extends AbstractController
 {
     public function __construct(
         private readonly ProductCategoryRepository $productCategoryRepository,
@@ -31,20 +31,15 @@ class MainPageController extends AbstractController
         #[MapQueryString] MainPageQueryParams $queryParams
     ): Response
     {
-        $productParentCategories = $this->productCategoryRepository->findParentCategories();
-        $productChildCategories = $this->productCategoryRepository->findByParentId($queryParams->getParentCategoryId());
-
+        $productCategories = $this->productCategoryRepository->findParentCategories();
         $products = $this->productRepository->findByCategoryId(
             $queryParams->getChildCategoryId()
         );
-
         $events = $this->eventRepository->findUpcomingEvents();
-
         $news = $this->newsRepository->findLatestNews();
 
         $response = new MainPageResponse(
-            $productParentCategories,
-            $productChildCategories,
+            $productCategories,
             $products,
             $events,
             $news

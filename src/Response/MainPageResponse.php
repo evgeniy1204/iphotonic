@@ -10,15 +10,13 @@ use App\Entity\ProductCategory;
 readonly class MainPageResponse
 {
     /**
-     * @param ProductCategory[] $parentCategories
-     * @param ProductCategory[] $childCategories
+     * @param ProductCategory[] $categories
      * @param Product[] $products
      * @param Event[] $events
      * @param News[] $news
      */
     public function __construct(
-        private array $parentCategories = [],
-        private array $childCategories = [],
+        private array $categories = [],
         private array $products = [],
         private array $events = [],
         private array $news = []
@@ -26,14 +24,9 @@ readonly class MainPageResponse
     {
     }
 
-    public function getParentCategories(): array
+    public function getCategories(): array
     {
-        return $this->parentCategories;
-    }
-
-    public function getChildCategories(): array
-    {
-        return $this->childCategories;
+        return $this->categories;
     }
 
     public function getProducts(): array
