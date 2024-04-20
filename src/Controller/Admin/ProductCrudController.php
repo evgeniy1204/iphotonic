@@ -10,6 +10,7 @@ use App\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -42,6 +43,7 @@ class ProductCrudController extends AbstractCrudController
 				->setRequired(false)
 				->hideOnIndex(),
 			TinyMCEField::new('text')->hideOnIndex(),
+            BooleanField::new('active'),
 			AssociationField::new('technologies')->hideOnIndex(),
 			ArrayField::new('technologies')->hideOnForm(),
 			AssociationField::new('applications')->hideOnIndex(),

@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Event
 {
-	public const PREVIEW_IMAGE_FOLDER = 'event_preview';
+    public const PREVIEW_IMAGE_FOLDER = 'event_preview';
 
     #[
         ORM\Id,
@@ -24,8 +24,8 @@ class Event
     #[ORM\Column(name: 'title', length: 255)]
     private ?string $title = null;
 
-	#[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
-	private ?string $summary = null;
+    #[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
+    private ?string $summary = null;
 
     #[ORM\Column(name: 'created_event_start_at', type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdEventStartAt = null;
@@ -39,16 +39,19 @@ class Event
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text = null;
 
-	#[ORM\Column(name: 'preview', length: 255, nullable: true)]
-	private ?string $preview = null;
+    #[ORM\Column(name: 'preview', length: 255, nullable: true)]
+    private ?string $preview = null;
 
-	#[ORM\Column(name: 'is_active', type: Types::BOOLEAN, options: ['default' => false])]
-	private bool $active;
+    #[ORM\Column(name: 'is_active', type: Types::BOOLEAN, options: ['default' => false])]
+    private bool $active;
+
+    #[ORM\Column(name: 'slug', length: 255)]
+    private ?string $slug = null;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-		$this->active = false;
+        $this->active = false;
     }
 
     public function getId(): ?int
@@ -114,33 +117,45 @@ class Event
         return $this;
     }
 
-	public function isActive(): bool
-	{
-		return $this->active;
-	}
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
 
-	public function setActive(bool $active): void
-	{
-		$this->active = $active;
-	}
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
 
-	public function getPreview(): ?string
-	{
-		return $this->preview;
-	}
+    public function getPreview(): ?string
+    {
+        return $this->preview;
+    }
 
-	public function setPreview(?string $preview): void
-	{
-		$this->preview = $preview;
-	}
+    public function setPreview(?string $preview): void
+    {
+        $this->preview = $preview;
+    }
 
-	public function getSummary(): ?string
-	{
-		return $this->summary;
-	}
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
 
-	public function setSummary(?string $summary): void
-	{
-		$this->summary = $summary;
-	}
+    public function setSummary(?string $summary): void
+    {
+        $this->summary = $summary;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
 }

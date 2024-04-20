@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\ProductCategory;
 use App\Service\SearchResultAwareInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -36,4 +38,9 @@ class ProductRepository extends ServiceEntityRepository
 
 		yield from $qb->getQuery()->toIterable();
 	}
+
+    public function findByCategoryId(int $categoryId, int $limit = 4)
+    {
+        return $this->findBy(['category' => $categoryId, 'active' => true], limit: $limit);
+    }
 }

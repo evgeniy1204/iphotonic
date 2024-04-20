@@ -17,11 +17,11 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Product implements SearchResultAwareInterface
 {
-	use SeoFieldsTrait;
+    use SeoFieldsTrait;
 
-	public const PRODUCT_FILES_FOLDER = 'product';
+    public const PRODUCT_FILES_FOLDER = 'product';
 
-	#[
+    #[
         ORM\GeneratedValue,
         ORM\Column,
         ORM\Id
@@ -31,8 +31,8 @@ class Product implements SearchResultAwareInterface
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text = null;
 
-	#[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
-	private ?string $summary = null;
+    #[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
+    private ?string $summary = null;
 
     #[ORM\ManyToMany(targetEntity: Technology::class, inversedBy: 'products')]
     private Collection $technologies;
@@ -40,31 +40,36 @@ class Product implements SearchResultAwareInterface
     #[ORM\ManyToMany(targetEntity: Application::class, inversedBy: 'products')]
     private Collection $applications;
 
-	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $images;
+    #[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
+    private ?array $images;
 
-	#[ORM\Column(name: 'files', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $files;
+    #[ORM\Column(name: 'files', type: Types::SIMPLE_ARRAY, nullable: true)]
+    private ?array $files;
 
     #[ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products')]
     private ?ProductCategory $category = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name: 'name', length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(name: 'slug', length: 255)]
+    private ?string $slug = null;
+
+    #[ORM\Column(name: 'is_active', options: ['default' => false])]
+    private ?bool $active = null;
 
 
     public function __construct()
     {
         $this->technologies = new ArrayCollection();
         $this->applications = new ArrayCollection();
-		$this->seo = new SeoEmbed();
+        $this->seo = new SeoEmbed();
     }
 
-	public function __toString():string
-	{
-		return $this->name;
-	}
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 
     public function getId(): ?int
     {
@@ -149,53 +154,77 @@ class Product implements SearchResultAwareInterface
         return $this;
     }
 
-	public function getImages(): array
-	{
-		return $this->images;
-	}
+    public function getImages(): array
+    {
+        return $this->images;
+    }
 
-	public function setImages(?array $images): void
-	{
-		$this->images = $images;
-	}
+    public function setImages(?array $images): void
+    {
+        $this->images = $images;
+    }
 
-	public function getSummary(): ?string
-	{
-		return $this->summary;
-	}
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
 
-	public function setSummary(?string $summary): void
-	{
-		$this->summary = $summary;
-	}
+    public function setSummary(?string $summary): void
+    {
+        $this->summary = $summary;
+    }
 
-	public function getFiles(): ?array
-	{
-		return $this->files;
-	}
+    public function getFiles(): ?array
+    {
+        return $this->files;
+    }
 
-	public function setFiles(?array $files): void
-	{
-		$this->files = $files;
-	}
+    public function setFiles(?array $files): void
+    {
+        $this->files = $files;
+    }
 
-	public function getSearchResultType(): SearchResultTypeEnum
-	{
-		return SearchResultTypeEnum::TYPE_PRODUCT;
-	}
+    public function getSearchResultType(): SearchResultTypeEnum
+    {
+        return SearchResultTypeEnum::TYPE_PRODUCT;
+    }
 
-	public function getSearchResultTitle(): string
-	{
-		return $this->name;
-	}
+    public function getSearchResultTitle(): string
+    {
+        return $this->name;
+    }
 
-	public function getSearchResultSlug(): string
-	{
-		return $this->name;
-	}
+    public function getSearchResultSlug(): string
+    {
+        return $this->name;
+    }
 
-	public function getSearchedResultShortText(): string
-	{
-		return 'sfdsfsdf';
-	}
+    public function getSearchedResultShortText(): string
+    {
+        return 'sfdsfsdf';
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): static
+    {
+        $this->active = $active;
+
+        return $this;
+    }
 }

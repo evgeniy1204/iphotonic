@@ -20,4 +20,21 @@ class ProductCategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ProductCategory::class);
     }
+
+    public function findParentCategories()
+    {
+        return $this->createQueryBuilder('pc')
+            ->andWhere('pc.parent IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByParentId(int $parentId)
+    {
+        return $this->createQueryBuilder('pc')
+            ->andWhere('pc.parent = :parent_id')
+            ->setParameter('parent_id', $parentId)
+            ->getQuery()
+            ->getResult();
+    }
 }

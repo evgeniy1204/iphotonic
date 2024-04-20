@@ -28,7 +28,9 @@ class NewsCrudController extends AbstractCrudController
             DateTimeField::new('createdAt')
                 ->setTimezone($this->getParameter('app.timezone_id'))
                 ->hideOnForm(),
-			TinyMCEField::new('text')->hideOnIndex(),
+			TinyMCEField::new('text')
+                ->setRequired(true)
+                ->hideOnIndex(),
 			BooleanField::new('active')
         ];
     }

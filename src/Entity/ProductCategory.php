@@ -24,10 +24,10 @@ class ProductCategory
     #[ORM\Column(name: 'name', length: 255)]
     private ?string $name = null;
 
-	#[ORM\Column(name: 'summary', type: Types::TEXT)]
+	#[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
 	private ?string $summary = null;
 
-	#[ORM\Column(name: 'description', type: Types::TEXT)]
+	#[ORM\Column(name: 'description', type: Types::TEXT, nullable: true)]
 	private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
