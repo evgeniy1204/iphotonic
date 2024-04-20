@@ -20,11 +20,13 @@ class ProductCategoryController extends AbstractController
 
     #[Route('/product/category', name: 'app_product_category')]
     public function index(
-        #[MapQueryString] ProductCategoryQueryParams $queryParams
+        #[MapQueryString] ?ProductCategoryQueryParams $queryParams
     ): Response
     {
         $productCategories = $this->productCategoryRepository->findParentCategories();
-        $chosenCategory = $this->productCategoryRepository->find($queryParams->getChosenCategory());
+        $chosenCategory = null !== $queryParams ?
+            $this->productCategoryRepository->find($queryParams->getChosenCategory())
+            : null;
 
         $response = new ProductCategoryResponse(
             $productCategories,
