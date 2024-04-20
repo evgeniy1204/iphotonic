@@ -30,4 +30,5 @@ public/uploads/partner/*
 !public/uploads/partner/.gitkeeper
 public/uploads/membership/*
 !public/uploads/membership/.gitkeeper
+public/uploads/images/*
 ### docker

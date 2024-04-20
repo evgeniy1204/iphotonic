@@ -4,22 +4,21 @@ namespace App\Response;
 
 use App\Entity\Event;
 use App\Entity\News;
-use App\Entity\Product;
 use App\Entity\ProductCategory;
 
 readonly class MainPageResponse
 {
     /**
      * @param ProductCategory[] $categories
-     * @param Product[] $products
      * @param Event[] $events
      * @param News[] $news
+     * @param string[] $membershipLogos
      */
     public function __construct(
         private array $categories = [],
-        private array $products = [],
         private array $events = [],
-        private array $news = []
+        private array $news = [],
+        private array $membershipLogos = [],
     )
     {
     }
@@ -27,11 +26,6 @@ readonly class MainPageResponse
     public function getCategories(): array
     {
         return $this->categories;
-    }
-
-    public function getProducts(): array
-    {
-        return $this->products;
     }
 
     public function getEvents(): array
@@ -42,5 +36,10 @@ readonly class MainPageResponse
     public function getNews(): array
     {
         return $this->news;
+    }
+
+    public function getMembershipLogos(): array
+    {
+        return $this->membershipLogos;
     }
 }

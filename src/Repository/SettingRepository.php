@@ -21,28 +21,15 @@ class SettingRepository extends ServiceEntityRepository
         parent::__construct($registry, Setting::class);
     }
 
-    //    /**
-    //     * @return Setting[] Returns an array of Setting objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @return string[]
+     */
+    public function findMemberships(): array
+    {
+        $settings = $this->createQueryBuilder('s')
+            ->getQuery()
+            ->getResult()[0] ?? null;
 
-    //    public function findOneBySomeField($value): ?Setting
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return $settings?->getMembershipLogos() ?? [];
+    }
 }
