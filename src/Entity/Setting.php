@@ -13,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Setting
 {
-	public const SLIDER_IMAGES_FOLDER = 'slider';
 	public const MEMBERSHIP_IMAGES_FOLDER = 'membership';
+	public const ID_OF_SINGLE_ENTITY = 1;
 
 	use SeoFieldsTrait;
 
@@ -32,15 +32,12 @@ class Setting
     #[ORM\Column(name: 'instagram', length: 255, nullable: true)]
     private ?string $instagram = null;
 
-	#[ORM\Column(name: 'slider_images', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $sliderImages = null;
-
 	#[ORM\Column(name: 'membership_logos', type: Types::SIMPLE_ARRAY, nullable: true)]
 	private ?array $membershipLogos = null;
 
-    public function getId(): ?int
+    public function getId(): int
     {
-        return $this->id;
+        return self::ID_OF_SINGLE_ENTITY;
     }
 
     public function getLinkedIn(): ?string
@@ -78,16 +75,6 @@ class Setting
 
         return $this;
     }
-
-	public function getSliderImages(): ?array
-	{
-		return $this->sliderImages;
-	}
-
-	public function setSliderImages(?array $sliderImages): void
-	{
-		$this->sliderImages = $sliderImages;
-	}
 
 	public function getMembershipLogos(): ?array
 	{

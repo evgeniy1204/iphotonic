@@ -32,4 +32,13 @@ class SettingRepository extends ServiceEntityRepository
 
         return $settings?->getMembershipLogos() ?? [];
     }
+
+	public function findSettingPage(): ?Setting
+	{
+		return $this->createQueryBuilder('Setting')
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+	}
 }

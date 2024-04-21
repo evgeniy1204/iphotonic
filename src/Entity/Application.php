@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Constants;
 use App\Repository\ApplicationRepository;
 use App\SeoFieldsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -29,17 +30,14 @@ class Application
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text = null;
 
-    #[ORM\ManyToOne(targetEntity: ApplicationCategory::class, inversedBy: 'applications')]
-    private ?ApplicationCategory $category = null;
-
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'applications')]
     private Collection $products;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $images = null;
+	#[ORM\Column(name: 'preview', type: Types::STRING, nullable: true)]
+	private ?string $preview = null;
 
     public function __construct()
     {
@@ -62,23 +60,11 @@ class Application
     }
 
     public function setText(?string $text): static
-    {
-        $this->text = $text;
+	{
+		$this->text = $text;
 
-        return $this;
-    }
-
-    public function getCategory(): ?ApplicationCategory
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?ApplicationCategory $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
+		return $this;
+	}
 
     public function getProducts(): Collection
     {
@@ -116,13 +102,18 @@ class Application
         return $this;
     }
 
-	public function getImages(): array
+	public function getPreview(): ?string
 	{
-		return $this->images;
+		return $this->preview;
 	}
 
-	public function setImages(?array $images): void
+	public function setPreview(?string $preview): void
 	{
-		$this->images = $images;
+		$this->preview = $preview;
+	}
+
+	public function getPreviewPath(): string
+	{
+		return sprintf('%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::APPLICATION_IMAGE_FOLDER, $this->preview);
 	}
 }
