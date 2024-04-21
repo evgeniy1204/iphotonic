@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block left_sidebar %}
+{% endblock %}
+{% block body %}
+    {% for download in downloads %}
+        <a href="{{ path('download_file', {'id' : download.id}) }}" target="_blank" >{{ download.fileName }}</a>
+    {% endfor %}
+{% endblock %}

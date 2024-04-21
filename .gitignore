@@ -30,4 +30,8 @@ public/uploads/partner/*
 !public/uploads/partner/.gitkeeper
 public/uploads/membership/*
 !public/uploads/membership/.gitkeeper
+public/uploads/download_preview/*
+!public/uploads/download_preview/.gitkeeper
+public/uploads/download/*
+!public/uploads/download/.gitkeeper
 ### docker

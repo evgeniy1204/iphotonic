@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block left_sidebar %}
+{% endblock %}
+{% block body %}
+    {% for application in applications %}
+        <img src="{{ application.previewPath }}" alt="{{ application.name }}" width="200" height="300">
+        {{ application.text|raw }}
+    {% endfor %}
+{% endblock %}

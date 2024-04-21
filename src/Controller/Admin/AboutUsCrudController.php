@@ -3,44 +3,43 @@
 namespace App\Controller\Admin;
 
 use App\Constants;
-use App\Entity\Setting;
-use App\Repository\SettingRepository;
+use App\Entity\AboutUs;
+use App\Entity\Download;
+use App\Field\TinyMCEField;
+use App\Repository\AboutUsRepository;
 use App\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class SettingCrudController extends AbstractCrudController
+class AboutUsCrudController extends AbstractCrudController
 {
 	use SeoFieldsTrait;
 
 	public function __construct(
 		private readonly AdminUrlGenerator $adminUrlGenerator,
-		private readonly SettingRepository $settingRepository
-	) {
+		private readonly AboutUsRepository $aboutUsRepository,
+	){
 	}
 
 	public static function getEntityFqcn(): string
-	{
-		return Setting::class;
-	}
+    {
+        return AboutUs::class;
+    }
 
 	public function index(AdminContext $context): RedirectResponse
 	{
-		$settingPage = $this->settingRepository->findSettingPage();
-		if ($settingPage) {
-
+		$aboutUsPage = $this->aboutUsRepository->findAboutUsPage();
+		if ($aboutUsPage) {
 			$targetUrl = $this->adminUrlGenerator
 				->setController(self::class)
 				->setAction(Crud::PAGE_EDIT)
-				->setEntityId(Setting::ID_OF_SINGLE_ENTITY)
+				->setEntityId($aboutUsPage->getId())
 				->generateUrl();
 
 			return $this->redirect($targetUrl);
@@ -50,19 +49,11 @@ class SettingCrudController extends AbstractCrudController
 	}
 
 	public function configureFields(string $pageName): iterable
-	{
+    {
 		return [
-			FormField::addTab('Social networks'),
-			UrlField::new('linkedIn'),
-			UrlField::new('youtube'),
-			UrlField::new('instagram'),
-			FormField::addTab('Membership'),
-			ImageField::new('membershipLogos')
-				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Setting::MEMBERSHIP_IMAGES_FOLDER)
-				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::MEMBERSHIP_IMAGES_FOLDER)
-				->setFormTypeOption('multiple', true)
-				->setRequired(false),
+			FormField::addTab('General fields'),
+            TinyMCEField::new('description'),
 			...$this->getSeoFields(),
 		];
-	}
+    }
 }

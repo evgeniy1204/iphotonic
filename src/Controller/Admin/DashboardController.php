@@ -2,12 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\AboutUs;
 use App\Entity\Application;
-use App\Entity\ApplicationCategory;
+use App\Entity\Download;
 use App\Entity\Event;
 use App\Entity\News;
-use App\Entity\Page;
-use App\Entity\Membership;
 use App\Entity\Partner;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
@@ -15,7 +14,6 @@ use App\Entity\Setting;
 use App\Entity\Technology;
 use App\Entity\TechnologyCategory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\SectionMenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -46,7 +44,6 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToCrud('Technology categories', 'fa fa-bar-chart', TechnologyCategory::class);
 		yield MenuItem::linkToCrud('Product categories', 'fa fa-bar-chart', ProductCategory::class);
-		yield MenuItem::linkToCrud('Application categories', 'fa fa-bar-chart', ApplicationCategory::class);
 		yield MenuItem::section('Catalog', 'fa fa-list');
 		yield MenuItem::linkToCrud('Technologies', 'fa fa-laptop', Technology::class);
 		yield MenuItem::linkToCrud('Product', 'fa fa-cube', Product::class);
@@ -56,8 +53,9 @@ class DashboardController extends AbstractDashboardController
 		yield MenuItem::linkToCrud('Events', 'fa fa-calendar', Event::class);
 		yield MenuItem::section('Common', 'fa fa-user-circle');
 		yield MenuItem::linkToCrud('Partners', 'fa fa-users', Partner::class);
-		yield MenuItem::linkToCrud('Memberships', 'fa fa-ticket', Membership::class);
 		yield MenuItem::section('Settings site', 'fa fa-cogs');
 		yield MenuItem::linkToCrud('Settings', 'fa fa-cog', Setting::class);
+		yield MenuItem::linkToCrud('Downloads', 'fa fa-download', Download::class);
+		yield MenuItem::linkToCrud('About us', 'fa fa-address-card', AboutUs::class);
     }
 }
