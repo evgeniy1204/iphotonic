@@ -32,7 +32,7 @@ class AboutUsCrudController extends AbstractCrudController
         return AboutUs::class;
     }
 
-	public function index(AdminContext $context): RedirectResponse
+	public function index(AdminContext $context)
 	{
 		$aboutUsPage = $this->aboutUsRepository->findAboutUsPage();
 		if ($aboutUsPage) {

@@ -9,28 +9,24 @@ use App\Repository\NewsRepository;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\SettingRepository;
 use App\Response\MainPageResponse;
+use App\Service\SettingsProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class MainController extends AbstractController
 {
-    public function __construct(
-        private readonly ProductCategoryRepository $productCategoryRepository,
-        private readonly EventRepository $eventRepository,
-        private readonly NewsRepository $newsRepository,
-        private readonly SettingRepository $settingRepository,
-    )
-    {
-    }
-
     #[Route('/main', name: 'app_main_page')]
-    public function index(): Response
-    {
-        $productCategories = $this->productCategoryRepository->findParentCategories();
-        $events = $this->eventRepository->findUpcomingEvents();
-        $news = $this->newsRepository->findLatestNews();
-        $membershipLogos = $this->settingRepository->findMemberships();
+    public function index(
+		NewsRepository $newsRepository,
+		EventRepository $eventRepository,
+		ProductCategoryRepository $productCategoryRepository,
+		SettingsProvider $settingsProvider
+	): Response {
+        $productCategories = $productCategoryRepository->findParentCategories();
+        $events = $eventRepository->findUpcomingEvents();
+        $news = $newsRepository->findLatestNews();
+        $membershipLogos = $settingsProvider->getMemberships();
 
 
         $response = new MainPageResponse(

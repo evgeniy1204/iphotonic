@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Enum\SearchResultTypeEnum;
 use App\Repository\NewsRepository;
+use App\Service\SearchResultAwareInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
     ORM\Entity(repositoryClass: NewsRepository::class),
     ORM\Table(name: 'news')
 ]
-class News
+class News implements SearchResultAwareInterface
 {
     public const PREVIEW_IMAGE_FOLDER = 'news_preview';
 
@@ -128,4 +130,24 @@ class News
 
         return $this;
     }
+
+	public function getSearchResultType(): SearchResultTypeEnum
+	{
+		return SearchResultTypeEnum::TYPE_NEWS;
+	}
+
+	public function getSearchResultTitle(): string
+	{
+		return $this->title;
+	}
+
+	public function getSearchedResultShortText(): string
+	{
+		return $this->text;
+	}
+
+	public function getSearchResultSlug(): string
+	{
+		return $this->slug;
+	}
 }

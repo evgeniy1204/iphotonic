@@ -22,13 +22,16 @@ class EventCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
+            TextField::new('slug')->hideOnIndex(),
 			ImageField::new('preview')
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Event::PREVIEW_IMAGE_FOLDER)
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Event::PREVIEW_IMAGE_FOLDER),
             DateTimeField::new('createdEventStartAt')
+				->hideOnIndex()
                 ->setTimezone($this->getParameter('app.timezone_id'))
 				->setLabel('Event start'),
             DateTimeField::new('createdEventEndAt')
+				->hideOnIndex()
                 ->setTimezone($this->getParameter('app.timezone_id'))
 				->setLabel('Event end'),
             DateTimeField::new('createdAt')

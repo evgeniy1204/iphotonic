@@ -4,6 +4,11 @@
         {% if item.children %}
             {% for child in item.children %}
                 {{ child.name }}
+                    {% if child.children %}
+                            {% for childItem in child.children %}
+                                    {{ childItem.name }}
+                            {% endfor %}
+                    {% endif %}
             {% endfor %}
         {% endif %}
     {% endfor %}

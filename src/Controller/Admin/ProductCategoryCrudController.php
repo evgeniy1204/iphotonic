@@ -19,6 +19,7 @@ class ProductCategoryCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
+            TextField::new('slug'),
             TinyMCEField::new('summary')
 				->setRequired(false),
 			AssociationField::new('equipments'),

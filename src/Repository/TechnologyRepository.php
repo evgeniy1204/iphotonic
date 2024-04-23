@@ -21,28 +21,23 @@ class TechnologyRepository extends ServiceEntityRepository
         parent::__construct($registry, Technology::class);
     }
 
-    //    /**
-    //     * @return Technology[] Returns an array of Technology objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+	/**
+	 * @param string $searchText
+	 * @return \Generator<Technology>
+	 */
+	public function search(string $searchText): \Generator
+	{
+		$qb = $this->createQueryBuilder('Technology');
 
-    //    public function findOneBySomeField($value): ?Technology
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+		$qb
+			->select('Technology')
+			->andWhere($qb->expr()->orX(
+				$qb->expr()->andX('Technology.name LIKE :searchText'),
+				$qb->expr()->andX('Technology.text LIKE :searchText'),
+			))
+			->andWhere('Technology.active = TRUE')
+			->setParameter('searchText', '%'.$searchText.'%');
+
+		yield from $qb->getQuery()->toIterable();
+	}
 }

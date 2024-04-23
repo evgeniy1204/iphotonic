@@ -11,8 +11,6 @@ class AboutUs
 {
 	use SeoFieldsTrait;
 
-	public const ID_OF_SINGLE_ENTITY = 1;
-
     #[
 		ORM\Id,
 		ORM\GeneratedValue,
@@ -30,7 +28,7 @@ class AboutUs
 
 	public function getId(): int
     {
-        return self::ID_OF_SINGLE_ENTITY;
+        return $this->id;
     }
 
     public function getDescription(): ?string

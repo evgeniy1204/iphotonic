@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Enum\SearchResultTypeEnum;
 use App\Repository\EventRepository;
+use App\Service\SearchResultAwareInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
     ORM\Entity(repositoryClass: EventRepository::class),
     ORM\Table(name: 'events'),
 ]
-class Event
+class Event implements SearchResultAwareInterface
 {
     public const PREVIEW_IMAGE_FOLDER = 'event_preview';
 
@@ -158,4 +160,24 @@ class Event
 
         return $this;
     }
+
+	public function getSearchResultType(): SearchResultTypeEnum
+	{
+		return SearchResultTypeEnum::TYPE_EVENT;
+	}
+
+	public function getSearchResultTitle(): string
+	{
+		return $this->title;
+	}
+
+	public function getSearchedResultShortText(): string
+	{
+		return $this->text;
+	}
+
+	public function getSearchResultSlug(): string
+	{
+		return $this->slug;
+	}
 }

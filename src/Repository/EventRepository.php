@@ -36,4 +36,25 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+	/**
+	 * @param string $searchText
+	 * @return \Generator<Event>
+	 */
+	public function search(string $searchText): \Generator
+	{
+		$qb = $this->createQueryBuilder('Event');
+
+		$qb
+			->select('Event')
+			->andWhere($qb->expr()->orX(
+				$qb->expr()->andX('Event.title LIKE :searchText'),
+				$qb->expr()->andX('Event.summary LIKE :searchText'),
+				$qb->expr()->andX('Event.text LIKE :searchText'),
+			))
+			->andWhere('Event.active = TRUE')
+			->setParameter('searchText', '%'.$searchText.'%');
+
+		yield from $qb->getQuery()->toIterable();
+	}
 }

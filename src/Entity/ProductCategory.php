@@ -7,10 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[
     ORM\Entity(repositoryClass: ProductCategoryRepository::class),
-    ORM\Table(name: 'product_categories')
+    ORM\Table(name: 'product_categories'),
+	UniqueEntity(fields: ['slug'], message: 'This field should be unique', errorPath: 'slug')
 ]
 class ProductCategory
 {
@@ -36,7 +38,10 @@ class ProductCategory
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $children;
 
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
+	#[ORM\Column(name: 'slug', length: 255, unique: true)]
+	private ?string $slug = null;
+
+	#[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
     private Collection $equipments;
 
 	#[
@@ -86,6 +91,9 @@ class ProductCategory
         return $this;
     }
 
+	/**
+	 * @return Collection|ProductCategory[]
+	 */
     public function getChildren(): Collection
     {
         return $this->children;
@@ -160,5 +168,15 @@ class ProductCategory
 	public function setTechnology(?Technology $technology): void
 	{
 		$this->technology = $technology;
+	}
+
+	public function getSlug(): ?string
+	{
+		return $this->slug;
+	}
+
+	public function setSlug(?string $slug): void
+	{
+		$this->slug = $slug;
 	}
 }

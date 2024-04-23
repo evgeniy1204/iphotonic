@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Constants;
 use App\Enum\SearchResultTypeEnum;
 use App\Repository\ProductRepository;
 use App\SeoFieldsTrait;
@@ -10,10 +11,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[
     ORM\Entity(repositoryClass: ProductRepository::class),
-    ORM\Table(name: 'products')
+    ORM\Table(name: 'products'),
+	UniqueEntity(fields: ['slug'], message: 'This field should be unique', errorPath: 'slug')
 ]
 class Product implements SearchResultAwareInterface
 {
@@ -34,11 +37,16 @@ class Product implements SearchResultAwareInterface
     #[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
     private ?string $summary = null;
 
-    #[ORM\ManyToMany(targetEntity: Technology::class, inversedBy: 'products')]
-    private Collection $technologies;
+    #[
+		ORM\ManyToOne(targetEntity: Technology::class),
+		ORM\JoinColumn(referencedColumnName: 'id')
+	]
+    private ?Technology $technology;
 
-    #[ORM\ManyToMany(targetEntity: Application::class, inversedBy: 'products')]
-    private Collection $applications;
+	#[
+		ORM\ManyToMany(targetEntity: Product::class)
+	]
+	private Collection $relationProducts;
 
     #[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
     private ?array $images;
@@ -52,7 +60,7 @@ class Product implements SearchResultAwareInterface
     #[ORM\Column(name: 'name', length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(name: 'slug', length: 255)]
+    #[ORM\Column(name: 'slug', length: 255, unique: true)]
     private ?string $slug = null;
 
     #[ORM\Column(name: 'is_active', options: ['default' => false])]
@@ -61,8 +69,6 @@ class Product implements SearchResultAwareInterface
 
     public function __construct()
     {
-        $this->technologies = new ArrayCollection();
-        $this->applications = new ArrayCollection();
         $this->seo = new SeoEmbed();
     }
 
@@ -84,48 +90,6 @@ class Product implements SearchResultAwareInterface
     public function setText(?string $text): static
     {
         $this->text = $text;
-
-        return $this;
-    }
-
-    public function getTechnologies(): Collection
-    {
-        return $this->technologies;
-    }
-
-    public function addTechnology(Technology $technology): static
-    {
-        if (!$this->technologies->contains($technology)) {
-            $this->technologies->add($technology);
-        }
-
-        return $this;
-    }
-
-    public function removeTechnology(Technology $technology): static
-    {
-        $this->technologies->removeElement($technology);
-
-        return $this;
-    }
-
-    public function getApplications(): Collection
-    {
-        return $this->applications;
-    }
-
-    public function addApplication(Application $application): static
-    {
-        if (!$this->applications->contains($application)) {
-            $this->applications->add($application);
-        }
-
-        return $this;
-    }
-
-    public function removeApplication(Application $application): static
-    {
-        $this->applications->removeElement($application);
 
         return $this;
     }
@@ -201,7 +165,7 @@ class Product implements SearchResultAwareInterface
 
     public function getSearchedResultShortText(): string
     {
-        return 'sfdsfsdf';
+        return $this->text;
     }
 
     public function getSlug(): ?string
@@ -227,4 +191,40 @@ class Product implements SearchResultAwareInterface
 
         return $this;
     }
+
+	public function getTechnology(): ?Technology
+	{
+		return $this->technology;
+	}
+
+	public function setTechnology(?Technology $technology): void
+	{
+		$this->technology = $technology;
+	}
+
+	/**
+	 * @return Collection|Product[]
+	 */
+	public function getRelationProducts(): Collection
+	{
+		return $this->relationProducts;
+	}
+
+	public function setRelationProducts(Collection $relationProducts): void
+	{
+		$this->relationProducts = $relationProducts;
+	}
+
+	public function getFilePaths(): array
+	{
+		$filePaths = [];
+		foreach ($this->files as $file) {
+			$filePaths[] = [
+				'name' => $file,
+				'path' => sprintf('/%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::PRODUCT_FILES_FOLDER, $file)
+			];
+		}
+
+		return $filePaths;
+	}
 }

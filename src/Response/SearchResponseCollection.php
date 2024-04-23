@@ -20,4 +20,17 @@ class SearchResponseCollection
 	{
 		$this->searchResponseCollection[] = $responseItem;
 	}
+
+	public function getSearchText(): string
+	{
+		return $this->searchText;
+	}
+
+	/**
+	 * @return SearchResponseItem[]
+	 */
+	public function getSearchResponseCollection(): array
+	{
+		return $this->searchResponseCollection;
+	}
 }

@@ -22,6 +22,7 @@ class NewsCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
+            TextField::new('slug'),
 			ImageField::new('preview')
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . News::PREVIEW_IMAGE_FOLDER)
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . News::PREVIEW_IMAGE_FOLDER),

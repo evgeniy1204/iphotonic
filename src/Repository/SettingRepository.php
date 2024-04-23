@@ -21,18 +21,6 @@ class SettingRepository extends ServiceEntityRepository
         parent::__construct($registry, Setting::class);
     }
 
-    /**
-     * @return string[]
-     */
-    public function findMemberships(): array
-    {
-        $settings = $this->createQueryBuilder('s')
-            ->getQuery()
-            ->getResult()[0] ?? null;
-
-        return $settings?->getMembershipLogos() ?? [];
-    }
-
 	public function findSettingPage(): ?Setting
 	{
 		return $this->createQueryBuilder('Setting')

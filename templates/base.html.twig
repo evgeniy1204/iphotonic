@@ -11,7 +11,7 @@
         {% endblock %}
     </head>
     <body>
-        {% set menuItems = generate_menu() %}
+        {% set menuItems = generate_product_category_menu() %}
         {% block header_menu %}
             {% include 'menu/header.html.twig' with {'menuItems' : menuItems} %}
         {% endblock %}

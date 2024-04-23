@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Download;
 use App\Repository\ApplicationRepository;
 use App\Repository\DownloadRepository;
+use App\Repository\PossibilitiesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,14 @@ class PageController extends AbstractController
 		$applications = $applicationRepository->findAll();
 
 		return $this->render('page/applications.html.twig', ['applications' => $applications]);
+	}
+
+	#[Route('/possibilities', methods: [Request::METHOD_GET])]
+	public function possibilities(PossibilitiesRepository $possibilitiesRepository): Response
+	{
+		$possibilities = $possibilitiesRepository->findPossibilitiesPage();
+
+		return $this->render('page/possibilities.html.twig', ['possibilities' => $possibilities]);
 	}
 
 	#[Route('/downloads/{id}', name: 'download_file', methods: [Request::METHOD_GET])]

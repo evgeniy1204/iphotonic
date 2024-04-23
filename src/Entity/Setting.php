@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Constants;
 use App\Repository\SettingRepository;
 use App\SeoFieldsTrait;
 use Doctrine\DBAL\Types\Types;
@@ -14,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Setting
 {
 	public const MEMBERSHIP_IMAGES_FOLDER = 'membership';
-	public const ID_OF_SINGLE_ENTITY = 1;
 
 	use SeoFieldsTrait;
 
@@ -35,9 +35,15 @@ class Setting
 	#[ORM\Column(name: 'membership_logos', type: Types::SIMPLE_ARRAY, nullable: true)]
 	private ?array $membershipLogos = null;
 
+	#[ORM\Column(name: 'contacts', type: Types::TEXT, nullable: true)]
+	private ?string $contacts = null;
+
+	#[ORM\Column(name: 'about_us', type: Types::TEXT, nullable: true)]
+	private ?string $aboutUs = null;
+
     public function getId(): int
     {
-        return self::ID_OF_SINGLE_ENTITY;
+        return $this->id;
     }
 
     public function getLinkedIn(): ?string
@@ -81,8 +87,37 @@ class Setting
 		return $this->membershipLogos;
 	}
 
+	public function getMembershipLogoPaths(): array
+	{
+		$fullPaths = [];
+		foreach ($this->membershipLogos as $membershipLogo) {
+			$fullPaths[] = sprintf('%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::MEMBERSHIP_IMAGES_FOLDER, $membershipLogo);
+		}
+		return $fullPaths;
+	}
+
 	public function setMembershipLogos(?array $membershipLogos): void
 	{
 		$this->membershipLogos = $membershipLogos;
+	}
+
+	public function getContacts(): ?string
+	{
+		return $this->contacts;
+	}
+
+	public function setContacts(?string $contacts): void
+	{
+		$this->contacts = $contacts;
+	}
+
+	public function getAboutUs(): ?string
+	{
+		return $this->aboutUs;
+	}
+
+	public function setAboutUs(?string $aboutUs): void
+	{
+		$this->aboutUs = $aboutUs;
 	}
 }

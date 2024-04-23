@@ -11,6 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -32,15 +34,14 @@ class SettingCrudController extends AbstractCrudController
 		return Setting::class;
 	}
 
-	public function index(AdminContext $context): RedirectResponse
+	public function index(AdminContext $context)
 	{
 		$settingPage = $this->settingRepository->findSettingPage();
 		if ($settingPage) {
-
 			$targetUrl = $this->adminUrlGenerator
 				->setController(self::class)
 				->setAction(Crud::PAGE_EDIT)
-				->setEntityId(Setting::ID_OF_SINGLE_ENTITY)
+				->setEntityId($settingPage->getId())
 				->generateUrl();
 
 			return $this->redirect($targetUrl);
@@ -52,6 +53,10 @@ class SettingCrudController extends AbstractCrudController
 	public function configureFields(string $pageName): iterable
 	{
 		return [
+			FormField::addTab('Contacts'),
+			TextareaField::new('contacts'),
+			FormField::addTab('About us'),
+			TextareaField::new('about_us'),
 			FormField::addTab('Social networks'),
 			UrlField::new('linkedIn'),
 			UrlField::new('youtube'),

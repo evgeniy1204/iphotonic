@@ -24,15 +24,10 @@ class SearchController extends AbstractController
 
 		if ($searchText) {
 			foreach ($searchManager->searchByText($searchText) as $searchedItem) {
-				$searchResponseCollection->addSearchItem(new SearchResponseItem(
-					$searchedItem->getSearchResultType(),
-					$searchedItem->getSearchResultTitle(),
-					$searchedItem->getSearchedResultShortText(),
-					$searchManager->generateResultUrl($searchedItem->getSearchResultType(), $searchedItem->getSearchResultSlug()),
-				));
+				$searchResponseCollection->addSearchItem($searchedItem);
 			}
 		}
 
-		return $this->render('base.html.twig', ['searchResponse' => $searchResponseCollection]);
+		return $this->render('search_result.html.twig', ['searchResponse' => $searchResponseCollection]);
 	}
 }

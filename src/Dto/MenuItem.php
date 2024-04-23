@@ -6,8 +6,11 @@ namespace App\Dto;
 
 class MenuItem
 {
-	public function __construct(private string $name, private string $url, private array $children = [])
-	{
+	public function __construct(
+		private string $name,
+		private string $url,
+		private array $children = []
+	) {
 	}
 
 	public function getName(): string
