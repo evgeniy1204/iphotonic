@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,20 +18,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[
         ORM\Id,
         ORM\GeneratedValue,
-        ORM\Column
+        ORM\Column(name: 'id')
     ]
-    private ?int $id = null;
+    private int $id;
 
-    #[ORM\Column(name: 'username',length: 180)]
-    private ?string $username = null;
+    #[ORM\Column(name: 'username', type: Types::STRING, length: 180)]
+    private ?string $username;
 
     #[ORM\Column(name: 'roles')]
-    private array $roles = [];
+    private array $roles;
 
     #[ORM\Column(name: 'password')]
     private ?string $password = null;
 
-    public function getId(): ?int
+	public function __construct()
+	{
+		$this->id = 0;
+		$this->username = null;
+		$this->password = null;
+		$this->roles = [];
+	}
+
+	public function getId(): int
     {
         return $this->id;
     }
@@ -82,7 +91,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 }

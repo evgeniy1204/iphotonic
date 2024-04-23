@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Service\MenuProvider;
 
 use App\Dto\MenuItem;
-use App\Entity\TechnologyCategory;
-use App\Repository\TechnologyCategoryRepository;
+use App\Entity\Technology;
 use App\Repository\TechnologyRepository;
 
 readonly class TechnologyCategoryMenuProvider
@@ -34,13 +33,13 @@ readonly class TechnologyCategoryMenuProvider
 	}
 
 
-	private function generateMenu(int $dept, TechnologyCategory $technologyCategory, MenuItem $parent, int $currentStep = 0): void
+	private function generateMenu(int $dept, Technology $technology, MenuItem $parent, int $currentStep = 0): void
 	{
 		$currentStep++;
 		if ($currentStep === $dept) {
 			return;
 		}
-		foreach ($technologyCategory->getChildren() as $child) {
+		foreach ($technology->getChildren() as $child) {
 			$item = new MenuItem($child->getName(), (string) $child->getId());
 			$parent->addChild($item);
 			$this->generateMenu($dept, $child, $item, $currentStep);

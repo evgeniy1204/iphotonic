@@ -16,20 +16,28 @@ class Partner
     #[
         ORM\Id,
         ORM\GeneratedValue,
-        ORM\Column
+        ORM\Column(name: 'id')
     ]
-    private ?int $id = null;
+    private int $id;
 
-    #[ORM\Column(name: 'name', length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(name: 'name', length: 255, nullable: true)]
+    private ?string $name;
 
-    #[ORM\Column(name: 'logo', length: 255, nullable: true)]
-    private ?string $logo = null;
+    #[ORM\Column(name: 'logo', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $logo;
 
-    #[ORM\Column(name: 'contacts',type: Types::TEXT)]
-    private ?string $contacts = null;
+    #[ORM\Column(name: 'contacts', type: Types::TEXT, nullable: true)]
+    private ?string $contacts;
 
-    public function getId(): ?int
+	public function __construct()
+	{
+		$this->id = 0;
+		$this->name = null;
+		$this->logo = null;
+		$this->contacts = null;
+	}
+
+	public function getId(): int
     {
         return $this->id;
     }

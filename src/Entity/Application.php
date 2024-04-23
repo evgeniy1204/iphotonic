@@ -4,9 +4,7 @@ namespace App\Entity;
 
 use App\Constants;
 use App\Repository\ApplicationRepository;
-use App\SeoFieldsTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Trait\SeoFieldsTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,33 +21,33 @@ class Application
     #[
         ORM\Id,
         ORM\GeneratedValue,
-        ORM\Column
+        ORM\Column(name: 'id')
     ]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
-    private ?string $text = null;
+    private ?string $text;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'applications')]
-    private Collection $products;
+    #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $name;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+	#[ORM\Column(name: 'preview', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $preview;
 
-	#[ORM\Column(name: 'preview', type: Types::STRING, nullable: true)]
-	private ?string $preview = null;
+	public function __construct()
+	{
+		$this->id = 0;
+		$this->text = null;
+		$this->name = null;
+		$this->preview = null;
+	}
 
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-    }
-
-    public function __toString(): string
+	public function __toString(): string
     {
         return $this->name;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -65,30 +63,6 @@ class Application
 
 		return $this;
 	}
-
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): static
-    {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
-            $product->addApplication($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): static
-    {
-        if ($this->products->removeElement($product)) {
-            $product->removeApplication($this);
-        }
-
-        return $this;
-    }
 
     public function getName(): ?string
     {

@@ -4,8 +4,8 @@ namespace App\Entity;
 
 use App\Enum\SearchResultTypeEnum;
 use App\Repository\TechnologyRepository;
-use App\SeoFieldsTrait;
 use App\Service\SearchResultAwareInterface;
+use App\Trait\SeoFieldsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -24,15 +24,15 @@ class Technology implements SearchResultAwareInterface
     #[
         ORM\Id,
         ORM\GeneratedValue,
-        ORM\Column
+        ORM\Column(name: 'id')
     ]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
-    private ?string $text = null;
+    private ?string $text;
 
-	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $images = null;
+	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: false)]
+	private array $images;
 
 	#[
 		ORM\ManyToOne(targetEntity: Technology::class, inversedBy: 'children'),
@@ -43,17 +43,23 @@ class Technology implements SearchResultAwareInterface
 	#[ORM\OneToMany(targetEntity: Technology::class, mappedBy: 'parent', cascade: ['remove'])]
 	private Collection $children;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $name;
 
-	#[ORM\Column(name: 'slug', length: 255, unique: true)]
-	private ?string $slug = null;
+	#[ORM\Column(name: 'slug', type: Types::STRING, length: 255, unique: true)]
+	private ?string $slug;
 
-	#[ORM\Column(name: 'is_active', options: ['default' => false])]
-	private ?bool $active = null;
+	#[ORM\Column(name: 'is_active', type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
+	private bool $active;
 
     public function __construct()
     {
+		$this->id = 0;
+		$this->name = null;
+		$this->slug = null;
+		$this->active = false;
+		$this->parent = null;
+		$this->images = [];
 		$this->children = new ArrayCollection();
     }
 
@@ -98,7 +104,7 @@ class Technology implements SearchResultAwareInterface
 
 	public function setImages(?array $images): void
 	{
-		$this->images = $images;
+		$this->images = $images ?? [];
 	}
 
 	public function getSlug(): ?string
@@ -121,7 +127,9 @@ class Technology implements SearchResultAwareInterface
 		$this->parent = $parent;
 	}
 
-
+	/**
+	 * @return Collection|Technology[]
+	 */
 	public function getChildren(): Collection
 	{
 		return $this->children;
@@ -168,13 +176,13 @@ class Technology implements SearchResultAwareInterface
 		return $this->slug;
 	}
 
-	public function getActive(): ?bool
+	public function getActive(): bool
 	{
 		return $this->active;
 	}
 
 	public function setActive(?bool $active): void
 	{
-		$this->active = $active;
+		$this->active = (bool) $active;
 	}
 }

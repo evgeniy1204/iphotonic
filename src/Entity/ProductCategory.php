@@ -19,27 +19,27 @@ class ProductCategory
     #[
         ORM\Id,
         ORM\GeneratedValue,
-        ORM\Column
+        ORM\Column(name: 'id')
     ]
     private int $id;
 
-    #[ORM\Column(name: 'name', length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $name;
 
 	#[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
-	private ?string $summary = null;
+	private ?string $summary;
 
 	#[ORM\Column(name: 'description', type: Types::TEXT, nullable: true)]
-	private ?string $description = null;
+	private ?string $description;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
-    private ?self $parent = null;
+    private ?self $parent;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $children;
 
-	#[ORM\Column(name: 'slug', length: 255, unique: true)]
-	private ?string $slug = null;
+	#[ORM\Column(name: 'slug', type: Types::STRING, length: 255, unique: true, nullable: true)]
+	private ?string $slug;
 
 	#[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
     private Collection $equipments;
@@ -48,11 +48,15 @@ class ProductCategory
 		ORM\ManyToOne(targetEntity: Technology::class),
 		ORM\JoinColumn(referencedColumnName: 'id')
 	]
-	private ?Technology $technology = null;
+	private ?Technology $technology;
 
     public function __construct()
     {
 		$this->id = 0;
+		$this->name = null;
+		$this->slug = null;
+		$this->description = null;
+		$this->parent = null;
         $this->children = new ArrayCollection();
         $this->equipments = new ArrayCollection();
     }

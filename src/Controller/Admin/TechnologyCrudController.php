@@ -6,7 +6,7 @@ use App\Constants;
 use App\Entity\Technology;
 use App\Field\TinyMCEField;
 use App\Repository\TechnologyCategoryRepository;
-use App\SeoFieldsTrait;
+use App\Trait\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;

@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Trait;
 
 use App\Entity\SeoEmbed;
+use Doctrine\ORM\Mapping as ORM;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Doctrine\ORM\Mapping as ORM;
 
 trait SeoFieldsTrait
 {

@@ -6,7 +6,6 @@ namespace App\Response;
 
 class TinyResponse
 {
-
 	public function __construct(private string $location)
 	{
 	}

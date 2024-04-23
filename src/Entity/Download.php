@@ -4,7 +4,8 @@ namespace App\Entity;
 
 use App\Constants;
 use App\Repository\DownloadRepository;
-use App\SeoFieldsTrait;
+use App\Trait\SeoFieldsTrait;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DownloadRepository::class)]
@@ -22,17 +23,21 @@ class Download
 	]
     private int $id;
 
-    #[ORM\Column(name: 'preview', length: 255)]
-    private ?string $preview = null;
+    #[ORM\Column(name: 'preview', type: Types::STRING, length: 255)]
+    private ?string $preview;
 
-    #[ORM\Column(name: 'file_name', length: 255)]
-    private ?string $fileName = null;
+    #[ORM\Column(name: 'file_name', type: Types::STRING, length: 255)]
+    private ?string $fileName;
 
-    #[ORM\Column(name:'file', length: 255)]
-    private ?string $file = null;
+    #[ORM\Column(name:'file', type: Types::STRING, length: 255)]
+    private ?string $file;
 
 	public function __construct()
 	{
+		$this->id = 0;
+		$this->preview = null;
+		$this->fileName = null;
+		$this->file = null;
 		$this->seo = new SeoEmbed();
 	}
 

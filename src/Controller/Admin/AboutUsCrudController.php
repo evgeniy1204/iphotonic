@@ -2,20 +2,15 @@
 
 namespace App\Controller\Admin;
 
-use App\Constants;
 use App\Entity\AboutUs;
-use App\Entity\Download;
 use App\Field\TinyMCEField;
 use App\Repository\AboutUsRepository;
-use App\SeoFieldsTrait;
+use App\Trait\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AboutUsCrudController extends AbstractCrudController
 {

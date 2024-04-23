@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PossibilitiesRepository;
-use App\SeoFieldsTrait;
+use App\Trait\SeoFieldsTrait;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PossibilitiesRepository::class)]
@@ -18,15 +19,17 @@ class Possibilities
 	]
 	private int $id;
 
-	#[ORM\Column(name: 'description', length: 255)]
-	private ?string $description = null;
+	#[ORM\Column(name: 'description', type: Types::TEXT, nullable: true)]
+	private ?string $description;
 
 	public function __construct()
 	{
+		$this->id = 0;
+		$this->description = null;
 		$this->seo = new SeoEmbed();
 	}
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -36,7 +39,7 @@ class Possibilities
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 

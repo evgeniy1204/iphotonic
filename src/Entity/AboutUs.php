@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AboutUsRepository;
-use App\SeoFieldsTrait;
+use App\Trait\SeoFieldsTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AboutUsRepository::class)]
@@ -18,11 +18,13 @@ class AboutUs
 	]
     private int $id;
 
-    #[ORM\Column(name: 'description', length: 255)]
-    private ?string $description = null;
+    #[ORM\Column(name: 'description', length: 255, nullable: true)]
+    private ?string $description;
 
 	public function __construct()
 	{
+		$this->id = 0;
+		$this->description = null;
 		$this->seo = new SeoEmbed();
 	}
 

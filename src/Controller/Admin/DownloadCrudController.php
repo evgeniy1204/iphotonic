@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Constants;
 use App\Entity\Download;
-use App\SeoFieldsTrait;
+use App\Trait\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;

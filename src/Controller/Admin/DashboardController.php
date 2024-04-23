@@ -13,7 +13,6 @@ use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Entity\Setting;
 use App\Entity\Technology;
-use App\Entity\TechnologyCategory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -31,7 +30,11 @@ class DashboardController extends AbstractDashboardController
          */
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
 
-        return $this->redirect($adminUrlGenerator->setController(PartnerCrudController::class)->generateUrl());
+        return $this->redirect(
+			$adminUrlGenerator
+				->setController(ProductCrudController::class)
+				->generateUrl()
+		);
     }
 
     public function configureDashboard(): Dashboard

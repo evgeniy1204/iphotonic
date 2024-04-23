@@ -19,44 +19,52 @@ class Event implements SearchResultAwareInterface
     #[
         ORM\Id,
         ORM\GeneratedValue,
-        ORM\Column
+        ORM\Column(name: 'id')
     ]
-    private ?int $id = null;
+    private int $id;
 
-    #[ORM\Column(name: 'title', length: 255)]
-    private ?string $title = null;
+    #[ORM\Column(name: 'title', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $title;
 
     #[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
-    private ?string $summary = null;
+    private ?string $summary;
 
-    #[ORM\Column(name: 'created_event_start_at', type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdEventStartAt = null;
+    #[ORM\Column(name: 'created_event_start_at', type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $createdEventStartAt;
 
-    #[ORM\Column(name: 'created_event_end_at', type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdEventEndAt = null;
+    #[ORM\Column(name: 'created_event_end_at', type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $createdEventEndAt;
 
-    #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE, nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $createdAt;
 
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
-    private ?string $text = null;
+    private ?string $text;
 
-    #[ORM\Column(name: 'preview', length: 255, nullable: true)]
-    private ?string $preview = null;
+    #[ORM\Column(name: 'preview', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $preview;
 
-    #[ORM\Column(name: 'is_active', type: Types::BOOLEAN, options: ['default' => false])]
+    #[ORM\Column(name: 'is_active', type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
     private bool $active;
 
-    #[ORM\Column(name: 'slug', length: 255)]
-    private ?string $slug = null;
+    #[ORM\Column(name: 'slug', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $slug;
 
     public function __construct()
     {
+		$this->id = 0;
+		$this->title = null;
+		$this->summary = null;
+		$this->createdEventStartAt = null;
+		$this->createdEventEndAt = null;
+		$this->text = null;
+		$this->preview = null;
+		$this->slug = null;
         $this->createdAt = new \DateTime();
         $this->active = false;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -166,17 +174,17 @@ class Event implements SearchResultAwareInterface
 		return SearchResultTypeEnum::TYPE_EVENT;
 	}
 
-	public function getSearchResultTitle(): string
+	public function getSearchResultTitle(): ?string
 	{
 		return $this->title;
 	}
 
-	public function getSearchedResultShortText(): string
+	public function getSearchedResultShortText(): ?string
 	{
 		return $this->text;
 	}
 
-	public function getSearchResultSlug(): string
+	public function getSearchResultSlug(): ?string
 	{
 		return $this->slug;
 	}

@@ -5,8 +5,8 @@ namespace App\Entity;
 use App\Constants;
 use App\Enum\SearchResultTypeEnum;
 use App\Repository\ProductRepository;
-use App\SeoFieldsTrait;
 use App\Service\SearchResultAwareInterface;
+use App\Trait\SeoFieldsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -25,17 +25,17 @@ class Product implements SearchResultAwareInterface
     public const PRODUCT_FILES_FOLDER = 'product';
 
     #[
-        ORM\GeneratedValue,
-        ORM\Column,
-        ORM\Id
+		ORM\Id,
+		ORM\GeneratedValue,
+		ORM\Column(name: 'id'),
     ]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
-    private ?string $text = null;
+    private ?string $text;
 
     #[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
-    private ?string $summary = null;
+    private ?string $summary;
 
     #[
 		ORM\ManyToOne(targetEntity: Technology::class),
@@ -48,27 +48,38 @@ class Product implements SearchResultAwareInterface
 	]
 	private Collection $relationProducts;
 
-    #[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
-    private ?array $images;
+    #[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: false)]
+    private array $images;
 
-    #[ORM\Column(name: 'files', type: Types::SIMPLE_ARRAY, nullable: true)]
-    private ?array $files;
+    #[ORM\Column(name: 'files', type: Types::SIMPLE_ARRAY, nullable: false)]
+    private array $files;
 
     #[ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products')]
-    private ?ProductCategory $category = null;
+    private ?ProductCategory $category;
 
-    #[ORM\Column(name: 'name', length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(name: 'name', type: Types::STRING , length: 255, nullable: true)]
+    private ?string $name;
 
-    #[ORM\Column(name: 'slug', length: 255, unique: true)]
-    private ?string $slug = null;
+    #[ORM\Column(name: 'slug', type: Types::STRING, length: 255, unique: true, nullable: true)]
+    private ?string $slug;
 
-    #[ORM\Column(name: 'is_active', options: ['default' => false])]
-    private ?bool $active = null;
+    #[ORM\Column(name: 'is_active', nullable: false, options: ['default' => false])]
+    private bool $active;
 
 
     public function __construct()
     {
+		$this->id = 0;
+		$this->name = null;
+		$this->summary = null;
+		$this->text = null;
+		$this->slug = null;
+		$this->active = false;
+		$this->files = [];
+		$this->images = [];
+		$this->category = null;
+		$this->technology = null;
+		$this->relationProducts = new ArrayCollection();
         $this->seo = new SeoEmbed();
     }
 
@@ -125,7 +136,7 @@ class Product implements SearchResultAwareInterface
 
     public function setImages(?array $images): void
     {
-        $this->images = $images;
+        $this->images = $images ?? [];
     }
 
     public function getSummary(): ?string
@@ -138,14 +149,14 @@ class Product implements SearchResultAwareInterface
         $this->summary = $summary;
     }
 
-    public function getFiles(): ?array
+    public function getFiles(): array
     {
         return $this->files;
     }
 
     public function setFiles(?array $files): void
     {
-        $this->files = $files;
+        $this->files = $files ?? [];
     }
 
     public function getSearchResultType(): SearchResultTypeEnum
