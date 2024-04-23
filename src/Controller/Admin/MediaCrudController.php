@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Constants;
+use App\Entity\Media;
 use App\Entity\News;
 use App\Field\TinyMCEField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -11,11 +12,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class NewsCrudController extends AbstractCrudController
+class MediaCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return News::class;
+        return Media::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -27,13 +28,12 @@ class NewsCrudController extends AbstractCrudController
 				->setRequired(true),
 			ImageField::new('preview')
 				->setRequired(true)
-				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . News::PREVIEW_IMAGE_FOLDER)
-				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . News::PREVIEW_IMAGE_FOLDER),
+				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Media::PREVIEW_IMAGE_FOLDER)
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Media::PREVIEW_IMAGE_FOLDER),
             DateTimeField::new('createdAt')
-				->setRequired(true)
+				->setFormat(DateTimeField::FORMAT_MEDIUM)
                 ->setTimezone($this->getParameter('app.timezone_id')),
-			TinyMCEField::new('text')
-                ->setRequired(true)
+			TinyMCEField::new('description')
                 ->hideOnIndex(),
 			BooleanField::new('active')
         ];

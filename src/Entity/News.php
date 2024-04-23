@@ -23,7 +23,7 @@ class News implements SearchResultAwareInterface
     ]
     private int $id;
 
-    #[ORM\Column(name: 'title', length: 255)]
+    #[ORM\Column(name: 'title', length: 255, nullable: true)]
     private ?string $title;
 
     #[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]

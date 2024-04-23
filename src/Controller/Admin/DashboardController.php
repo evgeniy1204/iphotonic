@@ -6,6 +6,7 @@ use App\Entity\AboutUs;
 use App\Entity\Application;
 use App\Entity\Download;
 use App\Entity\Event;
+use App\Entity\Media;
 use App\Entity\News;
 use App\Entity\Partner;
 use App\Entity\Possibilities;
@@ -47,19 +48,19 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
 		yield MenuItem::linkToCrud('Product categories', 'fa fa-bar-chart', ProductCategory::class);
-		yield MenuItem::linkToCrud('Technologies', 'fa fa-laptop', Technology::class);
 		yield MenuItem::section('Catalog', 'fa fa-list');
 		yield MenuItem::linkToCrud('Product', 'fa fa-cube', Product::class);
 		yield MenuItem::linkToCrud('Applications', 'fa fa-file', Application::class);
+		yield MenuItem::linkToCrud('Technologies', 'fa fa-laptop', Technology::class);
 		yield MenuItem::section('Media Center', 'fa fa-list-alt');
 		yield MenuItem::linkToCrud('News', 'fa fa-newspaper-o', News::class);
 		yield MenuItem::linkToCrud('Events', 'fa fa-calendar', Event::class);
-		yield MenuItem::section('Common', 'fa fa-user-circle');
-		yield MenuItem::linkToCrud('Partners', 'fa fa-users', Partner::class);
-		yield MenuItem::section('Settings site', 'fa fa-cogs');
+		yield MenuItem::linkToCrud('Photo & Video', 'fa fa-photo', Media::class);
+		yield MenuItem::section('Site', 'fa fa-cogs');
 		yield MenuItem::linkToCrud('Settings', 'fa fa-cog', Setting::class);
 		yield MenuItem::linkToCrud('Downloads', 'fa fa-download', Download::class);
 		yield MenuItem::linkToCrud('About us', 'fa fa-address-card', AboutUs::class);
 		yield MenuItem::linkToCrud('Possibilities', 'fa fa-address-card', Possibilities::class);
+		yield MenuItem::linkToCrud('Partners', 'fa fa-users', Partner::class);
     }
 }
