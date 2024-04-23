@@ -51,20 +51,14 @@ readonly class ProductCategoryMenuProvider
 		}
 		if (!$productCategory->getChildren()->isEmpty()) {
 			foreach ($productCategory->getChildren() as $child) {
-				$item = new MenuItem(
-					$child->getName(),
-					$this->urlGenerator->generateProductCategoryUrl($child)
-				);
+				$item = new MenuItem($child->getName(), $this->urlGenerator->generateProductCategoryUrl($child));
 				$parent->addChild($item);
 				$this->generateMenu($dept, $child, $item, $currentStep);
 			}
 		} else {
 			$products = $this->productRepository->findByCategoryId($productCategory->getId());
 			foreach ($products as $product) {
-				$item = new MenuItem(
-					$product->getName(),
-					$this->urlGenerator->generateProductUrl($product),
-				);
+				$item = new MenuItem($product->getName(), $this->urlGenerator->generateProductUrl($product));
 				$parent->addChild($item);
 			}
 		}
