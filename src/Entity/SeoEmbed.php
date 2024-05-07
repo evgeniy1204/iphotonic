@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Embeddable]
 class SeoEmbed
 {
-
     #[ORM\Column(name: 'metaTitle', length: 255, nullable: true)]
     private ?string $metaTitle = null;
 

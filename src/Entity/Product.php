@@ -2,67 +2,91 @@
 
 namespace App\Entity;
 
+use App\Constants;
+use App\Enum\SearchResultTypeEnum;
 use App\Repository\ProductRepository;
-use App\SeoFieldsTrait;
+use App\Service\SearchResultAwareInterface;
+use App\Trait\SeoFieldsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[
     ORM\Entity(repositoryClass: ProductRepository::class),
-    ORM\Table(name: 'products')
+    ORM\Table(name: 'products'),
+	UniqueEntity(fields: ['slug'], message: 'This field should be unique', errorPath: 'slug')
 ]
-class Product
+class Product implements SearchResultAwareInterface
 {
-	use SeoFieldsTrait;
+    use SeoFieldsTrait;
 
-	public const PRODUCT_FILES_FOLDER = 'product';
+    public const PRODUCT_FILES_FOLDER = 'product';
 
-	#[
-        ORM\GeneratedValue,
-        ORM\Column,
-        ORM\Id
+    #[
+		ORM\Id,
+		ORM\GeneratedValue,
+		ORM\Column(name: 'id'),
     ]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
-    private ?string $text = null;
+    private ?string $text;
 
-	#[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
-	private ?string $summary = null;
+    #[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
+    private ?string $summary;
 
-    #[ORM\ManyToMany(targetEntity: Technology::class, inversedBy: 'products')]
-    private Collection $technologies;
+    #[
+		ORM\ManyToOne(targetEntity: Technology::class),
+		ORM\JoinColumn(referencedColumnName: 'id')
+	]
+    private ?Technology $technology;
 
-    #[ORM\ManyToMany(targetEntity: Application::class, inversedBy: 'products')]
-    private Collection $applications;
+	#[
+		ORM\ManyToMany(targetEntity: Product::class)
+	]
+	private Collection $relationProducts;
 
-	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $images;
+    #[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: false)]
+    private array $images;
 
-	#[ORM\Column(name: 'files', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $files;
+    #[ORM\Column(name: 'files', type: Types::SIMPLE_ARRAY, nullable: false)]
+    private array $files;
 
     #[ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products')]
-    private ?ProductCategory $category = null;
+    private ?ProductCategory $category;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(name: 'name', type: Types::STRING , length: 255, nullable: true)]
+    private ?string $name;
 
+    #[ORM\Column(name: 'slug', type: Types::STRING, length: 255, unique: true, nullable: true)]
+    private ?string $slug;
+
+    #[ORM\Column(name: 'is_active', nullable: false, options: ['default' => false])]
+    private bool $active;
 
 
     public function __construct()
     {
-        $this->technologies = new ArrayCollection();
-        $this->applications = new ArrayCollection();
-		$this->seo = new SeoEmbed();
+		$this->id = 0;
+		$this->name = null;
+		$this->summary = null;
+		$this->text = null;
+		$this->slug = null;
+		$this->active = false;
+		$this->files = [];
+		$this->images = [];
+		$this->category = null;
+		$this->technology = null;
+		$this->relationProducts = new ArrayCollection();
+        $this->seo = new SeoEmbed();
     }
 
-	public function __toString():string
-	{
-		return $this->name;
-	}
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 
     public function getId(): ?int
     {
@@ -77,48 +101,6 @@ class Product
     public function setText(?string $text): static
     {
         $this->text = $text;
-
-        return $this;
-    }
-
-    public function getTechnologies(): Collection
-    {
-        return $this->technologies;
-    }
-
-    public function addTechnology(Technology $technology): static
-    {
-        if (!$this->technologies->contains($technology)) {
-            $this->technologies->add($technology);
-        }
-
-        return $this;
-    }
-
-    public function removeTechnology(Technology $technology): static
-    {
-        $this->technologies->removeElement($technology);
-
-        return $this;
-    }
-
-    public function getApplications(): Collection
-    {
-        return $this->applications;
-    }
-
-    public function addApplication(Application $application): static
-    {
-        if (!$this->applications->contains($application)) {
-            $this->applications->add($application);
-        }
-
-        return $this;
-    }
-
-    public function removeApplication(Application $application): static
-    {
-        $this->applications->removeElement($application);
 
         return $this;
     }
@@ -147,33 +129,113 @@ class Product
         return $this;
     }
 
-	public function getImages(): array
+    public function getImages(): array
+    {
+        return $this->images;
+    }
+
+    public function setImages(?array $images): void
+    {
+        $this->images = $images ?? [];
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(?string $summary): void
+    {
+        $this->summary = $summary;
+    }
+
+    public function getFiles(): array
+    {
+        return $this->files;
+    }
+
+    public function setFiles(?array $files): void
+    {
+        $this->files = $files ?? [];
+    }
+
+    public function getSearchResultType(): SearchResultTypeEnum
+    {
+        return SearchResultTypeEnum::TYPE_PRODUCT;
+    }
+
+    public function getSearchResultTitle(): string
+    {
+        return $this->name;
+    }
+
+    public function getSearchResultSlug(): string
+    {
+        return $this->name;
+    }
+
+    public function getSearchedResultShortText(): string
+    {
+        return $this->text;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): static
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+	public function getTechnology(): ?Technology
 	{
-		return $this->images;
+		return $this->technology;
 	}
 
-	public function setImages(?array $images): void
+	public function setTechnology(?Technology $technology): void
 	{
-		$this->images = $images;
+		$this->technology = $technology;
 	}
 
-	public function getSummary(): ?string
+	/**
+	 * @return Collection|Product[]
+	 */
+	public function getRelationProducts(): Collection
 	{
-		return $this->summary;
+		return $this->relationProducts;
 	}
 
-	public function setSummary(?string $summary): void
+	public function setRelationProducts(Collection $relationProducts): void
 	{
-		$this->summary = $summary;
+		$this->relationProducts = $relationProducts;
 	}
 
-	public function getFiles(): ?array
+	public function getFilePaths(): array
 	{
-		return $this->files;
-	}
+		$filePaths = [];
+		foreach ($this->files as $file) {
+			$filePaths[] = [
+				'name' => $file,
+				'path' => sprintf('/%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::PRODUCT_FILES_FOLDER, $file)
+			];
+		}
 
-	public function setFiles(?array $files): void
-	{
-		$this->files = $files;
+		return $filePaths;
 	}
 }

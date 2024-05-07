@@ -2,10 +2,9 @@
 
 namespace App\Entity;
 
+use App\Constants;
 use App\Repository\ApplicationRepository;
-use App\SeoFieldsTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Trait\SeoFieldsTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,36 +21,33 @@ class Application
     #[
         ORM\Id,
         ORM\GeneratedValue,
-        ORM\Column
+        ORM\Column(name: 'id')
     ]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
-    private ?string $text = null;
+    private ?string $text;
 
-    #[ORM\ManyToOne(targetEntity: ApplicationCategory::class, inversedBy: 'applications')]
-    private ?ApplicationCategory $category = null;
+    #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $name;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'applications')]
-    private Collection $products;
+	#[ORM\Column(name: 'preview', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $preview;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+	public function __construct()
+	{
+		$this->id = 0;
+		$this->text = null;
+		$this->name = null;
+		$this->preview = null;
+	}
 
-	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $images = null;
-
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-    }
-
-    public function __toString(): string
+	public function __toString(): string
     {
         return $this->name;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -62,47 +58,11 @@ class Application
     }
 
     public function setText(?string $text): static
-    {
-        $this->text = $text;
+	{
+		$this->text = $text;
 
-        return $this;
-    }
-
-    public function getCategory(): ?ApplicationCategory
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?ApplicationCategory $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): static
-    {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
-            $product->addApplication($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): static
-    {
-        if ($this->products->removeElement($product)) {
-            $product->removeApplication($this);
-        }
-
-        return $this;
-    }
+		return $this;
+	}
 
     public function getName(): ?string
     {
@@ -116,13 +76,18 @@ class Application
         return $this;
     }
 
-	public function getImages(): array
+	public function getPreview(): ?string
 	{
-		return $this->images;
+		return $this->preview;
 	}
 
-	public function setImages(?array $images): void
+	public function setPreview(?string $preview): void
 	{
-		$this->images = $images;
+		$this->preview = $preview;
+	}
+
+	public function getPreviewPath(): string
+	{
+		return sprintf('%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::APPLICATION_IMAGE_FOLDER, $this->preview);
 	}
 }

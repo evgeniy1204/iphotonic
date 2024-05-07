@@ -6,10 +6,10 @@ use App\Constants;
 use App\Entity\Product;
 use App\Field\TinyMCEField;
 use App\Repository\ProductCategoryRepository;
-use App\SeoFieldsTrait;
+use App\Trait\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -28,9 +28,19 @@ class ProductCrudController extends AbstractCrudController
 	{
 		return [
 			FormField::addTab('General fields'),
+			AssociationField::new('category')->setFormTypeOptions(
+				[
+					'query_builder' => function (ProductCategoryRepository $productCategoryRepository) {
+						return $productCategoryRepository->createQueryBuilder('pc')
+							->andWhere('pc.children IS EMPTY');
+					}
+				]
+			)->setRequired(true),
 			TextField::new('name'),
+			TextField::new('slug'),
 			TextareaField::new('summary')->hideOnIndex(),
 			ImageField::new('images')
+				->hideOnIndex()
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Product::PRODUCT_FILES_FOLDER)
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Product::PRODUCT_FILES_FOLDER)
 				->setFormTypeOption('multiple', true)
@@ -42,20 +52,10 @@ class ProductCrudController extends AbstractCrudController
 				->setRequired(false)
 				->hideOnIndex(),
 			TinyMCEField::new('text')->hideOnIndex(),
-			AssociationField::new('technologies')->hideOnIndex(),
-			ArrayField::new('technologies')->hideOnForm(),
-			AssociationField::new('applications')->hideOnIndex(),
-			ArrayField::new('applications')
-				->hideOnForm()
+			AssociationField::new('relationProducts'),
+			AssociationField::new('technology')
 				->hideOnIndex(),
-			AssociationField::new('category')->setFormTypeOptions(
-				[
-					'query_builder' => function (ProductCategoryRepository $productCategoryRepository) {
-						return $productCategoryRepository->createQueryBuilder('pc')
-							->andWhere('pc.children IS EMPTY');
-					}
-				]
-			)->setRequired(true),
+			BooleanField::new('active'),
 			...$this->getSeoFields(),
 		];
 	}

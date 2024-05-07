@@ -6,14 +6,6 @@ use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Product>
- *
- * @method Product|null find($id, $lockMode = null, $lockVersion = null)
- * @method Product|null findOneBy(array $criteria, array $orderBy = null)
- * @method Product[]    findAll()
- * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class ProductRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,28 +13,45 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    //    /**
-    //     * @return Product[] Returns an array of Product objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+	/**
+	 * @return \Generator<Product>
+	 */
+	public function search(string $searchText): \Generator
+	{
+		$qb = $this->createQueryBuilder('Product');
 
-    //    public function findOneBySomeField($value): ?Product
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+		$qb
+			->select('Product')
+			->andWhere($qb->expr()->orX(
+				$qb->expr()->andX('Product.name LIKE :searchText'),
+				$qb->expr()->andX('Product.text LIKE :searchText'),
+			))
+			->andWhere('Product.active = TRUE')
+			->setParameter('searchText', '%'.$searchText.'%');
+
+		yield from $qb->getQuery()->toIterable();
+	}
+
+	/**
+	 * @param Product $product
+	 * @return Product[]
+	 */
+	public function findSimilarProducts(Product $product): array
+	{
+		$qb = $this->createQueryBuilder('Product');
+
+		$qb
+			->select('Product')
+			->andWhere('Product.category = :category')
+			->setParameter('category', $product->getCategory())
+			->andWhere('Product.id != :currentProduct')
+			->setParameter('currentProduct', $product);
+
+		return $qb->getQuery()->getResult();
+	}
+
+    public function findByCategoryId(int $categoryId, int $limit = 4)
+    {
+        return $this->findBy(['category' => $categoryId, 'active' => true], limit: $limit);
+    }
 }

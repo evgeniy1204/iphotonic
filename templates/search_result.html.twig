@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="example-wrapper">
+    Search by: {{ searchResponse.searchText }}
+ {% for searchResponseItem in searchResponse.searchResponseCollection %}
+     type: {{ searchResponseItem.type.value }}
+     title: <a href="{{ searchResponseItem.url }}">{{ searchResponseItem.title }}</a>
+ {% endfor %}
+</div>
+{% endblock %}

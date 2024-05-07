@@ -7,46 +7,56 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[
     ORM\Entity(repositoryClass: ProductCategoryRepository::class),
-    ORM\Table(name: 'product_categories')
+    ORM\Table(name: 'product_categories'),
+	UniqueEntity(fields: ['slug'], message: 'This field should be unique', errorPath: 'slug')
 ]
 class ProductCategory
 {
     #[
         ORM\Id,
         ORM\GeneratedValue,
-        ORM\Column
+        ORM\Column(name: 'id')
     ]
-    private ?int $id = null;
+    private int $id;
 
-    #[ORM\Column(name: 'name', length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $name;
 
-	#[ORM\Column(name: 'summary', type: Types::TEXT)]
-	private ?string $summary = null;
+	#[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
+	private ?string $summary;
 
-	#[ORM\Column(name: 'description', type: Types::TEXT)]
-	private ?string $description = null;
+	#[ORM\Column(name: 'description', type: Types::TEXT, nullable: true)]
+	private ?string $description;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
-    private ?self $parent = null;
+    private ?self $parent;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $children;
 
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
+	#[ORM\Column(name: 'slug', type: Types::STRING, length: 255, unique: true, nullable: true)]
+	private ?string $slug;
+
+	#[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
     private Collection $equipments;
 
 	#[
 		ORM\ManyToOne(targetEntity: Technology::class),
 		ORM\JoinColumn(referencedColumnName: 'id')
 	]
-	private ?Technology $technology = null;
+	private ?Technology $technology;
 
     public function __construct()
     {
+		$this->id = 0;
+		$this->name = null;
+		$this->slug = null;
+		$this->description = null;
+		$this->parent = null;
         $this->children = new ArrayCollection();
         $this->equipments = new ArrayCollection();
     }
@@ -56,7 +66,7 @@ class ProductCategory
         return $this->name;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -85,6 +95,9 @@ class ProductCategory
         return $this;
     }
 
+	/**
+	 * @return Collection|ProductCategory[]
+	 */
     public function getChildren(): Collection
     {
         return $this->children;
@@ -159,5 +172,15 @@ class ProductCategory
 	public function setTechnology(?Technology $technology): void
 	{
 		$this->technology = $technology;
+	}
+
+	public function getSlug(): ?string
+	{
+		return $this->slug;
+	}
+
+	public function setSlug(?string $slug): void
+	{
+		$this->slug = $slug;
 	}
 }

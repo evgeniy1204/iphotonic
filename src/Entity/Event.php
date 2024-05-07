@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Enum\SearchResultTypeEnum;
 use App\Repository\EventRepository;
+use App\Service\SearchResultAwareInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,48 +12,59 @@ use Doctrine\ORM\Mapping as ORM;
     ORM\Entity(repositoryClass: EventRepository::class),
     ORM\Table(name: 'events'),
 ]
-class Event
+class Event implements SearchResultAwareInterface
 {
-	public const PREVIEW_IMAGE_FOLDER = 'event_preview';
+    public const PREVIEW_IMAGE_FOLDER = 'event_preview';
 
     #[
         ORM\Id,
         ORM\GeneratedValue,
-        ORM\Column
+        ORM\Column(name: 'id')
     ]
-    private ?int $id = null;
+    private int $id;
 
-    #[ORM\Column(name: 'title', length: 255)]
-    private ?string $title = null;
+    #[ORM\Column(name: 'title', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $title;
 
-	#[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
-	private ?string $summary = null;
+    #[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
+    private ?string $summary;
 
-    #[ORM\Column(name: 'created_event_start_at', type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdEventStartAt = null;
+    #[ORM\Column(name: 'created_event_start_at', type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $createdEventStartAt;
 
-    #[ORM\Column(name: 'created_event_end_at', type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdEventEndAt = null;
+    #[ORM\Column(name: 'created_event_end_at', type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $createdEventEndAt;
 
-    #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE, nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $createdAt;
 
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
-    private ?string $text = null;
+    private ?string $text;
 
-	#[ORM\Column(name: 'preview', length: 255, nullable: true)]
-	private ?string $preview = null;
+    #[ORM\Column(name: 'preview', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $preview;
 
-	#[ORM\Column(name: 'is_active', type: Types::BOOLEAN, options: ['default' => false])]
-	private bool $active;
+    #[ORM\Column(name: 'is_active', type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
+    private bool $active;
+
+    #[ORM\Column(name: 'slug', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $slug;
 
     public function __construct()
     {
+		$this->id = 0;
+		$this->title = null;
+		$this->summary = null;
+		$this->createdEventStartAt = null;
+		$this->createdEventEndAt = null;
+		$this->text = null;
+		$this->preview = null;
+		$this->slug = null;
         $this->createdAt = new \DateTime();
-		$this->active = false;
+        $this->active = false;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -114,33 +127,65 @@ class Event
         return $this;
     }
 
-	public function isActive(): bool
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+
+    public function getPreview(): ?string
+    {
+        return $this->preview;
+    }
+
+    public function setPreview(?string $preview): void
+    {
+        $this->preview = $preview;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(?string $summary): void
+    {
+        $this->summary = $summary;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+	public function getSearchResultType(): SearchResultTypeEnum
 	{
-		return $this->active;
+		return SearchResultTypeEnum::TYPE_EVENT;
 	}
 
-	public function setActive(bool $active): void
+	public function getSearchResultTitle(): ?string
 	{
-		$this->active = $active;
+		return $this->title;
 	}
 
-	public function getPreview(): ?string
+	public function getSearchedResultShortText(): ?string
 	{
-		return $this->preview;
+		return $this->text;
 	}
 
-	public function setPreview(?string $preview): void
+	public function getSearchResultSlug(): ?string
 	{
-		$this->preview = $preview;
-	}
-
-	public function getSummary(): ?string
-	{
-		return $this->summary;
-	}
-
-	public function setSummary(?string $summary): void
-	{
-		$this->summary = $summary;
+		return $this->slug;
 	}
 }

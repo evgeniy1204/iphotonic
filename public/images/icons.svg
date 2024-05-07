@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<style>
+			:root svg:not(:target) {
+				display: none;
+			}
+		</style>
+	</defs>
+  <svg id="menu" stroke-width="2" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" viewBox="0 0 50 50">
+    <path d="M15 17H35"/>
+    <path d="M15 25H35"/>
+    <path d="M15 33H35"/>
+	</svg>
+
+  <svg id="close" stroke-width="2" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" viewBox="0 0 50 50">
+		<path d="M15 35L25 25M25 25L35 15M25 25L15 15M25 25L35 35"/>
+	</svg>
+
+  <svg id="search" stroke-width="1.8" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" viewBox="0 0 50 50" fill="none">
+		<path d="M30.4999 29.5L36 34.9991"/>
+    <path d="M16 23.3333C16 27.9357 19.731 31.6667 24.3333 31.6667C26.6385 31.6667 28.7251 30.7307 30.2337 29.2181C31.7372 27.7107 32.6667 25.6306 32.6667 23.3333C32.6667 18.731 28.9357 15 24.3333 15C19.731 15 16 18.731 16 23.3333Z" stroke-linecap="round"/>
+	</svg>
+
+  <svg id="search-small" viewBox="0 0 24 24" fill="none">
+    <path stroke="#0C0D0E" stroke-linecap="square" stroke-linejoin="round" stroke-width="1.35" d="m16.125 15.375 4.125 4.124"/>
+    <path stroke="#0C0D0E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35" d="M5.25 10.75a6.25 6.25 0 1 0 12.5 0 6.25 6.25 0 0 0-12.5 0Z"/>
+	</svg>
+
+</svg>

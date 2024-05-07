@@ -16,23 +16,28 @@ class Partner
     #[
         ORM\Id,
         ORM\GeneratedValue,
-        ORM\Column
+        ORM\Column(name: 'id')
     ]
-    private ?int $id = null;
+    private int $id;
 
-    #[ORM\Column(name: 'name', length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(name: 'name', length: 255, nullable: true)]
+    private ?string $name;
 
-    #[ORM\Column(name: 'description', type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
+    #[ORM\Column(name: 'logo', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $logo;
 
-    #[ORM\Column(name: 'logo', length: 255, nullable: true)]
-    private ?string $logo = null;
+    #[ORM\Column(name: 'contacts', type: Types::TEXT, nullable: true)]
+    private ?string $contacts;
 
-    #[ORM\Column(name: 'contacts',type: Types::TEXT)]
-    private ?string $contacts = null;
+	public function __construct()
+	{
+		$this->id = 0;
+		$this->name = null;
+		$this->logo = null;
+		$this->contacts = null;
+	}
 
-    public function getId(): ?int
+	public function getId(): int
     {
         return $this->id;
     }
@@ -45,18 +50,6 @@ class Partner
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): static
-    {
-        $this->description = $description;
 
         return $this;
     }

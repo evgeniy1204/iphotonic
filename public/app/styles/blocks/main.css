@@ -1,0 +1,11 @@
+/* Main */
+
+.main {
+  padding-bottom: 120px;
+}
+
+@media (width < 960px) {
+  .main {
+    padding-inline: 15px;
+  }
+}

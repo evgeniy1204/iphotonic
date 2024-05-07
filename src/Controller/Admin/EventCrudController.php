@@ -21,19 +21,26 @@ class EventCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title'),
+            TextField::new('title')
+				->setRequired(true),
+            TextField::new('slug')->hideOnIndex()->setRequired(true),
 			ImageField::new('preview')
+				->setRequired(true)
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Event::PREVIEW_IMAGE_FOLDER)
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Event::PREVIEW_IMAGE_FOLDER),
             DateTimeField::new('createdEventStartAt')
+				->hideOnIndex()
+				->setRequired(true)
                 ->setTimezone($this->getParameter('app.timezone_id'))
 				->setLabel('Event start'),
             DateTimeField::new('createdEventEndAt')
+				->hideOnIndex()
+				->setRequired(true)
                 ->setTimezone($this->getParameter('app.timezone_id'))
 				->setLabel('Event end'),
             DateTimeField::new('createdAt')
-                ->setTimezone($this->getParameter('app.timezone_id'))
-                ->hideOnForm(),
+				->setRequired(true)
+                ->setTimezone($this->getParameter('app.timezone_id')),
 			TinyMCEField::new('text')->hideOnIndex(),
 			BooleanField::new('active')
         ];

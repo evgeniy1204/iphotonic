@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
+use App\Constants;
 use App\Repository\SettingRepository;
-use App\SeoFieldsTrait;
+use App\Trait\SeoFieldsTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,32 +14,47 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Setting
 {
-	public const SLIDER_IMAGES_FOLDER = 'slider';
 	public const MEMBERSHIP_IMAGES_FOLDER = 'membership';
 
 	use SeoFieldsTrait;
 
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[
+		ORM\Id,
+		ORM\GeneratedValue,
+		ORM\Column(name: 'id')
+	]
+    private int $id;
 
-    #[ORM\Column(name: 'linked_in', length: 255, nullable: true)]
-    private ?string $linkedIn = null;
+    #[ORM\Column(name: 'linked_in', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $linkedIn;
 
-    #[ORM\Column(name: 'youtube', length: 255, nullable: true)]
-    private ?string $youtube = null;
+    #[ORM\Column(name: 'youtube', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $youtube;
 
-    #[ORM\Column(name: 'instagram', length: 255, nullable: true)]
-    private ?string $instagram = null;
-
-	#[ORM\Column(name: 'slider_images', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $sliderImages = null;
+    #[ORM\Column(name: 'instagram', type: Types::STRING, length: 255, nullable: true)]
+    private ?string $instagram;
 
 	#[ORM\Column(name: 'membership_logos', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $membershipLogos = null;
+	private ?array $membershipLogos;
 
-    public function getId(): ?int
+	#[ORM\Column(name: 'contacts', type: Types::TEXT, nullable: true)]
+	private ?string $contacts;
+
+	#[ORM\Column(name: 'about_us', type: Types::TEXT, nullable: true)]
+	private ?string $aboutUs;
+
+	public function __construct()
+	{
+		$this->id = 0;
+		$this->linkedIn = null;
+		$this->youtube = null;
+		$this->instagram = null;
+		$this->contacts = null;
+		$this->aboutUs = null;
+		$this->membershipLogos = null;
+	}
+
+	public function getId(): int
     {
         return $this->id;
     }
@@ -79,23 +95,42 @@ class Setting
         return $this;
     }
 
-	public function getSliderImages(): ?array
-	{
-		return $this->sliderImages;
-	}
-
-	public function setSliderImages(?array $sliderImages): void
-	{
-		$this->sliderImages = $sliderImages;
-	}
-
-	public function getMembershipLogos(): ?array
+	public function getMembershipLogos(): array
 	{
 		return $this->membershipLogos;
+	}
+
+	public function getMembershipLogoPaths(): array
+	{
+		$fullPaths = [];
+		foreach ($this->membershipLogos as $membershipLogo) {
+			$fullPaths[] = sprintf('%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::MEMBERSHIP_IMAGES_FOLDER, $membershipLogo);
+		}
+		return $fullPaths;
 	}
 
 	public function setMembershipLogos(?array $membershipLogos): void
 	{
 		$this->membershipLogos = $membershipLogos;
+	}
+
+	public function getContacts(): ?string
+	{
+		return $this->contacts;
+	}
+
+	public function setContacts(?string $contacts): void
+	{
+		$this->contacts = $contacts;
+	}
+
+	public function getAboutUs(): ?string
+	{
+		return $this->aboutUs;
+	}
+
+	public function setAboutUs(?string $aboutUs): void
+	{
+		$this->aboutUs = $aboutUs;
 	}
 }
