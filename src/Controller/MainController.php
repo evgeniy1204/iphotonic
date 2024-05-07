@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MainController extends AbstractController
 {
-    #[Route('/main', name: 'app_main_page')]
+    #[Route('/', name: 'app_main_page')]
     public function index(
 		NewsRepository $newsRepository,
 		EventRepository $eventRepository,

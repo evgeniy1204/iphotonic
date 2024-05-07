@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Constants;
 use App\Entity\Setting;
+use App\Field\TinyMCEField;
 use App\Repository\SettingRepository;
 use App\Trait\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -50,7 +51,7 @@ class SettingCrudController extends AbstractCrudController
 	{
 		return [
 			FormField::addTab('Contacts'),
-			TextareaField::new('contacts'),
+			TinyMCEField::new('contacts'),
 			FormField::addTab('About us'),
 			TextareaField::new('about_us'),
 			FormField::addTab('Social networks'),

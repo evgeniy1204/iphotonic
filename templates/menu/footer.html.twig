@@ -1,12 +1,60 @@
 {% set footerContacts = get_footer_contacts() %}
 
-<ul>
-    {% for item in menuItems %}
-        <li>{{ item.name }}</li>
-        {% if item.children %}
-            {% for child in item.children %}
-                {{ child.name }}
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
-</ul>
+<footer class="footer">
+    <div class="footer-box">
+        <div class="footer-container footer-container--primary">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="{{ asset('images/logo-footer.svg') }}" width="237" height="48" alt="I-Photonics logo">
+                </div>
+
+                <div class="footer-contacts">
+                    <div class="footer-contacts-text">
+                        {{ footerContacts.contacts|raw }}
+                    </div>
+                </div>
+
+                <div class="footer-social social">
+                    <a class="social-link social-link--linkedin" href="{{ footerContacts.socialNetworksDto.linkedIn }}" aria-label="LinkedIn" target="_blank"></a>
+                    <a class="social-link social-link--instagram" href="{{ footerContacts.socialNetworksDto.instagram }}" aria-label="Instagram" target="_blank"></a>
+                    <a class="social-link social-link--youtube" href="{{ footerContacts.socialNetworksDto.youtube }}" aria-label="YouTube" target="_blank"></a>
+                </div>
+            </div>
+
+            <div class="footer-nav">
+                <div class="footer-nav-title">Catalog</div>
+                <ul class="footer-nav-list">
+                    {% for item in menuItems %}
+                        <li>
+                            <a class="footer-link" href="{{ item.url }}">{{ item.name }}</a>
+                            <ul class="footer-nav-sublist">
+                                {% for child in item.children %}
+                                    <li><a href="{{ child.url }}">{{ child.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-container footer-container--secondary">
+        <div class="footer-extra-nav">
+            <a class="footer-extra-nav-contact" href="#">Contact Us</a>
+            <ul class="footer-extra-nav-list">
+                <li><a class="footer-link" href="{{ path('app_technology_index') }}">Technology</a></li>
+                <li><a class="footer-link" href="{{ path('app_application_index') }}">Applications</a></li>
+                <li><a class="footer-link" href="">Media center</a></li>
+                <li><a class="footer-link" href="{{ path('app_downloads_index') }}">Downloads</a></li>
+                <li><a class="footer-link" href="">Contacts</a></li>
+                <li><a class="footer-link" href="">About Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-awards">
+            <img src="{{ asset('images/award.png') }}" width="80" height="80" alt="">
+            <img src="{{ asset('images/award.png') }}" width="80" height="80" alt="">
+        </div>
+    </div>
+</footer>

@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SearchController extends AbstractController
 {
-	#[Route('/search', methods: ['GET'])]
+	#[Route('/search', name: 'app_search_content', methods: ['GET'])]
 	public function search(
 		Request $request,
 		SearchManager $searchManager

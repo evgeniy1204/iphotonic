@@ -33,7 +33,6 @@ class NewsCrudController extends AbstractCrudController
 				->setRequired(true)
                 ->setTimezone($this->getParameter('app.timezone_id')),
 			TinyMCEField::new('text')
-                ->setRequired(true)
                 ->hideOnIndex(),
 			BooleanField::new('active')
         ];

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PageController extends AbstractController
 {
-	#[Route('/downloads', methods: [Request::METHOD_GET])]
+	#[Route('/downloads', name: 'app_downloads_index', methods: [Request::METHOD_GET])]
 	public function downloads(DownloadRepository $downloadRepository): Response
 	{
 		$downloads = $downloadRepository->findAll();
@@ -24,7 +24,7 @@ class PageController extends AbstractController
 		return $this->render('page/downloads.html.twig', ['downloads' => $downloads]);
 	}
 
-	#[Route('/applications', methods: [Request::METHOD_GET])]
+	#[Route('/applications', name: 'app_application_index', methods: [Request::METHOD_GET])]
 	public function applications(ApplicationRepository $applicationRepository): Response
 	{
 		$applications = $applicationRepository->findAll();
@@ -32,7 +32,7 @@ class PageController extends AbstractController
 		return $this->render('page/applications.html.twig', ['applications' => $applications]);
 	}
 
-	#[Route('/possibilities', methods: [Request::METHOD_GET])]
+	#[Route('/possibilities', name: 'app_possibilities_index', methods: [Request::METHOD_GET])]
 	public function possibilities(PossibilitiesRepository $possibilitiesRepository): Response
 	{
 		$possibilities = $possibilitiesRepository->findPossibilitiesPage();
@@ -40,7 +40,7 @@ class PageController extends AbstractController
 		return $this->render('page/possibilities.html.twig', ['possibilities' => $possibilities]);
 	}
 
-	#[Route('/downloads/{id}', name: 'download_file', methods: [Request::METHOD_GET])]
+	#[Route('/downloads/{id}', name: 'app_download_file', methods: [Request::METHOD_GET])]
 	public function search(Download $download): Response
 	{
 		return new BinaryFileResponse($download->getFilePath());

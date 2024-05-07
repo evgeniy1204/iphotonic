@@ -3,12 +3,182 @@
 {% block title %}Hello MainPageController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <main class="main">
+        <div class="container">
+            <div class="hero">
+                <div class="hero-about">
+                    <div class="hero-logo">
+                        <img src="{{ asset('images/logo-text.svg') }}" width="252" height="33" alt="I–Photonics">
+                    </div>
 
-<div class="example-wrapper">
+                    <div class="hero-description">
+                        Designing and manufacturing of vacuum coating equipment for: optoelectronics, microelectronics,
+                        photovoltaic, thermal processing in vacuum.
+                    </div>
+                </div>
 
-</div>
+                <div class="hero-features">
+                    <div class="hero-feature hero-feature--primary">
+                        <h4 class="hero-feature-title">
+                            <a class="hero-feature-link" href="#">Vacuum coating systems</a>
+                        </h4>
+
+                        <div class="hero-feature-info">
+                            <span>Today I-Photonics offers a range of batch and INLINE coaters families with various technologies</span>
+
+                            <picture>
+                                <source srcset="/images/hero/feature-primary-desktop@1x.jpg 1x, /images/hero/feature-primary-desktop@2x.jpg 2x"
+                                        media="(min-width: 960px)">
+                                <img
+                                        src="/images/hero/feature-primary-mobile@1x.png"
+                                        srcset="/images/hero/feature-primary-mobile@2x.png 2x, /images/hero/feature-primary-mobile@3x.png 3x"
+                                        alt=""
+                                >
+                            </picture>
+                        </div>
+                    </div>
+
+                    <div class="hero-feature hero-feature--secondary">
+                        <h4 class="hero-feature-title">
+                            <a class="hero-feature-link" href="#">Thin-film coatings</a>
+                        </h4>
+
+                        <div class="hero-feature-info">
+                            <span>More than 20 years of experience in the production of optical filters for photonics, avionics, medicine, sensor, space and display industries</span>
+
+                            <picture>
+                                <source srcset="/images/hero/feature-secondary-desktop@1x.jpg 1x, /images/hero/feature-secondary-desktop@2x.jpg 2x"
+                                        media="(min-width: 960px)">
+                                <img src="{{ asset('images/hero/feature-secondary-mobile.jpg') }}" alt="">
+                            </picture>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Our Products #}
+
+            <section class="section-products">
+                <h2 class="section-title">Our Products</h2>
+
+                <div class="nav-tabs">
+                    <ul class="nav-tabs-list">
+                        <li class="nav-tab">
+                            <a class="nav-tab-link" href="#" aria-current="page">Vacuum Coating Equipment</a>
+                        </li>
+                        <li class="nav-tab">
+                            <a class="nav-tab-link" href="#">OEM components</a>
+                        </li>
+                        <li class="nav-tab">
+                            <a class="nav-tab-link" href="#">Thin film coating</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-buttons">
+                    <ul class="nav-buttons-list">
+                        <li class="nav-button"><a class="nav-button-link" href="#" aria-current="page">ORTUS
+                                platform</a></li>
+                        <li class="nav-button"><a class="nav-button-link" href="#">LIDIZ platform</a></li>
+                        <li class="nav-button"><a class="nav-button-link" href="#">ASTRA platform</a></li>
+                        <li class="nav-button"><a class="nav-button-link" href="#">AURORA platform</a></li>
+                        <li class="nav-button"><a class="nav-button-link" href="#">MERIDIAN</a></li>
+                        <li class="nav-button"><a class="nav-button-link" href="#">IZOMET</a></li>
+                        <li class="nav-button"><a class="nav-button-link" href="#">DIAMANTA</a></li>
+                        <li class="nav-button"><a class="nav-button-link" href="#">Customized equipment</a></li>
+                    </ul>
+                </div>
+
+                <div class="product-cards">
+                    <div class="product-card">
+                        <div class="product-card-image">
+                            <img src="/images/_temp/photo-1.jpg" alt="">
+                        </div>
+                        <h4 class="product-card-title">
+                            <a class="product-card-link" href="#">ORTUS-700</a>
+                        </h4>
+                        <div class="product-card-desc">
+                            Substrate holder:<br>Dome ø620 mm, Planetary 3x ø250 mm. Automatic Optical control (OCP BB,
+                            SW). 2xE-gun, Resistance evap., End hall assist, RF IBS assist.
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card-image">
+                            <img src="/images/_temp/image-1.png" alt="">
+                        </div>
+                        <h4 class="product-card-title">
+                            <a class="product-card-link" href="#">ORTUS-700</a>
+                        </h4>
+                        <div class="product-card-desc">
+                            Substrate holder:<br>Dome ø620 mm, Planetary 3x ø250 mm. Automatic Optical control (OCP BB,
+                            SW). 2xE-gun, Resistance evap., End hall assist, RF IBS assist.
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card-image">
+                            <img src="/images/_temp/photo-1.jpg" alt="">
+                        </div>
+                        <h4 class="product-card-title">
+                            <a class="product-card-link" href="#">ORTUS-700</a>
+                        </h4>
+                        <div class="product-card-desc">
+                            Substrate holder:<br>Dome ø620 mm, Planetary 3x ø250 mm. Automatic Optical control (OCP BB,
+                            SW). 2xE-gun, Resistance evap., End hall assist, RF IBS assist.
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card-image">
+                            <img src="/images/_temp/image-1.png" alt="">
+                        </div>
+                        <h4 class="product-card-title">
+                            <a class="product-card-link" href="#">ORTUS-700</a>
+                        </h4>
+                        <div class="product-card-desc">
+                            Substrate holder:<br>Dome ø620 mm, Planetary 3x ø250 mm. Automatic Optical control (OCP BB,
+                            SW). 2xE-gun, Resistance evap., End hall assist, RF IBS assist.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        {# Upcoming events #}
+
+        <section class="section-events">
+            <div class="container">
+                <h2 class="section-title">Upcoming events</h2>
+            </div>
+            <div class="swiper event-cards">
+                <div class="swiper-wrapper event-cards-wrapper">
+                    {% for event in data.events %}
+                    <div class="swiper-slide event-card">
+                        <div class="event-card-image">
+                            <img src="{{ asset('uploads/event_preview/' ~ event.preview) }}" width="620" height="504" alt="" loading="lazy">
+                        </div>
+                        <div class="event-card-info">
+                            <h2 class="event-card-title">
+                                <a class="event-card-link" href="{{ path('app_event_item', {slug: event.slug}) }}">{{ event.title }}</a>
+                            </h2>
+                            <div class="event-card-desc">
+                                <p class="event-card-text">
+                                    {{ event.summary }}
+                                </p>
+                                <p class="event-card-date">{{ event.createdEventStartAt|date('d')}} - {{ event.createdEventEndAt|date('F j Y')}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="event-cards-controls">
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                <div class="swiper-pagination event-cards-pagination"></div>
+            </div>
+        </section>
+    </main>
+
 {% endblock %}
