@@ -95,7 +95,7 @@
                                                 <a class="product-card-link" href="{{ generate_product_url(product) }}">{{ product.name }}</a>
                                             </h4>
                                             <div class="product-card-desc">
-                                                {{ product.summary|nl2br }}
+                                                <p>Substrate holder:<br>{{ product.summary|nl2br }}</p>
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -145,6 +145,33 @@
                 <div class="swiper-pagination event-cards-pagination"></div>
             </div>
         </section>
+        <div class="container">
+            <section class="section-news">
+                <h2 class="section-title">Company News</h2>
+                <div class="article-list">
+                    {% for news in data.news %}
+                        <article class="article">
+                            <div class="article-image">
+                                <img src="{{ asset('uploads/news_preview/' ~ news.preview) }}" alt="{{ news.title }}">
+                            </div>
+                            <div class="article-info">
+                                <h3 class="article-title">
+                                    <a class="article-link" href="{{ generate_news_url(news) }}">
+                                        {{ news.title }}
+                                    </a>
+                                </h3>
+                                <p class="article-desc">
+                                    {{ news.summary }}
+                                </p>
+                                <time class="article-date" datetime=" {{ news.createdAt|date('Y-m-d') }}">
+                                    {{ news.createdAt|date('d.m.Y') }}
+                                </time>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
     </main>
 
 {% endblock %}

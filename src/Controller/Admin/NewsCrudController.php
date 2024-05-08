@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class NewsCrudController extends AbstractCrudController
@@ -32,6 +33,7 @@ class NewsCrudController extends AbstractCrudController
             DateTimeField::new('createdAt')
 				->setRequired(true)
                 ->setTimezone($this->getParameter('app.timezone_id')),
+			TextareaField::new('summary'),
 			TinyMCEField::new('text')
                 ->hideOnIndex(),
 			BooleanField::new('active')
