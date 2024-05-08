@@ -2,6 +2,10 @@
 
 {% block title %}Hello MainPageController!{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+{% endblock %}
+
 {% block body %}
     {% set menuItems = generate_product_category_menu() %}
     <main class="main">
@@ -176,5 +180,51 @@
             </div>
         {% endif %}
     </main>
+{% endblock %}
 
+{% block javascripts %}
+    <script src="{{ asset('app/scripts/tabs.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        (function() {
+            'use strict';
+
+            const breakpoint = window.matchMedia( '(min-width: 960px)' );
+
+            let eventSwiper;
+
+            const breakpointChecker = function() {
+                if ( breakpoint.matches === true ) {
+                    return enableSwiper();
+                } else if ( breakpoint.matches === false ) {
+                    if ( eventSwiper !== undefined ) eventSwiper.destroy( true, true );
+                    return;
+                }
+            };
+
+            const enableSwiper = function() {
+                eventSwiper = new Swiper('.event-cards', {
+                    slidesPerView: 'auto',
+                    spaceBetween: 0,
+                    centeredSlides: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+            };
+
+            breakpoint.addEventListener('change', (event) => {
+                if (event.matches) {
+                    breakpointChecker();
+                }
+            });
+
+            breakpointChecker();
+        })();
+    </script>
 {% endblock %}
