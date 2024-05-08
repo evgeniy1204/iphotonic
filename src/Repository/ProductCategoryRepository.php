@@ -13,7 +13,10 @@ class ProductCategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, ProductCategory::class);
     }
 
-    public function findParentCategories()
+	/**
+	 * @return ProductCategory[]
+	 */
+    public function findParentCategories(): array
     {
         return $this->createQueryBuilder('pc')
             ->andWhere('pc.parent IS NULL')

@@ -56,6 +56,7 @@ class ProductCrudController extends AbstractCrudController
 			AssociationField::new('technology')
 				->hideOnIndex(),
 			BooleanField::new('active'),
+			BooleanField::new('showOnMainPage'),
 			...$this->getSeoFields(),
 		];
 	}

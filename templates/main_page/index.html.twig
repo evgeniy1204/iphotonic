@@ -3,6 +3,7 @@
 {% block title %}Hello MainPageController!{% endblock %}
 
 {% block body %}
+    {% set menuItems = generate_product_category_menu() %}
     <main class="main">
         <div class="container">
             <div class="hero">
@@ -61,86 +62,49 @@
             <section class="section-products">
                 <h2 class="section-title">Our Products</h2>
 
-                <div class="nav-tabs">
-                    <ul class="nav-tabs-list">
-                        <li class="nav-tab">
-                            <a class="nav-tab-link" href="#" aria-current="page">Vacuum Coating Equipment</a>
-                        </li>
-                        <li class="nav-tab">
-                            <a class="nav-tab-link" href="#">OEM components</a>
-                        </li>
-                        <li class="nav-tab">
-                            <a class="nav-tab-link" href="#">Thin film coating</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="nav-buttons">
-                    <ul class="nav-buttons-list">
-                        <li class="nav-button"><a class="nav-button-link" href="#" aria-current="page">ORTUS
-                                platform</a></li>
-                        <li class="nav-button"><a class="nav-button-link" href="#">LIDIZ platform</a></li>
-                        <li class="nav-button"><a class="nav-button-link" href="#">ASTRA platform</a></li>
-                        <li class="nav-button"><a class="nav-button-link" href="#">AURORA platform</a></li>
-                        <li class="nav-button"><a class="nav-button-link" href="#">MERIDIAN</a></li>
-                        <li class="nav-button"><a class="nav-button-link" href="#">IZOMET</a></li>
-                        <li class="nav-button"><a class="nav-button-link" href="#">DIAMANTA</a></li>
-                        <li class="nav-button"><a class="nav-button-link" href="#">Customized equipment</a></li>
-                    </ul>
-                </div>
-
-                <div class="product-cards">
-                    <div class="product-card">
-                        <div class="product-card-image">
-                            <img src="/images/_temp/photo-1.jpg" alt="">
-                        </div>
-                        <h4 class="product-card-title">
-                            <a class="product-card-link" href="#">ORTUS-700</a>
-                        </h4>
-                        <div class="product-card-desc">
-                            Substrate holder:<br>Dome ø620 mm, Planetary 3x ø250 mm. Automatic Optical control (OCP BB,
-                            SW). 2xE-gun, Resistance evap., End hall assist, RF IBS assist.
+                <div class="tabs">
+                    <div class="tabs-primary" role="tablist">
+                        <div class="tabs-primary-list">
+                            {% for name, productsData in data.productsWithCategory %}
+                                <button class="tabs-primary-button" id="tab-primary-{{ loop.index }}" type="button" role="tab" aria-selected="true" aria-controls="tab-panel-primary-{{ loop.index }}">
+                                    {{ name }}
+                                </button>
+                            {% endfor %}
                         </div>
                     </div>
+                    {% for name, productsData in data.productsWithCategory %}
+                        <div id="tab-panel-primary-{{ loop.index }}" role="tabpanel" aria-labelledby="tab-primary-{{ loop.index }}">
+                            <div class="tabs-secondary" role="tablist">
+                                <div class="tabs-secondary-list">
+                                    {% for childProductsData in productsData %}
+                                        <button class="tabs-secondary-button" id="tab-secondary-{{ loop.index }}" type="button" role="tab" aria-selected="true" aria-controls="tab-panel-secondary-{{ loop.index }}">
+                                            {{ childProductsData.productCategory.name }}
+                                        </button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% for childProductsData in productsData %}
+                            <div id="tab-panel-secondary-{{ loop.index }}" role="tabpanel" aria-labelledby="tab-secondary-{{ loop.index }}">
+                                <div class="product-cards">
+                                    {% for product in childProductsData.products %}
+                                        <div class="product-card">
+                                            <div class="product-card-image">
+                                                <img src="{{ asset('uploads/product/' ~ product.images|first) }}" alt="{{ product.name }}">
+                                            </div>
+                                            <h4 class="product-card-title">
+                                                <a class="product-card-link" href="{{ generate_product_url(product) }}">{{ product.name }}</a>
+                                            </h4>
+                                            <div class="product-card-desc">
+                                                {{ product.summary|nl2br }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
 
-                    <div class="product-card">
-                        <div class="product-card-image">
-                            <img src="/images/_temp/image-1.png" alt="">
+                            </div>
+                            {% endfor %}
                         </div>
-                        <h4 class="product-card-title">
-                            <a class="product-card-link" href="#">ORTUS-700</a>
-                        </h4>
-                        <div class="product-card-desc">
-                            Substrate holder:<br>Dome ø620 mm, Planetary 3x ø250 mm. Automatic Optical control (OCP BB,
-                            SW). 2xE-gun, Resistance evap., End hall assist, RF IBS assist.
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-card-image">
-                            <img src="/images/_temp/photo-1.jpg" alt="">
-                        </div>
-                        <h4 class="product-card-title">
-                            <a class="product-card-link" href="#">ORTUS-700</a>
-                        </h4>
-                        <div class="product-card-desc">
-                            Substrate holder:<br>Dome ø620 mm, Planetary 3x ø250 mm. Automatic Optical control (OCP BB,
-                            SW). 2xE-gun, Resistance evap., End hall assist, RF IBS assist.
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-card-image">
-                            <img src="/images/_temp/image-1.png" alt="">
-                        </div>
-                        <h4 class="product-card-title">
-                            <a class="product-card-link" href="#">ORTUS-700</a>
-                        </h4>
-                        <div class="product-card-desc">
-                            Substrate holder:<br>Dome ø620 mm, Planetary 3x ø250 mm. Automatic Optical control (OCP BB,
-                            SW). 2xE-gun, Resistance evap., End hall assist, RF IBS assist.
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </section>
         </div>
@@ -173,8 +137,10 @@
                     {% endfor %}
                 </div>
                 <div class="event-cards-controls">
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
+                    <div class="event-cards-controls-wrap">
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
                 </div>
                 <div class="swiper-pagination event-cards-pagination"></div>
             </div>

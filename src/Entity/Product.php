@@ -66,6 +66,8 @@ class Product implements SearchResultAwareInterface
     #[ORM\Column(name: 'is_active', nullable: false, options: ['default' => false])]
     private bool $active;
 
+	#[ORM\Column(name: 'show_on_main_page', nullable: false, options: ['default' => false])]
+	private bool $showOnMainPage;
 
     public function __construct()
     {
@@ -75,6 +77,7 @@ class Product implements SearchResultAwareInterface
 		$this->text = null;
 		$this->slug = null;
 		$this->active = false;
+		$this->showOnMainPage = false;
 		$this->files = [];
 		$this->images = [];
 		$this->category = null;
@@ -176,7 +179,7 @@ class Product implements SearchResultAwareInterface
 
     public function getSearchedResultShortText(): string
     {
-        return $this->text;
+        return $this->text ?? '';
     }
 
     public function getSlug(): ?string
@@ -232,10 +235,20 @@ class Product implements SearchResultAwareInterface
 		foreach ($this->files as $file) {
 			$filePaths[] = [
 				'name' => $file,
-				'path' => sprintf('/%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::PRODUCT_FILES_FOLDER, $file)
+				'path' => sprintf('%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::PRODUCT_FILES_FOLDER, $file)
 			];
 		}
 
 		return $filePaths;
+	}
+
+	public function isShowOnMainPage(): bool
+	{
+		return $this->showOnMainPage;
+	}
+
+	public function setShowOnMainPage(bool $showOnMainPage): void
+	{
+		$this->showOnMainPage = $showOnMainPage;
 	}
 }

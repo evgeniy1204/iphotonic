@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\ProductCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -54,4 +55,21 @@ class ProductRepository extends ServiceEntityRepository
     {
         return $this->findBy(['category' => $categoryId, 'active' => true], limit: $limit);
     }
+
+	/**
+	 * @return Product[]
+	 */
+	public function findProductsForMainPageWithCategory(ProductCategory $productCategory): array
+	{
+		$qb = $this->createQueryBuilder('Product');
+
+		$qb
+			->select('Product')
+			->andWhere('Product.showOnMainPage = TRUE')
+			->andWhere('Product.active = TRUE')
+			->andWhere('Product.category = :productCategory')
+			->setParameter('productCategory', $productCategory);
+
+		return $qb->getQuery()->getResult();
+	}
 }

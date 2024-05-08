@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="example-wrapper">
-    Search by: {{ searchResponse.searchText }}
- {% for searchResponseItem in searchResponse.searchResponseCollection %}
-     type: {{ searchResponseItem.type.value }}
-     title: <a href="{{ searchResponseItem.url }}">{{ searchResponseItem.title }}</a>
- {% endfor %}
-</div>
+    <main class="main">
+        <div class="container">
+            Search by: {{ searchResponse.searchText }}
+            {% for searchResponseItem in searchResponse.searchResponseCollection %}
+                <p>{{ searchResponseItem.type.value }}</p>
+                <p><a href="{{ searchResponseItem.url }}">{{ searchResponseItem.title }}</a></p>
+            {% endfor %}
+        </div>
+    </main>
+
 {% endblock %}

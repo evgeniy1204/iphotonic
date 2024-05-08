@@ -51,7 +51,7 @@ class SettingCrudController extends AbstractCrudController
 	{
 		return [
 			FormField::addTab('Contacts'),
-			TinyMCEField::new('contacts'),
+			TextareaField::new('contacts'),
 			FormField::addTab('About us'),
 			TextareaField::new('about_us'),
 			FormField::addTab('Social networks'),

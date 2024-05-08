@@ -19,7 +19,7 @@ class NewsRepository extends ServiceEntityRepository
 	public function findLatestNews(int $limit = 3): array
 	{
 		return $this->createQueryBuilder('n')
-			->andWhere('n.active = true')
+			->andWhere('n.active = TRUE')
 			->orderBy('n.createdAt', 'DESC')
 			->setMaxResults($limit)
 			->getQuery()

@@ -183,4 +183,25 @@ class ProductCategory
 	{
 		$this->slug = $slug;
 	}
+
+	/**
+	 * @return ProductCategory[]
+	 */
+	public function getFinalCategories(): array
+	{
+		$finalCategories = [];
+		$this->findFinalCategory($finalCategories);
+
+		return $finalCategories;
+	}
+
+	public function findFinalCategory(array &$finalCategories): void
+	{
+		foreach ($this->getChildren() as $child) {
+			if ($child->getChildren()) {
+				$child->findFinalCategory($finalCategories);
+			}
+			$finalCategories[] = $child;
+		}
+	}
 }
