@@ -1,5 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block meta_seo %}
+    <meta name="title" content="{{ product.metaTitle }}">
+    <meta name="description" content="{{ product.metaDescription }}">
+    <meta name="keywords" content="{{ product.metaKeywords }}">
+{% endblock %}
 
+{% block body %}
+<div class="container">
+    <h1>{{ product.name }}</h1>
+    <img src="{{ asset('uploads/product/' ~ product.images|first) }}" alt="{{ product.name }}">
+</div>
 {% endblock %}
