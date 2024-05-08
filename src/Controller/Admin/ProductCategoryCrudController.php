@@ -18,6 +18,10 @@ class ProductCategoryCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+			AssociationField::new('parent')
+				->setLabel('Parent category'),
+			AssociationField::new('technology')
+				->setLabel('Technology'),
             TextField::new('name'),
             TextField::new('slug'),
             TinyMCEField::new('summary')
@@ -25,10 +29,6 @@ class ProductCategoryCrudController extends AbstractCrudController
 			AssociationField::new('equipments'),
             TinyMCEField::new('description')
 				->setRequired(false),
-			AssociationField::new('technology')
-				->setLabel('Technology'),
-            AssociationField::new('parent')
-				->setLabel('Parent category'),
         ];
     }
 }

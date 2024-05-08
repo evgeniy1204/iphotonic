@@ -48,10 +48,10 @@ class Product implements SearchResultAwareInterface
 	]
 	private Collection $relationProducts;
 
-    #[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: false)]
+    #[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
     private array $images;
 
-    #[ORM\Column(name: 'files', type: Types::SIMPLE_ARRAY, nullable: false)]
+    #[ORM\Column(name: 'files', type: Types::SIMPLE_ARRAY, nullable: true)]
     private array $files;
 
     #[ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products')]
@@ -132,7 +132,7 @@ class Product implements SearchResultAwareInterface
         return $this;
     }
 
-    public function getImages(): array
+    public function getImages(): ?array
     {
         return $this->images;
     }
@@ -152,7 +152,7 @@ class Product implements SearchResultAwareInterface
         $this->summary = $summary;
     }
 
-    public function getFiles(): array
+    public function getFiles(): ?array
     {
         return $this->files;
     }
