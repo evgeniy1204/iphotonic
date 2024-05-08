@@ -34,7 +34,9 @@ class TechnologyCrudController extends AbstractCrudController
 				->setLabel('Image')
 				->hideOnIndex()
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Technology::TECHNOLOGY_IMAGES_FOLDER)
-				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Technology::TECHNOLOGY_IMAGES_FOLDER),
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Technology::TECHNOLOGY_IMAGES_FOLDER)
+				->setFormTypeOption('multiple', true)
+				->setRequired(false),
 			TinyMCEField::new('text')->hideOnIndex(),
 			BooleanField::new('active'),
 			...$this->getSeoFields(),

@@ -27,7 +27,8 @@ class EventCrudController extends AbstractCrudController
 			ImageField::new('preview')
 				->setRequired(true)
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Event::PREVIEW_IMAGE_FOLDER)
-				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Event::PREVIEW_IMAGE_FOLDER),
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Event::PREVIEW_IMAGE_FOLDER)
+				->setRequired(false),
             DateTimeField::new('createdEventStartAt')
 				->hideOnIndex()
 				->setRequired(true)

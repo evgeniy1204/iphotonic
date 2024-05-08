@@ -29,7 +29,8 @@ class NewsCrudController extends AbstractCrudController
 			ImageField::new('preview')
 				->setRequired(true)
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . News::PREVIEW_IMAGE_FOLDER)
-				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . News::PREVIEW_IMAGE_FOLDER),
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . News::PREVIEW_IMAGE_FOLDER)
+				->setRequired(false),
             DateTimeField::new('createdAt')
 				->setRequired(true)
                 ->setTimezone($this->getParameter('app.timezone_id')),
