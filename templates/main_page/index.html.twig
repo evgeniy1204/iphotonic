@@ -81,14 +81,14 @@
                             <div class="tabs-secondary" role="tablist">
                                 <div class="tabs-secondary-list">
                                     {% for childProductsData in productsData %}
-                                        <button class="tabs-secondary-button" id="tab-secondary-{{ loop.index }}" type="button" role="tab" aria-selected="true" aria-controls="tab-panel-secondary-{{ loop.index }}">
+                                        <button class="tabs-secondary-button" id="tab-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}" type="button" role="tab" aria-selected="true" aria-controls="tab-panel-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}">
                                             {{ childProductsData.productCategory.name }}
                                         </button>
                                     {% endfor %}
                                 </div>
                             </div>
                             {% for childProductsData in productsData %}
-                            <div id="tab-panel-secondary-{{ loop.index }}" role="tabpanel" aria-labelledby="tab-secondary-{{ loop.index }}">
+                            <div id="tab-panel-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}" role="tabpanel" aria-labelledby="tab-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}">
                                 <div class="product-cards">
                                     {% for product in childProductsData.products %}
                                         <div class="product-card">
