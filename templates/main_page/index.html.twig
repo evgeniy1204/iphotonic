@@ -115,7 +115,9 @@
 
         {% if data.events is not empty %}
             <section class="section-events">
+                <div class="container">
                 <h2 class="section-title">Upcoming events</h2>
+                </div>
                 <div class="swiper event-cards">
                     <div class="swiper-wrapper event-cards-wrapper">
                         {% for event in data.events %}
