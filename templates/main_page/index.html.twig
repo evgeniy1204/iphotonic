@@ -114,11 +114,8 @@
         </div>
 
         {% if data.events is not empty %}
-        <div class="container">
             <section class="section-events">
-                <div class="container">
-                    <h2 class="section-title">Upcoming events</h2>
-                </div>
+                <h2 class="section-title">Upcoming events</h2>
                 <div class="swiper event-cards">
                     <div class="swiper-wrapper event-cards-wrapper">
                         {% for event in data.events %}
@@ -141,15 +138,13 @@
                         {% endfor %}
                     </div>
                     <div class="event-cards-controls">
-                        <div class="event-cards-controls-wrap">
-                            <div class="swiper-button-prev"></div>
-                            <div class="swiper-button-next"></div>
-                        </div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                     </div>
+
                     <div class="swiper-pagination event-cards-pagination"></div>
                 </div>
             </section>
-        </div>
         {% endif %}
 
         {% if data.news is not empty %}
@@ -208,7 +203,6 @@
                 eventSwiper = new Swiper('.event-cards', {
                     slidesPerView: 'auto',
                     spaceBetween: 0,
-                    centeredSlides: true,
                     pagination: {
                         el: '.swiper-pagination',
                         clickable: true,

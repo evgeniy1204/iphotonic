@@ -149,7 +149,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 40px;
     align-items: center;
-    width: min(100%, 1280px);
+    width: calc(100% - 80px);
   }
 
   .event-card-image {
@@ -164,7 +164,7 @@
   }
 
   .event-card-info {
-    padding-right: 60px;
+    padding-right: 64px;
   }
 
   .event-card-title {
@@ -194,19 +194,14 @@
   .event-cards-controls {
     position: absolute;
     inset: 50% 0 auto;
-    pointer-events: none;
-  }
-
-  .event-cards-controls-wrap {
+    z-index: 100;
     display: flex;
     justify-content: space-between;
-    width: min(100%, 1412px);
-    margin-inline: auto;
     font-size: 0px;
   }
 
-  .event-cards-controls-wrap .swiper-button-prev,
-  .event-cards-controls-wrap .swiper-button-next {
+  .event-cards-controls .swiper-button-prev,
+  .event-cards-controls .swiper-button-next {
     --swiper-navigation-size: 52px;
     --swiper-navigation-color: var(--color-black);
     position: relative;
@@ -218,8 +213,8 @@
     pointer-events: auto;
   }
 
-  .event-cards-controls-wrap .swiper-button-prev::after,
-  .event-cards-controls-wrap .swiper-button-next::after {
+  .event-cards-controls .swiper-button-prev::after,
+  .event-cards-controls .swiper-button-next::after {
     font-size: 32px;
   }
 }
