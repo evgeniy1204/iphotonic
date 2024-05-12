@@ -46,6 +46,7 @@ class Setting
 		$this->instagram = null;
 		$this->contacts = null;
 		$this->aboutUs = null;
+		$this->seo = new SeoEmbed();
 	}
 
 	public function getId(): int
