@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs(technology)} %}
+
+</div>
+{% endblock %}

@@ -4,7 +4,8 @@ namespace App\Entity;
 
 use App\Enum\SearchResultTypeEnum;
 use App\Repository\TechnologyRepository;
-use App\Service\SearchResultAwareInterface;
+use App\Service\Breadcrumb\BreadcrumbAwareInterface;
+use App\Service\Search\SearchResultAwareInterface;
 use App\Trait\SeoFieldsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
     ORM\Entity(repositoryClass: TechnologyRepository::class),
     ORM\Table(name: 'technologies')
 ]
-class Technology implements SearchResultAwareInterface
+class Technology implements SearchResultAwareInterface, BreadcrumbAwareInterface
 {
 	use SeoFieldsTrait;
 
@@ -31,8 +32,8 @@ class Technology implements SearchResultAwareInterface
     #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
     private ?string $text;
 
-	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: false)]
-	private array $images;
+	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
+	private ?array $images;
 
 	#[
 		ORM\ManyToOne(targetEntity: Technology::class, inversedBy: 'children'),

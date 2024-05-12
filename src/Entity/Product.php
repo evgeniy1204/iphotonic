@@ -5,7 +5,8 @@ namespace App\Entity;
 use App\Constants;
 use App\Enum\SearchResultTypeEnum;
 use App\Repository\ProductRepository;
-use App\Service\SearchResultAwareInterface;
+use App\Service\Breadcrumb\BreadcrumbAwareInterface;
+use App\Service\Search\SearchResultAwareInterface;
 use App\Trait\SeoFieldsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     ORM\Table(name: 'products'),
 	UniqueEntity(fields: ['slug'], message: 'This field should be unique', errorPath: 'slug')
 ]
-class Product implements SearchResultAwareInterface
+class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 {
     use SeoFieldsTrait;
 
@@ -54,7 +55,10 @@ class Product implements SearchResultAwareInterface
     #[ORM\Column(name: 'files', type: Types::SIMPLE_ARRAY, nullable: true)]
     private array $files;
 
-    #[ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products')]
+    #[
+		ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products'),
+		ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')
+	]
     private ?ProductCategory $category;
 
     #[ORM\Column(name: 'name', type: Types::STRING , length: 255, nullable: true)]
@@ -250,5 +254,26 @@ class Product implements SearchResultAwareInterface
 	public function setShowOnMainPage(bool $showOnMainPage): void
 	{
 		$this->showOnMainPage = $showOnMainPage;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function buildBreadcrumbs(): array
+	{
+		$breadcrumbs = [];
+		$breadcrumbs[] = $this->getName();
+
+		$this->generateBreadcrumbs($breadcrumbs, $this->getCategory());
+
+		return array_reverse($breadcrumbs);
+	}
+
+	private function generateBreadcrumbs(array &$breadcrumbs, ProductCategory $category): void
+	{
+		$breadcrumbs[] = $category->getName();
+		if ($category->getParent()) {
+			$this->generateBreadcrumbs($breadcrumbs, $category->getParent());
+		}
 	}
 }

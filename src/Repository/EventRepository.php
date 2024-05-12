@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Service\Pagination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -45,5 +46,33 @@ class EventRepository extends ServiceEntityRepository
 			->setParameter('searchText', '%' . $searchText . '%');
 
 		yield from $qb->getQuery()->toIterable();
+	}
+
+	/**
+	 * @param Pagination $pagination
+	 * @return Event[]
+	 */
+	public function buildPaginationArticles(Pagination $pagination): array
+	{
+		$qb = $this->createQueryBuilder('Event');
+
+		$qb
+			->select('Event')
+			->andWhere('Event.active = TRUE')
+			->setMaxResults($pagination->getPerPage())
+			->setFirstResult($pagination->calculateOffset());
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function findAllActiveCount(): int
+	{
+		$qb = $this->createQueryBuilder('Event');
+
+		$qb
+			->select('COUNT(1)')
+			->andWhere('Event.active = TRUE');
+
+		return $qb->getQuery()->getSingleScalarResult();
 	}
 }

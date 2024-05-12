@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Dto\FooterContactsDto;
 use App\Entity\News;
 use App\Entity\Product;
-use App\Service\MenuProvider\ProductCategoryMenuProvider;
-use App\Service\MenuProvider\TechnologyCategoryMenuProvider;
-use App\Service\SettingsProvider;
+use App\Entity\Technology;
 use App\Service\UrlGenerator;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Twig\Extension\AbstractExtension;
@@ -30,7 +27,8 @@ class UrlGenerateExtension extends AbstractExtension
 	{
 		return [
 			new TwigFunction('generate_product_url', [$this, 'generateProductUrl']),
-			new TwigFunction('generate_news_url', [$this, 'generateNewsUrl'])
+			new TwigFunction('generate_news_url', [$this, 'generateNewsUrl']),
+			new TwigFunction('generate_technology_url', [$this, 'generateTechnologyUrl'])
 		];
 	}
 
@@ -42,5 +40,10 @@ class UrlGenerateExtension extends AbstractExtension
 	public function generateNewsUrl(News $news): string
 	{
 		return $this->urlGenerator->generateNewsUrl($news);
+	}
+
+	public function generateTechnologyUrl(Technology $technology): string
+	{
+		return $this->urlGenerator->generateTechnologyUrl($technology);
 	}
 }

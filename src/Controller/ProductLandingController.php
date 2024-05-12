@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -13,11 +14,10 @@ class ProductLandingController extends AbstractController
 {
     public function __construct(
         private readonly ProductCategoryRepository $productCategoryRepository
-    )
-    {
+    ) {
     }
 
-    #[Route('/', name: 'app_product_category_index')]
+    #[Route('/', name: 'app_product_category_index', methods: [Request::METHOD_GET])]
     public function index(): Response
     {
         $productCategories = $this->productCategoryRepository->findParentCategories();
@@ -27,7 +27,7 @@ class ProductLandingController extends AbstractController
         ]);
     }
 
-	#[Route('/{productCategorySlug}/{productSubCategorySlug?}', name: 'app_product_category')]
+	#[Route('/{productCategorySlug}/{productSubCategorySlug?}', name: 'app_product_category', methods: [Request::METHOD_GET])]
 	public function productCategory(
 		string $productCategorySlug,
 		?string $productSubCategorySlug,
@@ -40,10 +40,8 @@ class ProductLandingController extends AbstractController
 		]);
 	}
 
-	#[Route('/{productCategorySlug}/{productSubCategorySlug}/{productSlug}', name: 'app_product_item')]
+	#[Route('/{productCategorySlug}/{productSubCategorySlug}/{productSlug}', name: 'app_product_item', methods: [Request::METHOD_GET])]
 	public function product(
-		string $productCategorySlug,
-		string $productSubCategorySlug,
 		string $productSlug,
 		ProductRepository $productRepository
 	): Response {

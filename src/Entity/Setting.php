@@ -14,8 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Setting
 {
-	public const MEMBERSHIP_IMAGES_FOLDER = 'membership';
-
 	use SeoFieldsTrait;
 
     #[
@@ -34,9 +32,6 @@ class Setting
     #[ORM\Column(name: 'instagram', type: Types::STRING, length: 255, nullable: true)]
     private ?string $instagram;
 
-	#[ORM\Column(name: 'membership_logos', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $membershipLogos;
-
 	#[ORM\Column(name: 'contacts', type: Types::TEXT, nullable: true)]
 	private ?string $contacts;
 
@@ -51,7 +46,6 @@ class Setting
 		$this->instagram = null;
 		$this->contacts = null;
 		$this->aboutUs = null;
-		$this->membershipLogos = null;
 	}
 
 	public function getId(): int
@@ -94,25 +88,6 @@ class Setting
 
         return $this;
     }
-
-	public function getMembershipLogos(): array
-	{
-		return $this->membershipLogos;
-	}
-
-	public function getMembershipLogoPaths(): array
-	{
-		$fullPaths = [];
-		foreach ($this->membershipLogos as $membershipLogo) {
-			$fullPaths[] = sprintf('%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::MEMBERSHIP_IMAGES_FOLDER, $membershipLogo);
-		}
-		return $fullPaths;
-	}
-
-	public function setMembershipLogos(?array $membershipLogos): void
-	{
-		$this->membershipLogos = $membershipLogos;
-	}
 
 	public function getContacts(): ?string
 	{

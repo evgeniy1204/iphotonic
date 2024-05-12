@@ -2,25 +2,26 @@
 
 namespace App\Response;
 
-use App\Dto\MainProductsCollectionResponse;
 use App\Entity\Event;
 use App\Entity\News;
+use App\Entity\SeoEmbed;
 
 readonly class MainPageResponse
 {
-    /**
-     * @param MainProductsCollectionResponse[] $productsWithCategory
-     * @param Event[] $events
-     * @param News[] $news
-     * @param string[] $membershipLogos
-     */
+	/**
+	 * @param SeoEmbed $meta
+	 * @param MainProductsCollectionResponse[] $productsWithCategory
+	 * @param Event[] $events
+	 * @param News[] $news
+	 * @param string[] $membershipLogos
+	 */
     public function __construct(
+		private SeoEmbed $meta,
         private array $productsWithCategory = [],
         private array $events = [],
         private array $news = [],
         private array $membershipLogos = [],
-    )
-    {
+    ) {
     }
 
 	/**
@@ -54,4 +55,9 @@ readonly class MainPageResponse
     {
         return $this->membershipLogos;
     }
+
+	public function getMeta(): SeoEmbed
+	{
+		return $this->meta;
+	}
 }

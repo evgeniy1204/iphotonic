@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Response\SearchResponseCollection;
-use App\Response\SearchResponseItem;
-use App\Service\SearchManager;
+use App\Service\Search\SearchManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SearchController extends AbstractController
 {
-	#[Route('/search', name: 'app_search_content', methods: ['GET'])]
+	#[Route('/search', name: 'app_search_content', methods: [Request::METHOD_GET])]
 	public function search(
 		Request $request,
 		SearchManager $searchManager

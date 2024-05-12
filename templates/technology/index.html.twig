@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    {% for technology in technologies %}
+        <a href="{{ generate_technology_url(technology) }}">{{ technology.name }}</a>
+    {% endfor %}
+</div>
+{% endblock %}

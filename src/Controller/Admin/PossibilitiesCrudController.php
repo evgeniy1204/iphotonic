@@ -47,7 +47,7 @@ class PossibilitiesCrudController extends AbstractCrudController
     {
 		return [
 			FormField::addTab('General fields'),
-            TinyMCEField::new('description')
+            TinyMCEField::new('content')
 				->setRequired(false),
 			...$this->getSeoFields(),
 		];

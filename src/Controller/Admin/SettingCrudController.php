@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Constants;
 use App\Entity\Setting;
-use App\Field\TinyMCEField;
 use App\Repository\SettingRepository;
 use App\Trait\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -58,12 +57,6 @@ class SettingCrudController extends AbstractCrudController
 			UrlField::new('linkedIn'),
 			UrlField::new('youtube'),
 			UrlField::new('instagram'),
-			FormField::addTab('Membership'),
-			ImageField::new('membershipLogos')
-				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Setting::MEMBERSHIP_IMAGES_FOLDER)
-				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::MEMBERSHIP_IMAGES_FOLDER)
-				->setFormTypeOption('multiple', true)
-				->setRequired(false),
 			...$this->getSeoFields(),
 		];
 	}

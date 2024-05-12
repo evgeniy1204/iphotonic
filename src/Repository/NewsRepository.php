@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\News;
+use App\Service\Pagination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -44,5 +45,33 @@ class NewsRepository extends ServiceEntityRepository
 			->setParameter('searchText', '%' . $searchText . '%');
 
 		yield from $qb->getQuery()->toIterable();
+	}
+
+	/**
+	 * @param Pagination $pagination
+	 * @return News[]
+	 */
+	public function buildPaginationArticles(Pagination $pagination): array
+	{
+		$qb = $this->createQueryBuilder('News');
+
+		$qb
+			->select('News')
+			->andWhere('News.active = TRUE')
+			->setMaxResults($pagination->getPerPage())
+			->setFirstResult($pagination->calculateOffset());
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function findAllActiveCount(): int
+	{
+		$qb = $this->createQueryBuilder('News');
+
+		$qb
+			->select('COUNT(1)')
+			->andWhere('News.active = TRUE');
+
+		return $qb->getQuery()->getSingleScalarResult();
 	}
 }

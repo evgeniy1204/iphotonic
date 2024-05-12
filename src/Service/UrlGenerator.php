@@ -52,6 +52,11 @@ readonly class UrlGenerator
 		return $this->router->generate('app_technology_item', $urlParams);
 	}
 
+	public function generateNewsLandingUrl(): string
+	{
+		return $this->router->generate('app_article_index');
+	}
+
 	public function generateNewsUrl(News $news): string
 	{
 		return $this->router->generate('app_article_item', ['slug' => $news->getSlug()]);
@@ -60,5 +65,26 @@ readonly class UrlGenerator
 	public function generateEventUrl(Event $event): string
 	{
 		return $this->router->generate('app_event_item', ['slug' => $event->getSlug()]);
+	}
+
+	public function generateMediaCenterLandingUrl(): string
+	{
+		return $this->router->generate('app_media_center_index');
+
+	}
+
+	public function generateEventLandingUrl(): string
+	{
+		return $this->router->generate('app_event_index');
+	}
+
+	public function generateMediaLandingUrl(): string
+	{
+		return $this->router->generate('app_photo_and_video_index');
+	}
+
+	public function generateTechnologyLandingUrl(): string
+	{
+		return $this->router->generate('app_technology_index');
 	}
 }

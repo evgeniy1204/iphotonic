@@ -18,17 +18,22 @@ class ProductCategoryCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+			TextField::new('name'),
+			TextField::new('slug')
+				->hideOnIndex(),
 			AssociationField::new('parent')
 				->setLabel('Parent category'),
 			AssociationField::new('technology')
-				->setLabel('Technology'),
-            TextField::new('name'),
-            TextField::new('slug'),
+				->setLabel('Technology')
+				->hideOnIndex(),
             TinyMCEField::new('summary')
-				->setRequired(false),
-			AssociationField::new('equipments'),
+				->setRequired(false)
+				->hideOnIndex(),
+			AssociationField::new('equipments')
+				->hideOnIndex(),
             TinyMCEField::new('description')
-				->setRequired(false),
+				->setRequired(false)
+				->hideOnIndex(),
         ];
     }
 }

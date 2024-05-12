@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs(event)} %}
+
+        <h1>{{ event.title }}</h1>
+    </div>
+{% endblock %}

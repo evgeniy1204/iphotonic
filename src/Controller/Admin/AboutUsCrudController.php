@@ -47,7 +47,7 @@ class AboutUsCrudController extends AbstractCrudController
     {
 		return [
 			FormField::addTab('General fields'),
-            TinyMCEField::new('description'),
+            TinyMCEField::new('content'),
 			...$this->getSeoFields(),
 		];
     }

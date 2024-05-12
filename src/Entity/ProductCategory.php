@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductCategoryRepository;
+use App\Service\Breadcrumb\BreadcrumbAwareInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -14,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     ORM\Table(name: 'product_categories'),
 	UniqueEntity(fields: ['slug'], message: 'This field should be unique', errorPath: 'slug')
 ]
-class ProductCategory
+class ProductCategory implements BreadcrumbAwareInterface
 {
     #[
         ORM\Id,

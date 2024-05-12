@@ -7,6 +7,7 @@ use App\Entity\Application;
 use App\Entity\Download;
 use App\Entity\Event;
 use App\Entity\Media;
+use App\Entity\Membership;
 use App\Entity\News;
 use App\Entity\Partner;
 use App\Entity\Possibilities;
@@ -60,7 +61,8 @@ class DashboardController extends AbstractDashboardController
 		yield MenuItem::linkToCrud('Settings', 'fa fa-cog', Setting::class);
 		yield MenuItem::linkToCrud('Downloads', 'fa fa-download', Download::class);
 		yield MenuItem::linkToCrud('About us', 'fa fa-address-card', AboutUs::class);
-		yield MenuItem::linkToCrud('Possibilities', 'fa fa-address-card', Possibilities::class);
+		yield MenuItem::linkToCrud('Possibilities', 'fa fa-bolt', Possibilities::class);
 		yield MenuItem::linkToCrud('Partners', 'fa fa-users', Partner::class);
+		yield MenuItem::linkToCrud('Memberships', 'fa fa-users-rectangle', Membership::class);
     }
 }

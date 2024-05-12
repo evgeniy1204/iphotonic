@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block meta_seo %}
-    <meta name="title" content="{{ product.metaTitle }}">
-    <meta name="description" content="{{ product.metaDescription }}">
-    <meta name="keywords" content="{{ product.metaKeywords }}">
+    {% include 'blocks/meta.html.twig' with {'meta' : product.seo} %}
 {% endblock %}
 
 {% block body %}
 <div class="container">
+    {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs(product)} %}
     <h1>{{ product.name }}</h1>
     <img src="{{ asset('uploads/product/' ~ product.images|first) }}" alt="{{ product.name }}">
 </div>

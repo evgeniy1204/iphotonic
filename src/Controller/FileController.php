@@ -15,7 +15,7 @@ class FileController extends AbstractController
 {
 	private const TINE_UPLOAD_FOLDER = 'tiny';
 
-	#[Route('/upload-files', methods: ['POST'])]
+	#[Route('/upload-files', methods: [Request::METHOD_POST])]
 	public function uploadProductTextFile(Request $request, FileUploader $fileUploader): Response
 	{
 		$filePath = $fileUploader->upload($request->files->get('file'), self::TINE_UPLOAD_FOLDER);

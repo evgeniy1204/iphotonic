@@ -4,6 +4,8 @@
 
 {% block body %}
     <div class="container">
+        {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs(productCategory)} %}
+
         <h1>{{ productCategory.name }}</h1>
     </div>
 {% endblock %}

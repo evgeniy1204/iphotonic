@@ -4,7 +4,8 @@ namespace App\Entity;
 
 use App\Enum\SearchResultTypeEnum;
 use App\Repository\EventRepository;
-use App\Service\SearchResultAwareInterface;
+use App\Service\Breadcrumb\BreadcrumbAwareInterface;
+use App\Service\Search\SearchResultAwareInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
     ORM\Entity(repositoryClass: EventRepository::class),
     ORM\Table(name: 'events'),
 ]
-class Event implements SearchResultAwareInterface
+class Event implements SearchResultAwareInterface, BreadcrumbAwareInterface
 {
     public const PREVIEW_IMAGE_FOLDER = 'event_preview';
 

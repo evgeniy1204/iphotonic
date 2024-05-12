@@ -1,0 +1,7 @@
+{% if meta is not defined or meta is null %}
+{% set meta = get_default_meta() %}
+{% endif %}
+
+<meta name="title" content="{{ meta.metaTitle }}">
+<meta name="description" content="{{ meta.metaDescription }}">
+<meta name="keywords" content="{{ meta.metaKeywords }}">

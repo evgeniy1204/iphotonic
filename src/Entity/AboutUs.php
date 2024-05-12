@@ -18,13 +18,13 @@ class AboutUs
 	]
     private int $id;
 
-    #[ORM\Column(name: 'description', length: 255, nullable: true)]
-    private ?string $description;
+    #[ORM\Column(name: 'content', length: 255, nullable: true)]
+    private ?string $content;
 
 	public function __construct()
 	{
 		$this->id = 0;
-		$this->description = null;
+		$this->content = null;
 		$this->seo = new SeoEmbed();
 	}
 
@@ -33,14 +33,14 @@ class AboutUs
         return $this->id;
     }
 
-    public function getDescription(): ?string
+    public function getContent(): ?string
     {
-        return $this->description;
+        return $this->content;
     }
 
-    public function setDescription(string $description): static
+    public function setContent(?string $content): static
     {
-        $this->description = $description;
+        $this->content = $content;
 
         return $this;
     }

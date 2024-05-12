@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Dto\MainProductsCollectionResponse;
 use App\Repository\EventRepository;
+use App\Repository\MembershipRepository;
 use App\Repository\NewsRepository;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
-use App\Repository\SettingRepository;
 use App\Response\MainPageResponse;
-use App\Service\SettingsProvider;
+use App\Response\MainProductsCollectionResponse;
+use App\Service\Search\SettingsProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -24,11 +24,12 @@ class MainController extends AbstractController
 		EventRepository $eventRepository,
 		ProductCategoryRepository $productCategoryRepository,
 		ProductRepository $productRepository,
+		MembershipRepository $membershipRepository,
 		SettingsProvider $settingsProvider
 	): Response {
         $events = $eventRepository->findUpcomingEvents();
         $news = $newsRepository->findLatestNews();
-        $membershipLogos = $settingsProvider->getMemberships();
+        $membershipLogos = $membershipRepository->findAll();
 		$productsResult = [];
 		foreach ($productCategoryRepository->findParentCategories() as $productCategory) {
 			$finalCategories = $productCategory->getFinalCategories();
@@ -40,6 +41,7 @@ class MainController extends AbstractController
 		}
 
         $response = new MainPageResponse(
+			$settingsProvider->getSeo(),
 			$productsResult,
             $events,
             $news,

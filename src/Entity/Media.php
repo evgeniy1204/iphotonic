@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\MediaRepository;
+use App\Service\Breadcrumb\BreadcrumbAwareInterface;
 use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
-class Media
+class Media implements BreadcrumbAwareInterface
 {
 	public const PREVIEW_IMAGE_FOLDER = 'media_preview';
 

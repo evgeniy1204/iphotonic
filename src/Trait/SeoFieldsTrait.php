@@ -22,6 +22,15 @@ trait SeoFieldsTrait
 		];
 	}
 
+	public function getSeo(): ?SeoEmbed
+	{
+		if ($this->seo->getMetaKeywords() || $this->seo->getMetaDescription() || $this->seo->getMetaTitle()) {
+			return $this->seo;
+		}
+
+		return null;
+	}
+
 	public function getMetaTitle(): ?string
 	{
 		return $this->seo->getMetaTitle();
