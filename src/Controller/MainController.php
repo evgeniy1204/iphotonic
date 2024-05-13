@@ -41,7 +41,7 @@ class MainController extends AbstractController
 		}
 
         $response = new MainPageResponse(
-			$settingsProvider->getSeo(),
+			$settingsProvider->getSettings(),
 			$productsResult,
             $events,
             $news,

@@ -26,7 +26,7 @@ readonly class SettingsProvider
 		return $this->getSettings()->getSeo();
 	}
 
-	private function getSettings(): Setting
+	public function getSettings(): Setting
 	{
 		return $this->settingRepository->findSettingPage() ?? throw new LogicException('Settings should be exist');
 	}

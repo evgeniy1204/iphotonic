@@ -10,7 +10,6 @@ use App\Repository\NewsRepository;
 use App\Service\Pagination;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -20,9 +19,9 @@ class MediaCenterLandingController extends AbstractController
 	private const PAGINATE_DEFAULT_PER_PAGE = 25;
 
 	#[Route('/', name: 'app_media_center_index')]
-	public function mediaCenterList()
+	public function mediaCenterList(): Response
 	{
-
+		return $this->render('media_center/media_index.html.twig');
 	}
 
 	#[Route('/articles', name: 'app_article_index', methods: [Request::METHOD_GET])]

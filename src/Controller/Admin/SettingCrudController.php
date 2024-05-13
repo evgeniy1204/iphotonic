@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
@@ -49,10 +50,28 @@ class SettingCrudController extends AbstractCrudController
 	public function configureFields(string $pageName): iterable
 	{
 		return [
+			FormField::addTab('Main page'),
+			TextField::new('mainLeftBlockTitle'),
+			UrlField::new('mainLeftBlockTitleUrl'),
+			TextareaField::new('mainLeftBlockSummary'),
+			ImageField::new('mainLeftBlockImage')
+				->hideOnIndex()
+				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
+				->setRequired(false),
+			TextField::new('mainRightBlockTitle'),
+			UrlField::new('mainRightBlockTitleUrl'),
+			TextareaField::new('mainRightBlockSummary'),
+			ImageField::new('mainRightBlockImages')
+				->hideOnIndex()
+				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
+				->setFormTypeOption('multiple', true)
+				->setRequired(false),
 			FormField::addTab('Contacts'),
 			TextareaField::new('contacts'),
 			FormField::addTab('About us'),
-			TextareaField::new('about_us'),
+			TextareaField::new('aboutUs'),
 			FormField::addTab('Social networks'),
 			UrlField::new('linkedIn'),
 			UrlField::new('youtube'),

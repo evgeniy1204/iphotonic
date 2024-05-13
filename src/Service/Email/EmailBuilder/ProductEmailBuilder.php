@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Email\EmailBuilder;
 
-use App\Dto\Email\EmailDto;
+use App\Dto\EmailDto;
 use App\Service\Email\Email;
 use App\Service\Email\EmailInterface;
 use Twig\Environment;

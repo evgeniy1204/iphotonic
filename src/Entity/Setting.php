@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 ]
 class Setting
 {
+	public const MAIN_BLOCK_IMAGES_FOLDER = 'main';
+
 	use SeoFieldsTrait;
 
     #[
@@ -37,6 +39,30 @@ class Setting
 
 	#[ORM\Column(name: 'about_us', type: Types::TEXT, nullable: true)]
 	private ?string $aboutUs;
+
+	#[ORM\Column(name: 'main_left_block_title', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $mainLeftBlockTitle;
+
+	#[ORM\Column(name: 'main_left_block_title_url', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $mainLeftBlockTitleUrl;
+
+	#[ORM\Column(name: 'main_left_block_summary', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $mainLeftBlockSummary;
+
+	#[ORM\Column(name: 'main_left_block_image', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $mainLeftBlockImage;
+
+	#[ORM\Column(name: 'main_right_block_title', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $mainRightBlockTitle;
+
+	#[ORM\Column(name: 'main_right_block_title_url', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $mainRightBlockTitleUrl;
+
+	#[ORM\Column(name: 'main_right_block_summary', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $mainRightBlockSummary;
+
+	#[ORM\Column(name: 'main_right_block_images', type: Types::SIMPLE_ARRAY, nullable: true)]
+	private ?array $mainRightBlockImages;
 
 	public function __construct()
 	{
@@ -108,5 +134,85 @@ class Setting
 	public function setAboutUs(?string $aboutUs): void
 	{
 		$this->aboutUs = $aboutUs;
+	}
+
+	public function getMainLeftBlockTitle(): ?string
+	{
+		return $this->mainLeftBlockTitle;
+	}
+
+	public function setMainLeftBlockTitle(?string $mainLeftBlockTitle): void
+	{
+		$this->mainLeftBlockTitle = $mainLeftBlockTitle;
+	}
+
+	public function getMainLeftBlockSummary(): ?string
+	{
+		return $this->mainLeftBlockSummary;
+	}
+
+	public function setMainLeftBlockSummary(?string $mainLeftBlockSummary): void
+	{
+		$this->mainLeftBlockSummary = $mainLeftBlockSummary;
+	}
+
+	public function getMainLeftBlockImage(): ?string
+	{
+		return $this->mainLeftBlockImage;
+	}
+
+	public function setMainLeftBlockImage(?string $mainLeftBlockImage): void
+	{
+		$this->mainLeftBlockImage = $mainLeftBlockImage;
+	}
+
+	public function getMainRightBlockTitle(): ?string
+	{
+		return $this->mainRightBlockTitle;
+	}
+
+	public function setMainRightBlockTitle(?string $mainRightBlockTitle): void
+	{
+		$this->mainRightBlockTitle = $mainRightBlockTitle;
+	}
+
+	public function getMainRightBlockSummary(): ?string
+	{
+		return $this->mainRightBlockSummary;
+	}
+
+	public function setMainRightBlockSummary(?string $mainRightBlockSummary): void
+	{
+		$this->mainRightBlockSummary = $mainRightBlockSummary;
+	}
+
+	public function getMainRightBlockImages(): ?array
+	{
+		return $this->mainRightBlockImages;
+	}
+
+	public function setMainRightBlockImages(?array $mainRightBlockImages): void
+	{
+		$this->mainRightBlockImages = $mainRightBlockImages;
+	}
+
+	public function getMainLeftBlockTitleUrl(): ?string
+	{
+		return $this->mainLeftBlockTitleUrl;
+	}
+
+	public function setMainLeftBlockTitleUrl(?string $mainLeftBlockTitleUrl): void
+	{
+		$this->mainLeftBlockTitleUrl = $mainLeftBlockTitleUrl;
+	}
+
+	public function getMainRightBlockTitleUrl(): ?string
+	{
+		return $this->mainRightBlockTitleUrl;
+	}
+
+	public function setMainRightBlockTitleUrl(?string $mainRightBlockTitleUrl): void
+	{
+		$this->mainRightBlockTitleUrl = $mainRightBlockTitleUrl;
 	}
 }

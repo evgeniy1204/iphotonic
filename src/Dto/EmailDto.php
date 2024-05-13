@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Email;
+namespace App\Dto;
 
 readonly class EmailDto
 {

@@ -16,6 +16,22 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PageController extends AbstractController
 {
+	#[Route('/about', name: 'app_about_index', methods: [Request::METHOD_GET])]
+	public function aboutUs(DownloadRepository $downloadRepository): Response
+	{
+		$downloads = $downloadRepository->findAll();
+
+		return $this->render('page/about.html.twig', ['downloads' => $downloads]);
+	}
+
+	#[Route('/contacts', name: 'app_contacts_index', methods: [Request::METHOD_GET])]
+	public function contacts(DownloadRepository $downloadRepository): Response
+	{
+		$downloads = $downloadRepository->findAll();
+
+		return $this->render('page/contacts.html.twig', ['downloads' => $downloads]);
+	}
+
 	#[Route('/downloads', name: 'app_downloads_index', methods: [Request::METHOD_GET])]
 	public function downloads(DownloadRepository $downloadRepository): Response
 	{

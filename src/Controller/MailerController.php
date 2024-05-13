@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Dto\Email\EmailDto;
+use App\Dto\EmailDto;
 use App\Service\Email\EmailBuilder\ProductEmailBuilder;
 use App\Service\Email\EmailRequest;
 use App\Service\Email\EmailSender;

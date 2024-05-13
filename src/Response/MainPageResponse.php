@@ -5,18 +5,19 @@ namespace App\Response;
 use App\Entity\Event;
 use App\Entity\News;
 use App\Entity\SeoEmbed;
+use App\Entity\Setting;
 
 readonly class MainPageResponse
 {
 	/**
-	 * @param SeoEmbed $meta
+	 * @param Setting $setting
 	 * @param MainProductsCollectionResponse[] $productsWithCategory
 	 * @param Event[] $events
 	 * @param News[] $news
 	 * @param string[] $membershipLogos
 	 */
     public function __construct(
-		private SeoEmbed $meta,
+		private Setting $setting,
         private array $productsWithCategory = [],
         private array $events = [],
         private array $news = [],
@@ -56,8 +57,8 @@ readonly class MainPageResponse
         return $this->membershipLogos;
     }
 
-	public function getMeta(): SeoEmbed
+	public function getSetting(): Setting
 	{
-		return $this->meta;
+		return $this->setting;
 	}
 }

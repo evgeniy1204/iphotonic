@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/technology')]
 class TechnologyLandingController extends AbstractController
 {
-	#[Route('/', name: 'app_technology_index', methods: [Request::METHOD_GET])]
+	#[Route('', name: 'app_technology_index', methods: [Request::METHOD_GET])]
 	public function index(TechnologyRepository $technologyRepository): Response
     {
 		return $this->render('technology/index.html.twig', [
