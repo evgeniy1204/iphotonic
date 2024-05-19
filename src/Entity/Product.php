@@ -221,11 +221,11 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 	}
 
 	/**
-	 * @return Collection|Product[]
+	 * eturn Product[]
 	 */
-	public function getRelationProducts(): Collection
+	public function getRelationProducts(): array
 	{
-		return $this->relationProducts;
+		return $this->relationProducts->toArray();
 	}
 
 	public function setRelationProducts(Collection $relationProducts): void

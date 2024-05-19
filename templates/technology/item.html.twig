@@ -1,8 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
-{% set currentLevelMenuItems = generate_technology_category_one_level_menu(technology) %}
-
 {% block body %}
     <main class="main">
         <div class="container">
@@ -10,70 +7,18 @@
                 <div class="layout-content">
                     {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs(technology.name, technology)} %}
                     <h1 class="main-title">{{ technology.name }}</h1>
-                    {% if currentLevelMenuItems %}
-                        <nav class="inline-nav">
-                            <ul class="inline-nav-list">
-                                {% for currentLevelMenuItem in currentLevelMenuItems %}
-                                    <li class="inline-nav-item">
-                                        <a class="inline-nav-link" href="{{ currentLevelMenuItem.url }}"
-                                           aria-current="{% if currentLevelMenuItem.url == currentPath %}page{% endif %}">{{ currentLevelMenuItem.name }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </nav>
-                    {% endif %}
+                    {% include 'blocks/current_level_menu.html.twig' with {'currentLevelMenuItems': generate_technology_category_one_level_menu(technology)} %}
 
                     <div class="content">
                         {{ technology.content|raw }}
                     </div>
 
-                    {% if technology.children %}
-                        <div class="catalog">
-                            {% for technology in technology.children %}
-                                <div class="catalog-card">
-                                    <div class="catalog-card-image">
-                                        <img src="{{ asset('uploads/technology/' ~ technology.image) }}" alt="{{ technology.name }}">
-                                    </div>
-                                    <h4 class="catalog-card-title">
-                                        <a class="catalog-card-link"
-                                           href="{{ generate_technology_url(technology) }}">{{ technology.name }}</a>
-                                    </h4>
-                                    <div class="catalog-card-desc">
-                                        {{ technology.imageShortDescription|nl2br }}
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    {% if products %}
-                        <section class="featured featured--primary">
-                            <h2 class="featured-title">Equipment</h2>
-                            <div class="featured-box">
-                                <div class="listing">
-                                    {% for equipment in products %}
-                                        <div class="listing-card">
-                                            <div class="listing-card-image">
-                                                <img src="{{ asset('uploads/product/' ~ equipment.images|first) }}" alt="">
-                                            </div>
-                                            <h4 class="listing-card-title">
-                                                <a class="listing-card-link" href="{{ generate_product_url(equipment) }}">{{ equipment.name }}</a>
-                                            </h4>
-                                            <div class="listing-card-desc">
-                                                {{ equipment.summary|raw|nl2br }}
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-
-                            </div>
-                        </section>
-                    {% endif %}
+                    {% include 'blocks/technology/technology_cards_block.html.twig' with {'technologies': technology.children} %}
+                    {% include 'blocks/product/equipments.html.twig' with {'equipments': products} %}
                 </div>
 
                 {% include 'menu/left_sidebar.html.twig' with {'menuItems': generate_technology_category_menu() } %}
-
             </div>
-
+        </div>
     </main>
 {% endblock %}

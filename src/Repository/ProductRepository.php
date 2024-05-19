@@ -89,15 +89,19 @@ class ProductRepository extends ServiceEntityRepository
 		return $qb->getQuery()->getResult();
 	}
 
-	public function findByTechnology(Technology $technology): array
+	/**
+	 * @param Technology[] $technologies
+	 * @return array
+	 */
+	public function findByTechnologies(array $technologies): array
 	{
 		$qb = $this->createQueryBuilder('Product');
 
 		$qb
 			->select('Product')
 			->andWhere('Product.active = TRUE')
-			->andWhere('Product.technology = :technology')
-			->setParameter('technology', $technology);
+			->andWhere('Product.technology IN (:technologies)')
+			->setParameter('technologies', $technologies);
 
 		return $qb->getQuery()->getResult();
 	}

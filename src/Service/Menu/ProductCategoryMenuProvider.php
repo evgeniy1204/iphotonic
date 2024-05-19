@@ -9,14 +9,12 @@ use App\Entity\ProductCategory;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use App\Service\UrlGenerator;
-use Symfony\Component\Routing\RouterInterface;
 
 readonly class ProductCategoryMenuProvider
 {
 	public function __construct(
 		private ProductCategoryRepository $productCategoryRepository,
 		private ProductRepository $productRepository,
-		private RouterInterface $router,
 		private UrlGenerator $urlGenerator
 	) {
 	}
@@ -32,7 +30,7 @@ readonly class ProductCategoryMenuProvider
 		foreach ($productCategories as $productCategory) {
 			$item = new MenuItemDto(
 				$productCategory->getName(),
-				$this->router->generate('app_product_category', ['productCategorySlug' => $productCategory->getSlug()])
+				$this->urlGenerator->generateProductCategoryUrl($productCategory),
 			);
 			$menuItems[] = $item;
 

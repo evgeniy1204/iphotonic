@@ -16,12 +16,16 @@ class TechnologyLandingController extends AbstractController
 	#[Route('', name: 'app_technology_index', methods: [Request::METHOD_GET])]
 	public function index(
 		TechnologyRepository $technologyRepository,
-		SettingsProvider $settingsProvider
+		SettingsProvider $settingsProvider,
+		ProductRepository $productRepository,
 	): Response {
+		$technologies = $technologyRepository->findBy(['active' => true]);
+		$products = $productRepository->findByTechnologies($technologies);
 
 		return $this->render('technology/index.html.twig', [
-			'technologies' => $technologyRepository->findBy(['active' => true]),
+			'technologies' => $technologies,
 			'content' => $settingsProvider->getTechnologyContent(),
+			'products' => $products,
 		]);
 	}
 
@@ -33,7 +37,7 @@ class TechnologyLandingController extends AbstractController
 		ProductRepository $productRepository,
 	): Response {
         $technology = $technologyRepository->findOneBy(['slug' => $technologySubCategorySlug ?? $technologyCategorySlug]);
-		$products = $productRepository->findByTechnology($technology);
+		$products = $productRepository->findByTechnologies($technology);
 
         return $this->render('technology/item.html.twig', [
             'technology' => $technology,

@@ -196,7 +196,7 @@ class ProductCategory implements BreadcrumbAwareInterface
 		return $finalCategories;
 	}
 
-	public function findFinalCategory(array &$finalCategories): void
+	private function findFinalCategory(array &$finalCategories): void
 	{
 		foreach ($this->getChildren() as $child) {
 			if ($child->getChildren()) {

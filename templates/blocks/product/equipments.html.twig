@@ -1,0 +1,24 @@
+{% if equipments %}
+    <section class="featured featured--primary">
+        <h2 class="featured-title">Equipment</h2>
+        <div class="featured-box">
+            <div class="listing">
+                {% for equipment in equipments %}
+                    <div class="listing-card">
+                        <div class="listing-card-image">
+                            <img src="{{ asset('uploads/product/' ~ equipment.images|first) }}"
+                                 alt="">
+                        </div>
+                        <h4 class="listing-card-title">
+                            <a class="listing-card-link"
+                               href="{{ generate_product_url(equipment) }}">{{ equipment.name }}</a>
+                        </h4>
+                        <div class="listing-card-desc">
+                            {{ equipment.summary|raw|nl2br }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}

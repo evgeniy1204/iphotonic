@@ -1,0 +1,11 @@
+{% if technology %}
+    <section class="featured featured--secondary">
+        <h2 class="featured-title">Technology</h2>
+        <div class="featured-box content">
+            <h3>{{ technology.name }}</h3>
+
+            {{ technology.summary|nl2br }} <br>
+            <a class="button" href="{{ generate_technology_url(technology) }}">Read more</a>
+        </div>
+    </section>
+{% endif %}

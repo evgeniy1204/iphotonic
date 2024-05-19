@@ -30,11 +30,10 @@
                             <span>{{ data.setting.mainLeftBlockSummary|raw|nl2br }}</span>
 
                             <picture>
-                                <source srcset="/images/hero/feature-primary-desktop@1x.jpg 1x, /images/hero/feature-primary-desktop@2x.jpg 2x"
+                                <source srcset="{{ asset('uploads/main/') ~ data.setting.mainLeftBlockImage }}"
                                         media="(min-width: 960px)">
                                 <img
-                                        src="/images/hero/feature-primary-mobile@1x.png"
-                                        srcset="/images/hero/feature-primary-mobile@2x.png 2x, /images/hero/feature-primary-mobile@3x.png 3x"
+                                        src="{{ asset('uploads/main/') ~ data.setting.mainLeftBlockImage }}"
                                         alt=""
                                 >
                             </picture>
@@ -87,22 +86,7 @@
                             </div>
                             {% for childProductsData in productsData %}
                             <div id="tab-panel-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}" role="tabpanel" aria-labelledby="tab-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}">
-                                <div class="product-cards">
-                                    {% for product in childProductsData.products %}
-                                        <div class="product-card">
-                                            <div class="product-card-image">
-                                                <img src="{{ asset('uploads/product/' ~ product.images|first) }}" alt="{{ product.name }}">
-                                            </div>
-                                            <h4 class="product-card-title">
-                                                <a class="product-card-link" href="{{ generate_product_url(product) }}">{{ product.name }}</a>
-                                            </h4>
-                                            <div class="product-card-desc">
-                                                <p>Substrate holder:<br>{{ product.summary|nl2br }}</p>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-
+                                {% include 'blocks/product/product_cards_block.html.twig' with {'products': childProductsData.products} %}
                             </div>
                             {% endfor %}
                         </div>

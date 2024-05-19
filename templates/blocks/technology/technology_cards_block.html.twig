@@ -1,0 +1,18 @@
+{% if technologies %}
+    <div class="catalog">
+        {% for technology in technologies %}
+            <div class="catalog-card">
+                <div class="catalog-card-image">
+                    <img src="{{ asset('uploads/technology/' ~ technology.image) }}" alt="{{ technology.name }}">
+                </div>
+                <h4 class="catalog-card-title">
+                    <a class="catalog-card-link"
+                       href="{{ generate_technology_url(technology) }}">{{ technology.name }}</a>
+                </h4>
+                <div class="catalog-card-desc">
+                    {{ technology.imageShortDescription|nl2br }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
