@@ -37,7 +37,7 @@ class TechnologyLandingController extends AbstractController
 		ProductRepository $productRepository,
 	): Response {
         $technology = $technologyRepository->findOneBy(['slug' => $technologySubCategorySlug ?? $technologyCategorySlug]);
-		$products = $productRepository->findByTechnologies($technology);
+		$products = $productRepository->findByTechnologies([$technology]);
 
         return $this->render('technology/item.html.twig', [
             'technology' => $technology,
