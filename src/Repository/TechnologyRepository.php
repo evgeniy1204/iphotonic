@@ -25,7 +25,8 @@ class TechnologyRepository extends ServiceEntityRepository
 			->select('Technology')
 			->andWhere($qb->expr()->orX(
 				$qb->expr()->andX('Technology.name LIKE :searchText'),
-				$qb->expr()->andX('Technology.text LIKE :searchText'),
+				$qb->expr()->andX('Technology.content LIKE :searchText'),
+				$qb->expr()->andX('Technology.summary LIKE :searchText'),
 			))
 			->andWhere('Technology.active = TRUE')
 			->setParameter('searchText', '%'.$searchText.'%');
