@@ -85,9 +85,4 @@ class Application
 	{
 		$this->preview = $preview;
 	}
-
-	public function getPreviewPath(): string
-	{
-		return sprintf('%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::APPLICATION_IMAGE_FOLDER, $this->preview);
-	}
 }

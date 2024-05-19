@@ -40,6 +40,9 @@ class Setting
 	#[ORM\Column(name: 'about_us', type: Types::TEXT, nullable: true)]
 	private ?string $aboutUs;
 
+	#[ORM\Column(name: 'technology_content', type: Types::TEXT, nullable: true)]
+	private ?string $technologyContent;
+
 	#[ORM\Column(name: 'main_left_block_title', type: Types::STRING, length: 255, nullable: true)]
 	private ?string $mainLeftBlockTitle;
 
@@ -214,5 +217,15 @@ class Setting
 	public function setMainRightBlockTitleUrl(?string $mainRightBlockTitleUrl): void
 	{
 		$this->mainRightBlockTitleUrl = $mainRightBlockTitleUrl;
+	}
+
+	public function getTechnologyContent(): ?string
+	{
+		return $this->technologyContent;
+	}
+
+	public function setTechnologyContent(?string $technologyContent): void
+	{
+		$this->technologyContent = $technologyContent;
 	}
 }

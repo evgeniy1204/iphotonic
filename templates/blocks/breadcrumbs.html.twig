@@ -1,7 +1,15 @@
-{% for breadcrumb in breadcrumbs %}
-    {% if breadcrumb.url %}
-        <a href="{{ breadcrumb.url }}">{{ breadcrumb.text }}</a>
-    {% else %}
-        <span>{{ breadcrumb.text }}</span>
-    {% endif %}
-{% endfor %}
+<nav class="breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb-list">
+        {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.url %}
+                <li class="breadcrumb-item">
+                    <a class="breadcrumb-link" href="{{ breadcrumb.url }}">{{ breadcrumb.text }}</a>
+                </li>
+            {% else %}
+                <li class="breadcrumb-item" aria-current="page">
+                    {{ breadcrumb.text }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+</nav>

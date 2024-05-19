@@ -6,6 +6,7 @@ namespace App\Twig;
 
 use App\Entity\News;
 use App\Entity\Product;
+use App\Entity\ProductCategory;
 use App\Entity\Technology;
 use App\Service\UrlGenerator;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
@@ -27,6 +28,7 @@ class UrlGenerateExtension extends AbstractExtension
 	{
 		return [
 			new TwigFunction('generate_product_url', [$this, 'generateProductUrl']),
+			new TwigFunction('generate_product_category_url', [$this, 'generateProductCategoryUrl']),
 			new TwigFunction('generate_news_url', [$this, 'generateNewsUrl']),
 			new TwigFunction('generate_technology_url', [$this, 'generateTechnologyUrl'])
 		];
@@ -35,6 +37,11 @@ class UrlGenerateExtension extends AbstractExtension
 	public function generateProductUrl(Product $product): string
 	{
 		return $this->urlGenerator->generateProductUrl($product);
+	}
+
+	public function generateProductCategoryUrl(ProductCategory $productCategory): string
+	{
+		return $this->urlGenerator->generateProductCategoryUrl($productCategory);
 	}
 
 	public function generateNewsUrl(News $news): string

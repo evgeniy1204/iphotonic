@@ -23,7 +23,6 @@ readonly class TechnologyBreadcrumbsBuilder implements BreadcrumbsBuilderInterfa
 	public function build(BreadcrumbAwareInterface|Technology $breadcrumbAware): array
 	{
 		$breadcrumbs = [];
-		$breadcrumbs[] = new BreadcrumbDto($breadcrumbAware->getName());
 		$this->generateBreadcrumbs($breadcrumbs, $breadcrumbAware->getParent());
 		$breadcrumbs[] = new BreadcrumbDto(
 			'Technologies',

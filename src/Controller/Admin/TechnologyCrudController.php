@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class TechnologyCrudController extends AbstractCrudController
@@ -27,17 +28,18 @@ class TechnologyCrudController extends AbstractCrudController
     {
         return [
 			FormField::addTab('General fields'),
-            TextField::new('name'),
+			TextField::new('name'),
 			TextField::new('slug'),
 			AssociationField::new('parent'),
-			ImageField::new('images')
+			TextareaField::new('summary')->hideOnIndex(),
+			ImageField::new('image')
 				->setLabel('Image')
 				->hideOnIndex()
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Technology::TECHNOLOGY_IMAGES_FOLDER)
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Technology::TECHNOLOGY_IMAGES_FOLDER)
-				->setFormTypeOption('multiple', true)
 				->setRequired(false),
-			TinyMCEField::new('text')->hideOnIndex(),
+			TextField::new('imageShortDescription')->hideOnIndex(),
+			TinyMCEField::new('content')->hideOnIndex(),
 			BooleanField::new('active'),
 			...$this->getSeoFields(),
         ];

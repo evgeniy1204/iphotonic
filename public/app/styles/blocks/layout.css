@@ -1,0 +1,28 @@
+/* Layout */
+
+@media (width < 960px) {
+  .layout {
+    margin-top: 6px;
+  }
+
+  .layout-sidebar {
+    display: none;
+  }
+}
+
+@media (width >= 960px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 232px 1fr;
+    gap: 40px;
+    margin-top: 34px;
+  }
+
+  .layout-content {
+    order: 2;
+  }
+
+  .layout-sidebar {
+    order: 1;
+  }
+}

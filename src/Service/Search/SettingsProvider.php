@@ -30,4 +30,9 @@ readonly class SettingsProvider
 	{
 		return $this->settingRepository->findSettingPage() ?? throw new LogicException('Settings should be exist');
 	}
+
+	public function getTechnologyContent(): ?string
+	{
+		return $this->getSettings()->getTechnologyContent();
+	}
 }

@@ -23,7 +23,6 @@ readonly class ProductCategoryBreadcrumbsBuilder implements BreadcrumbsBuilderIn
 	public function build(BreadcrumbAwareInterface|ProductCategory $breadcrumbAware): array
 	{
 		$breadcrumbs = [];
-		$breadcrumbs[] = new BreadcrumbDto($breadcrumbAware->getName());
 		$this->generateBreadcrumbs($breadcrumbs, $breadcrumbAware->getParent());
 
 		return array_reverse($breadcrumbs);

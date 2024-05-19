@@ -31,7 +31,6 @@ readonly class NewsBreadcrumbsBuilder implements BreadcrumbsBuilderInterface
 			'Company news',
 			$this->urlGenerator->generateNewsLandingUrl(),
 		);
-		$breadcrumbs[] = new BreadcrumbDto($breadcrumbAware->getTitle());
 
 		return $breadcrumbs;
 	}

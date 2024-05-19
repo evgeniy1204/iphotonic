@@ -31,7 +31,6 @@ readonly class MediaBreadcrumbsBuilder implements BreadcrumbsBuilderInterface
 			'Photo & Video',
 			$this->urlGenerator->generateMediaLandingUrl(),
 		);
-		$breadcrumbs[] = new BreadcrumbDto($breadcrumbAware->getTitle());
 
 		return $breadcrumbs;
 	}

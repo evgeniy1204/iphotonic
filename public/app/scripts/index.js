@@ -48,6 +48,21 @@ mobileCheck.addEventListener('change', (event) => {
 	}
 });
 
+// Sidenav
+
+document.querySelectorAll('.js-sidenav-toggle').forEach((function(button) {
+  button.addEventListener('click', () => {
+    const list = button.parentNode.nextElementSibling;
+
+    if ( list.classList.contains('is-active') ) {
+      button.setAttribute('aria-expanded', false);
+      list.classList.remove('is-active')
+    } else {
+      button.setAttribute('aria-expanded', true);
+      list.classList.add('is-active')
+    }
+  });
+}))
 
 // Search
 
@@ -95,4 +110,3 @@ mobileCheck.addEventListener('change', (event) => {
 		closeSearch();
 	}
 });
-

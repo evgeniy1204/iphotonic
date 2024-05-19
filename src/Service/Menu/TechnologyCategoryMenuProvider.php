@@ -7,23 +7,26 @@ namespace App\Service\Menu;
 use App\Dto\MenuItemDto;
 use App\Entity\Technology;
 use App\Repository\TechnologyRepository;
+use App\Service\UrlGenerator;
 
 readonly class TechnologyCategoryMenuProvider
 {
-	public function __construct(private TechnologyRepository $technologyRepository)
-	{
+	public function __construct(
+		private TechnologyRepository $technologyRepository,
+		private UrlGenerator $urlGenerator
+	) {
 	}
 
 	/**
 	 * @return MenuItemDto[]
 	 */
-	public function provide(int $dept): array
+	public function provide(int $dept, ?Technology $technology = null): array
 	{
-		$technologyCategories = $this->technologyRepository->findBy(['parent' => null]);
+		$technologyCategories = $this->technologyRepository->findBy(['parent' => $technology]);
 		$menuItems = [];
 
 		foreach ($technologyCategories as $technologyCategory) {
-			$item = new MenuItemDto($technologyCategory->getName(), (string) $technologyCategory->getId());
+			$item = new MenuItemDto($technologyCategory->getName(), $this->urlGenerator->generateTechnologyUrl($technologyCategory));
 			$menuItems[] = $item;
 
 			$this->generateMenu($dept, $technologyCategory, $item);
@@ -40,7 +43,7 @@ readonly class TechnologyCategoryMenuProvider
 			return;
 		}
 		foreach ($technology->getChildren() as $child) {
-			$item = new MenuItemDto($child->getName(), (string) $child->getId());
+			$item = new MenuItemDto($child->getName(), $this->urlGenerator->generateTechnologyUrl($child));
 			$parent->addChild($item);
 			$this->generateMenu($dept, $child, $item, $currentStep);
 		}

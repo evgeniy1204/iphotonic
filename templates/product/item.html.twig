@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_seo %}
+    {% include 'blocks/meta.html.twig' with {'meta' : product.seo} %}
+{% endblock %}
+
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+{% set currentLevelMenuItems = generate_product_category_one_level_menu(product.category) %}
+
+{% block body %}
+    <main class="main">
+        <div class="container">
+            <div class="layout">
+                <div class="layout-content">
+                    {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs(product.name, product)} %}
+                    {% if currentLevelMenuItems %}
+                        <nav class="inline-nav">
+                            <ul class="inline-nav-list">
+                                {% for currentLevelMenuItem in currentLevelMenuItems %}
+                                    <li class="inline-nav-item">
+                                        <a class="inline-nav-link" href="{{ currentLevelMenuItem.url }}"
+                                           aria-current="{% if currentLevelMenuItem.url == currentPath %}page{% endif %}">{{ currentLevelMenuItem.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    {% endif %}
+
+                    <div class="content">
+                        {{ product.text|raw }}
+                    </div>
+
+                    {% if similarProducts %}
+                        <section class="featured featured--primary">
+                            <h2 class="featured-title">{{ product.category.name }}</h2>
+
+                            <div class="featured-box">
+                                <div class="listing">
+                                    {% for similarProduct in similarProducts %}
+                                        <div class="listing-card">
+                                            <div class="listing-card-image">
+                                                <img src="{{ asset('uploads/product/' ~ similarProduct.images|first) }}"
+                                                     alt="">
+                                            </div>
+                                            <h4 class="listing-card-title">
+                                                <a class="listing-card-link"
+                                                   href="{{ generate_product_url(similarProduct) }}">{{ similarProduct.name }}</a>
+                                            </h4>
+                                            <div class="listing-card-desc">
+                                                {{ similarProduct.summary|raw|nl2br }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                        </section>
+                    {% endif %}
+                    {% if product.relationProducts is not empty %}
+                        <section class="featured featured--primary">
+                            <h2 class="featured-title">{{ relationBlockTitle }}</h2>
+                            <div class="featured-box">
+                                <div class="listing">
+                                    {% for relationProduct in product.relationProducts %}
+                                        <div class="listing-card">
+                                            <div class="listing-card-image">
+                                                <img src="{{ asset('uploads/product/' ~ relationProduct.images|first) }}"
+                                                     alt="">
+                                            </div>
+                                            <h4 class="listing-card-title">
+                                                <a class="listing-card-link"
+                                                   href="{{ generate_product_url(relationProduct) }}">{{ relationProduct.name }}</a>
+                                            </h4>
+                                            <div class="listing-card-desc">
+                                                {{ relationProduct.summary|raw|nl2br }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                        </section>
+                    {% endif %}
+                    {% if product.technology %}
+                        <section class="featured featured--secondary">
+                            <h2 class="featured-title">Technology</h2>
+                            <div class="featured-box content">
+                                <h3>{{ product.technology.name }}</h3>
+
+                                {{ product.technology.summary|nl2br }} <br>
+                                <a class="button" href="{{ generate_technology_url(product.technology) }}">Read more</a>
+                            </div>
+                        </section>
+                    {% endif %}
+                </div>
+
+                {% include 'menu/left_sidebar.html.twig' with {'menuItems': generate_product_category_menu() } %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

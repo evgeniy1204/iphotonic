@@ -3,8 +3,32 @@
 {% block left_sidebar %}
 {% endblock %}
 {% block body %}
-    {% for application in applications %}
-        <img src="{{ application.previewPath }}" alt="{{ application.name }}" width="200" height="300">
-        {{ application.text|raw }}
-    {% endfor %}
+    <main class="main">
+        <div class="container">
+            <div class="layout">
+                <div class="layout-content">
+                    {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs('Applications', null)} %}
+                    <h1 class="main-title">Applications</h1>
+
+                    {% if applications %}
+                        <div class="catalog">
+                            {% for application in applications %}
+                                <div class="catalog-card">
+                                    <h4 class="catalog-card-title">
+                                        {{ application.name }}
+                                    </h4>
+                                    <div class="catalog-card-image">
+                                        <img src="{{ asset('uploads/application/' ~ application.preview) }}" alt="{{ application.name }}">
+                                    </div>
+                                    <div class="catalog-card-desc">
+                                        {{ application.text|nl2br }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}

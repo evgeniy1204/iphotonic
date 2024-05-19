@@ -9,3 +9,26 @@
     padding-inline: 15px;
   }
 }
+
+/* Title */
+
+.main-title {
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+@media (width < 960px) {
+  .main-title {
+    margin-bottom: 20px;
+    font-size: 31px;
+    line-height: 35px;
+  }
+}
+
+@media (width >= 960px) {
+  .main-title {
+    margin-bottom: 32px;
+    font-size: 37px;
+    line-height: 1;
+  }
+}

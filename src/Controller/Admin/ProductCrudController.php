@@ -6,6 +6,7 @@ use App\Constants;
 use App\Entity\Product;
 use App\Field\TinyMCEField;
 use App\Repository\ProductCategoryRepository;
+use App\Repository\TechnologyRepository;
 use App\Trait\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -31,8 +32,9 @@ class ProductCrudController extends AbstractCrudController
 			AssociationField::new('category')->setFormTypeOptions(
 				[
 					'query_builder' => function (ProductCategoryRepository $productCategoryRepository) {
-						return $productCategoryRepository->createQueryBuilder('pc')
-							->andWhere('pc.children IS EMPTY');
+						return $productCategoryRepository->createQueryBuilder('ProductCategory')
+							->andWhere('ProductCategory.children IS EMPTY')
+							->andWhere('ProductCategory.parent IS NOT NULL');
 					}
 				]
 			)->setRequired(true),
@@ -53,8 +55,14 @@ class ProductCrudController extends AbstractCrudController
 				->hideOnIndex(),
 			TinyMCEField::new('text')->hideOnIndex(),
 			AssociationField::new('relationProducts'),
-			AssociationField::new('technology')
-				->hideOnIndex(),
+			AssociationField::new('technology')->setFormTypeOptions(
+				[
+					'query_builder' => function (TechnologyRepository $technologyRepository) {
+						return $technologyRepository->createQueryBuilder('Technology')
+							->andWhere('Technology.children IS EMPTY');
+					}
+				]
+			)->hideOnIndex(),
 			BooleanField::new('active'),
 			BooleanField::new('showOnMainPage'),
 			...$this->getSeoFields(),

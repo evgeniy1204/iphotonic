@@ -1,0 +1,16 @@
+/* Button */
+
+.button {
+  display: inline-block;
+  margin: 0;
+  padding: 10px 24px;
+  background:
+    var(--color-blue-primary)
+    radial-gradient(76% 213% at 2% 14%, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0));
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 27px;
+  text-decoration: none;
+}

@@ -24,9 +24,9 @@ readonly class ProductCategoryMenuProvider
 	/**
 	 * @return MenuItemDto[]
 	 */
-	public function provide(int $dept): array
+	public function provide(int $dept, ?ProductCategory $parent = null): array
 	{
-		$productCategories = $this->productCategoryRepository->findBy(['parent' => null]);
+		$productCategories = $this->productCategoryRepository->findBy(['parent' => $parent]);
 		$menuItems = [];
 
 		foreach ($productCategories as $productCategory) {
@@ -46,17 +46,15 @@ readonly class ProductCategoryMenuProvider
 	private function generateMenu(int $dept, ProductCategory $productCategory, MenuItemDto $parent, int $currentStep = 0): void
 	{
 		$currentStep++;
-		if ($currentStep === $dept) {
-			return;
-		}
-		if (!$productCategory->getChildren()->isEmpty()) {
+		if ($currentStep !== $dept && !$productCategory->getChildren()->isEmpty()) {
 			foreach ($productCategory->getChildren() as $child) {
 				$item = new MenuItemDto($child->getName(), $this->urlGenerator->generateProductCategoryUrl($child));
 				$parent->addChild($item);
 				$this->generateMenu($dept, $child, $item, $currentStep);
 			}
 		} else {
-			$products = $this->productRepository->findByCategoryId($productCategory->getId());
+			$productCategoryIds = !$productCategory->getChildren()->isEmpty() ? $productCategory->getFinalCategories() : [$productCategory->getId()];
+			$products = $this->productRepository->findByCategoryIds($productCategoryIds);
 			foreach ($products as $product) {
 				$item = new MenuItemDto($product->getName(), $this->urlGenerator->generateProductUrl($product));
 				$parent->addChild($item);

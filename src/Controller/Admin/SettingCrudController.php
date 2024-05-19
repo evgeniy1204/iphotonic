@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Constants;
 use App\Entity\Setting;
+use App\Field\TinyMCEField;
 use App\Repository\SettingRepository;
 use App\Trait\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -76,6 +77,8 @@ class SettingCrudController extends AbstractCrudController
 			UrlField::new('linkedIn'),
 			UrlField::new('youtube'),
 			UrlField::new('instagram'),
+			FormField::addTab('Technology'),
+			TinyMCEField::new('technologyContent')->hideOnIndex(),
 			...$this->getSeoFields(),
 		];
 	}

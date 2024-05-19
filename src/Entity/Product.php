@@ -56,7 +56,7 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
     private array $files;
 
     #[
-		ORM\ManyToOne(targetEntity: ProductCategory::class, inversedBy: 'products'),
+		ORM\ManyToOne(targetEntity: ProductCategory::class),
 		ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')
 	]
     private ?ProductCategory $category;

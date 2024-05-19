@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use App\Entity\ProductCategory;
+use App\Entity\Technology;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -51,9 +52,24 @@ class ProductRepository extends ServiceEntityRepository
 		return $qb->getQuery()->getResult();
 	}
 
-    public function findByCategoryId(int $categoryId, int $limit = 4)
+	/**
+	 * @param int[] $productCategoryIds
+	 * @param int   $limit
+	 *
+	 * @return Product[]
+	 */
+    public function findByCategoryIds(array $productCategoryIds, int $limit = 4): array
     {
-        return $this->findBy(['category' => $categoryId, 'active' => true], limit: $limit);
+		$qb = $this->createQueryBuilder('Product');
+
+		$qb
+			->select('Product')
+			->andWhere('Product.active = TRUE')
+			->andWhere('Product.category IN (:productCategoryIds)')
+			->setParameter('productCategoryIds', $productCategoryIds)
+			->setMaxResults($limit);
+
+		return $qb->getQuery()->getResult();
     }
 
 	/**
@@ -69,6 +85,19 @@ class ProductRepository extends ServiceEntityRepository
 			->andWhere('Product.active = TRUE')
 			->andWhere('Product.category = :productCategory')
 			->setParameter('productCategory', $productCategory);
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function findByTechnology(Technology $technology): array
+	{
+		$qb = $this->createQueryBuilder('Product');
+
+		$qb
+			->select('Product')
+			->andWhere('Product.active = TRUE')
+			->andWhere('Product.technology = :technology')
+			->setParameter('technology', $technology);
 
 		return $qb->getQuery()->getResult();
 	}

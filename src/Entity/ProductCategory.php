@@ -42,7 +42,7 @@ class ProductCategory implements BreadcrumbAwareInterface
 	#[ORM\Column(name: 'slug', type: Types::STRING, length: 255, unique: true, nullable: true)]
 	private ?string $slug;
 
-	#[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
+	#[ORM\ManyToMany(targetEntity: Product::class)]
     private Collection $equipments;
 
 	#[
@@ -160,9 +160,9 @@ class ProductCategory implements BreadcrumbAwareInterface
 		$this->description = $description;
 	}
 
-	public function getEquipments(): Collection
+	public function getEquipments(): array
 	{
-		return $this->equipments;
+		return $this->equipments->toArray();
 	}
 
 	public function getTechnology(): ?Technology

@@ -29,11 +29,17 @@ class Technology implements SearchResultAwareInterface, BreadcrumbAwareInterface
     ]
     private int $id;
 
-    #[ORM\Column(name: 'text', type: Types::TEXT, nullable: true)]
-    private ?string $text;
+    #[ORM\Column(name: 'content', type: Types::TEXT, nullable: true)]
+    private ?string $content;
 
-	#[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $images;
+	#[ORM\Column(name: 'summary', type: Types::TEXT, nullable: true)]
+	private ?string $summary;
+
+	#[ORM\Column(name: 'image', type: Types::STRING, nullable: true)]
+	private ?string $image;
+
+	#[ORM\Column(name: 'image_short_description', type: Types::STRING, nullable: true)]
+	private ?string $imageShortDescription;
 
 	#[
 		ORM\ManyToOne(targetEntity: Technology::class, inversedBy: 'children'),
@@ -60,7 +66,9 @@ class Technology implements SearchResultAwareInterface, BreadcrumbAwareInterface
 		$this->slug = null;
 		$this->active = false;
 		$this->parent = null;
-		$this->images = [];
+		$this->summary = null;
+		$this->image = null;
+		$this->imageShortDescription = null;
 		$this->children = new ArrayCollection();
     }
 
@@ -74,14 +82,14 @@ class Technology implements SearchResultAwareInterface, BreadcrumbAwareInterface
         return $this->id;
     }
 
-    public function getText(): ?string
+    public function getContent(): ?string
     {
-        return $this->text;
+        return $this->content;
     }
 
-    public function setText(?string $text): static
+    public function setContent(?string $content): static
     {
-        $this->text = $text;
+        $this->content = $content;
 
         return $this;
     }
@@ -97,16 +105,6 @@ class Technology implements SearchResultAwareInterface, BreadcrumbAwareInterface
 
         return $this;
     }
-
-	public function getImages(): array
-	{
-		return $this->images;
-	}
-
-	public function setImages(?array $images): void
-	{
-		$this->images = $images ?? [];
-	}
 
 	public function getSlug(): ?string
 	{
@@ -185,5 +183,35 @@ class Technology implements SearchResultAwareInterface, BreadcrumbAwareInterface
 	public function setActive(?bool $active): void
 	{
 		$this->active = (bool) $active;
+	}
+
+	public function getSummary(): ?string
+	{
+		return $this->summary;
+	}
+
+	public function setSummary(?string $summary): void
+	{
+		$this->summary = $summary;
+	}
+
+	public function getImage(): ?string
+	{
+		return $this->image;
+	}
+
+	public function setImage(?string $image): void
+	{
+		$this->image = $image;
+	}
+
+	public function getImageShortDescription(): ?string
+	{
+		return $this->imageShortDescription;
+	}
+
+	public function setImageShortDescription(?string $imageShortDescription): void
+	{
+		$this->imageShortDescription = $imageShortDescription;
 	}
 }

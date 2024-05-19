@@ -31,17 +31,22 @@ class ProductLandingController extends AbstractController
 	public function productCategory(
 		string $productCategorySlug,
 		?string $productSubCategorySlug,
-		ProductCategoryRepository $productCategoryRepository
+		ProductCategoryRepository $productCategoryRepository,
+		ProductRepository $productRepository
 	): Response {
 		$productCategory = $productCategoryRepository->findOneBy(['slug' => $productSubCategorySlug ?? $productCategorySlug]);
+		$products = $productRepository->findByCategoryIds($productCategory->getFinalCategories(), 2);
 
 		return $this->render('product_category/index.html.twig', [
 			'productCategory' => $productCategory,
+			'products' => $products,
 		]);
 	}
 
-	#[Route('/{productCategorySlug}/{productSubCategorySlug}/{productSlug}', name: 'app_product_item', methods: [Request::METHOD_GET])]
+	#[Route('/{productCategorySlug}/{productSubCategorySlug?}/{productSlug}', name: 'app_product_item', methods: [Request::METHOD_GET])]
 	public function product(
+		string $productCategorySlug,
+		?string $productSubCategorySlug,
 		string $productSlug,
 		ProductRepository $productRepository
 	): Response {
@@ -56,7 +61,7 @@ class ProductLandingController extends AbstractController
 		$relationProductCategories = array_unique($relationProductCategories);
 		$relationBlockTitle = count($relationProductCategories) === 1 ? $relationProductCategories[0] : $relationBlockTitle;
 
-		return $this->render('product/index.html.twig', [
+		return $this->render('product/item.html.twig', [
 			'product' => $product,
 			'similarProducts' => $similarProducts,
 			'relationBlockTitle' => $relationBlockTitle

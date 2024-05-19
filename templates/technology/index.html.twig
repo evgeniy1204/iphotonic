@@ -1,9 +1,54 @@
 {% extends 'base.html.twig' %}
 
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+{% set currentLevelMenuItems = generate_technology_category_one_level_menu(null) %}
+
 {% block body %}
-<div class="container">
-    {% for technology in technologies %}
-        <a href="{{ generate_technology_url(technology) }}">{{ technology.name }}</a>
-    {% endfor %}
-</div>
+    <main class="main">
+        <div class="container">
+            <div class="layout">
+                <div class="layout-content">
+                    {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs('Technology', null)} %}
+                    <h1 class="main-title">Technology</h1>
+                    {% if currentLevelMenuItems %}
+                        <nav class="inline-nav">
+                            <ul class="inline-nav-list">
+                                {% for currentLevelMenuItem in currentLevelMenuItems %}
+                                    <li class="inline-nav-item">
+                                        <a class="inline-nav-link" href="{{ currentLevelMenuItem.url }}"
+                                           aria-current="{% if currentLevelMenuItem.url == currentPath %}page{% endif %}">{{ currentLevelMenuItem.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    {% endif %}
+
+                    <div class="content">
+                        {{ content|raw }}
+                    </div>
+
+                    {% if technologies %}
+                        <div class="catalog">
+                            {% for technology in technologies %}
+                                <div class="catalog-card">
+                                    <div class="catalog-card-image">
+                                        <img src="{{ asset('uploads/technology/' ~ technology.image) }}" alt="{{ technology.name }}">
+                                    </div>
+                                    <h4 class="catalog-card-title">
+                                        <a class="catalog-card-link" href="{{ generate_technology_url(technology) }}">{{ technology.name }}</a>
+                                    </h4>
+                                    <div class="catalog-card-desc">
+                                        {{ technology.imageShortDescription|nl2br }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% include 'menu/left_sidebar.html.twig' with {'menuItems': generate_technology_category_menu() } %}
+
+            </div>
+        </div>
+    </main>
 {% endblock %}

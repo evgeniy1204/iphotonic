@@ -31,7 +31,6 @@ readonly class EventBreadcrumbsBuilder implements BreadcrumbsBuilderInterface
 			'Upcoming Events',
 			$this->urlGenerator->generateEventLandingUrl(),
 		);
-		$breadcrumbs[] = new BreadcrumbDto($breadcrumbAware->getTitle());
 
 		return $breadcrumbs;
 	}
