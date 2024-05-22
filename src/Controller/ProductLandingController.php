@@ -35,7 +35,7 @@ class ProductLandingController extends AbstractController
 		ProductRepository $productRepository
 	): Response {
 		$productCategory = $productCategoryRepository->findOneBy(['slug' => $productSubCategorySlug ?? $productCategorySlug]);
-		$products = $productRepository->findByCategoryIds($productCategory->getFinalCategories(), 2);
+		$products = $productRepository->findByCategoryIds([$productCategory->getId()], 2);
 
 		return $this->render('product_category/index.html.twig', [
 			'productCategory' => $productCategory,

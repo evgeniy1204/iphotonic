@@ -39,4 +39,6 @@ public/uploads/media_preview/*
 !public/uploads/media_preview/.gitkeeper
 public/uploads/main/*
 !public/uploads/main/.gitkeeper
+public/uploads/product_category/*
+!public/uploads/product_category/.gitkeeper
 ### docker

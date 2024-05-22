@@ -15,7 +15,12 @@
                         {{ productCategory.summary|raw }}
                     </div>
 
-                    {% include 'blocks/product/product_cards_block.html.twig' with {'products': products} %}
+                    {% if productCategory.children %}
+                        sd
+                        {% include 'blocks/product_category/product_category_cards_block.html.twig' with {'product_categories': productCategory.children} %}
+                    {% else%}
+                        {% include 'blocks/product/product_cards_block.html.twig' with {'products': products} %}
+                    {% endif %}
 
                     <div class="content">
                         {{ productCategory.description|raw }}

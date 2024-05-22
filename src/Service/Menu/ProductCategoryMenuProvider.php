@@ -44,14 +44,14 @@ readonly class ProductCategoryMenuProvider
 	private function generateMenu(int $dept, ProductCategory $productCategory, MenuItemDto $parent, int $currentStep = 0): void
 	{
 		$currentStep++;
-		if ($currentStep !== $dept && !$productCategory->getChildren()->isEmpty()) {
+		if ($currentStep !== $dept && $productCategory->getChildren()) {
 			foreach ($productCategory->getChildren() as $child) {
 				$item = new MenuItemDto($child->getName(), $this->urlGenerator->generateProductCategoryUrl($child));
 				$parent->addChild($item);
 				$this->generateMenu($dept, $child, $item, $currentStep);
 			}
 		} else {
-			$productCategoryIds = !$productCategory->getChildren()->isEmpty() ? $productCategory->getFinalCategories() : [$productCategory->getId()];
+			$productCategoryIds = $productCategory->getChildren() ? $productCategory->getFinalCategories() : [$productCategory->getId()];
 			$products = $this->productRepository->findByCategoryIds($productCategoryIds);
 			foreach ($products as $product) {
 				$item = new MenuItemDto($product->getName(), $this->urlGenerator->generateProductUrl($product));

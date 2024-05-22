@@ -17,7 +17,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 ]
 class ProductCategory implements BreadcrumbAwareInterface
 {
-    #[
+	public const PRODUCT_CATEGORY_PREVIEW_FOLDER = 'product_category';
+
+	#[
         ORM\Id,
         ORM\GeneratedValue,
         ORM\Column(name: 'id')
@@ -35,6 +37,9 @@ class ProductCategory implements BreadcrumbAwareInterface
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     private ?self $parent;
+
+	#[ORM\Column(name: 'preview_image', length: 255, nullable: true)]
+	private ?string $previewImage;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $children;
@@ -58,6 +63,7 @@ class ProductCategory implements BreadcrumbAwareInterface
 		$this->slug = null;
 		$this->description = null;
 		$this->parent = null;
+		$this->previewImage = null;
         $this->children = new ArrayCollection();
         $this->equipments = new ArrayCollection();
     }
@@ -97,11 +103,11 @@ class ProductCategory implements BreadcrumbAwareInterface
     }
 
 	/**
-	 * @return Collection|ProductCategory[]
+	 * @return ProductCategory[]
 	 */
-    public function getChildren(): Collection
+    public function getChildren(): array
     {
-        return $this->children;
+        return $this->children->toArray();
     }
 
     public function addChild(self $child): static
@@ -204,5 +210,15 @@ class ProductCategory implements BreadcrumbAwareInterface
 			}
 			$finalCategories[] = $child;
 		}
+	}
+
+	public function getPreviewImage(): ?string
+	{
+		return $this->previewImage;
+	}
+
+	public function setPreviewImage(?string $previewImage): void
+	{
+		$this->previewImage = $previewImage;
 	}
 }
