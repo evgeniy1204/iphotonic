@@ -41,4 +41,6 @@ public/uploads/main/*
 !public/uploads/main/.gitkeeper
 public/uploads/product_category/*
 !public/uploads/product_category/.gitkeeper
+public/uploads/files/*
+!public/uploads/files/.gitkeeper
 ### docker

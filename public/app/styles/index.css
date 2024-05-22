@@ -9,12 +9,14 @@
 @import url('blocks/article-list.css');
 @import url('blocks/breadcrumb.css');
 @import url('blocks/button.css');
+@import url('blocks/card.css');
 @import url('blocks/catalog.css');
 @import url('blocks/container.css');
 @import url('blocks/content.css');
 @import url('blocks/event-cards.css');
 @import url('blocks/featured.css');
 @import url('blocks/footer.css');
+@import url('blocks/gallery.css');
 @import url('blocks/header.css');
 @import url('blocks/hero.css');
 @import url('blocks/inline-nav.css');

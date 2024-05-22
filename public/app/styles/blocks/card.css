@@ -1,0 +1,57 @@
+/* Card */
+
+.card-about p {
+  margin: 0;
+}
+
+@media (width < 960px) {
+  .card {
+    margin-bottom: 32px;
+  }
+
+  .card-gallery {
+    margin-bottom: 24px;
+  }
+
+  .card-about {
+    display: grid;
+    gap: 11px;
+  }
+
+  .card-about p {
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  .card-action {
+    margin-top: 20px;
+  }
+}
+
+@media (width >= 960px) {
+  .card {
+    display: grid;
+    grid-template-columns: 435px 1fr;
+    gap: 50px;
+    margin-bottom: 40px;
+    padding-top: 16px;
+  }
+
+  .card-info {
+    padding-top: 48px;
+  }
+
+  .card-about {
+    display: grid;
+    gap: 16px;
+  }
+
+  .card-about p {
+    font-size: 18px;
+    line-height: 27px;
+  }
+
+  .card-action {
+    margin-top: 32px;
+  }
+}

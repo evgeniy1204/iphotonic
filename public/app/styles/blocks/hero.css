@@ -138,8 +138,8 @@
 
   .hero-feature {
     display: grid;
-    align-content: start;
     grid-template-rows: min-content 1fr;
+    align-content: start;
   }
 
   .hero-feature-title {
@@ -156,6 +156,13 @@
     line-height: 25px;
   }
 
+  .hero-feature-info img {
+    display: block;
+    max-width: 100%;
+    max-height: 328px;
+    margin-inline: auto;
+  }
+
   .hero-feature--primary .hero-feature-info {
     grid-template-rows: min-content 1fr;
     padding-bottom: 0;
@@ -167,25 +174,11 @@
     text-align: center;
   }
 
-  .hero-feature--primary .hero-feature-info img {
-    display: block;
-    width: 407px;
-    height: 328px;
-    margin-inline: auto;
-  }
-
   .hero-feature--secondary .hero-feature-info {
     grid-template-rows: 1fr min-content;
   }
 
   .hero-feature--secondary .hero-feature-info span {
     max-width: 476px;
-  }
-
-  .hero-feature--secondary .hero-feature-info img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 579 / 241;
   }
 }

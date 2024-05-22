@@ -2,7 +2,7 @@
 
 @media (width < 960px) {
   .layout {
-    margin-top: 6px;
+    padding-top: 6px;
   }
 
   .layout-sidebar {

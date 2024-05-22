@@ -4,6 +4,10 @@
     {% include 'blocks/meta.html.twig' with {'meta' : product.seo} %}
 {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+{% endblock %}
+
 {% block body %}
     <main class="main">
         <div class="container">
@@ -11,6 +15,55 @@
                 <div class="layout-content">
                     {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs(product.name, product)} %}
                     {% include 'blocks/current_level_menu.html.twig' with {'currentLevelMenuItems': generate_product_category_one_level_menu(product.category)} %}
+
+                    <h1 class="main-title mobile-only">{{ product.name }}</h1>
+
+                    <div class="card">
+                        <div class="card-gallery">
+                            <div class="gallery swiper js-gallery">
+                                <div class="gallery-wrapper swiper-wrapper">
+                                    {% for image in product.images %}
+                                        <div class="gallery-slide swiper-slide">
+                                            <img src="{{ asset('uploads/product/' ~ image) }}" alt="{{ image }}">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="gallery-controls">
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                </div>
+                            </div>
+                            <div class="gallery-thumbs swiper js-gallery-thumbs" thumbsSlider="">
+                                <div class="gallery-thumbs-wrapper swiper-wrapper">
+                                    {% for image in product.images %}
+                                        <div class="gallery-thumb swiper-slide">
+                                            <img src="{{ asset('uploads/product/' ~ image) }}" width="40" height="40" alt="{{ image }}">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card-info">
+                            <h1 class="main-title desktop-only">{{ product.name }}</h1>
+
+                            <div class="card-about">
+                               {{ product.summary }}
+
+                                {% for filePaths in product.filePaths %}
+                                    <p>
+                                        <a class="link-doc" href="{{ asset(filePaths.path) }}" target="_blank">{{ filePaths.name }}</a>
+                                    </p>
+                                {% endfor %}
+                            </div>
+
+                            <div class="card-action">
+                                <a class="button" href="#">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="content">
                         {{ product.text|raw }}
@@ -25,4 +78,27 @@
             </div>
         </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".js-gallery-thumbs", {
+            spaceBetween: 1,
+            freeMode: true,
+        });
+        var swiper2 = new Swiper(".js-gallery", {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            thumbs: {
+                swiper: swiper,
+            },
+        });
+    </script>
+
 {% endblock %}

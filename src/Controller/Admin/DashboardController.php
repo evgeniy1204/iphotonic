@@ -6,6 +6,7 @@ use App\Entity\AboutUs;
 use App\Entity\Application;
 use App\Entity\Download;
 use App\Entity\Event;
+use App\Entity\File;
 use App\Entity\Media;
 use App\Entity\Membership;
 use App\Entity\News;
@@ -49,6 +50,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
 		yield MenuItem::linkToCrud('Product categories', 'fa fa-bar-chart', ProductCategory::class);
+		yield MenuItem::linkToCrud('Files', 'fa fa-file', File::class);
 		yield MenuItem::section('Catalog', 'fa fa-list');
 		yield MenuItem::linkToCrud('Product', 'fa fa-cube', Product::class);
 		yield MenuItem::linkToCrud('Applications', 'fa fa-file', Application::class);

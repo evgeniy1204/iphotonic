@@ -32,12 +32,13 @@
 .sidenav-wrapper {
   position: relative;
   isolation: isolate;
+  display: flex;
 }
 
 /* Link */
 
 .sidenav-link {
-  display: block;
+  flex: 1;
   padding: 6px 32px 6px 10px;
   color: var(--color-black);
   text-decoration: none;
@@ -60,8 +61,7 @@
 /* Toggle */
 
 .sidenav-toggle {
-  position: absolute;
-  inset: 0 0 0 auto;
+  position: relative;
   width: 35px;
   margin: 0;
   padding: 0;

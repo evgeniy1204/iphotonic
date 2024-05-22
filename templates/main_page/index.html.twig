@@ -29,14 +29,7 @@
                         <div class="hero-feature-info">
                             <span>{{ data.setting.mainLeftBlockSummary|raw|nl2br }}</span>
 
-                            <picture>
-                                <source srcset="{{ asset('uploads/main/') ~ data.setting.mainLeftBlockImage }}"
-                                        media="(min-width: 960px)">
-                                <img
-                                        src="{{ asset('uploads/main/') ~ data.setting.mainLeftBlockImage }}"
-                                        alt=""
-                                >
-                            </picture>
+                            <img src="{{ asset('uploads/main/') ~ data.setting.mainLeftBlockImage }}" alt="">
                         </div>
                     </div>
 
@@ -48,11 +41,7 @@
                         <div class="hero-feature-info">
                             <span>{{ data.setting.mainRightBlockSummary|raw|nl2br }}</span>
 
-                            <picture>
-                                <source srcset="/images/hero/feature-secondary-desktop@1x.jpg 1x, /images/hero/feature-secondary-desktop@2x.jpg 2x"
-                                        media="(min-width: 960px)">
-                                <img src="{{ asset('images/hero/feature-secondary-mobile.jpg') }}" alt="">
-                            </picture>
+                            <img src="{{ asset('uploads/main/') ~ data.setting.mainLeftBlockImage }}" alt="">
                         </div>
                     </div>
                 </div>
