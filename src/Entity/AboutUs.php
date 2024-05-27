@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AboutUsRepository;
 use App\Trait\SeoFieldsTrait;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AboutUsRepository::class)]
@@ -18,7 +19,7 @@ class AboutUs
 	]
     private int $id;
 
-    #[ORM\Column(name: 'content', length: 255, nullable: true)]
+    #[ORM\Column(name: 'content', type: Types::TEXT, nullable: true)]
     private ?string $content;
 
 	public function __construct()
