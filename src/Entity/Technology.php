@@ -59,6 +59,9 @@ class Technology implements SearchResultAwareInterface, BreadcrumbAwareInterface
 	#[ORM\Column(name: 'is_active', type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
 	private bool $active;
 
+	#[ORM\Column(name: 'menu_order', type: Types::INTEGER, nullable: false)]
+	private int $menuOrder;
+
     public function __construct()
     {
 		$this->id = 0;
@@ -68,6 +71,7 @@ class Technology implements SearchResultAwareInterface, BreadcrumbAwareInterface
 		$this->parent = null;
 		$this->summary = null;
 		$this->image = null;
+		$this->menuOrder = 0;
 		$this->imageShortDescription = null;
 		$this->children = new ArrayCollection();
     }
@@ -213,5 +217,15 @@ class Technology implements SearchResultAwareInterface, BreadcrumbAwareInterface
 	public function setImageShortDescription(?string $imageShortDescription): void
 	{
 		$this->imageShortDescription = $imageShortDescription;
+	}
+
+	public function getMenuOrder(): int
+	{
+		return $this->menuOrder;
+	}
+
+	public function setMenuOrder(int $menuOrder): void
+	{
+		$this->menuOrder = $menuOrder;
 	}
 }

@@ -8,6 +8,7 @@ use App\Field\TinyMCEField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ProductCategoryCrudController extends AbstractCrudController
@@ -21,6 +22,7 @@ class ProductCategoryCrudController extends AbstractCrudController
     {
         return [
 			TextField::new('name')->setRequired(true),
+			IntegerField::new('menuOrder')->setRequired(true),
 			TextField::new('slug')->setRequired(true)
 				->hideOnIndex(),
 			AssociationField::new('parent')

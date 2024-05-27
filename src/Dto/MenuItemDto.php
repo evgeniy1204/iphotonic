@@ -9,6 +9,7 @@ class MenuItemDto
 	public function __construct(
 		private readonly string $name,
 		private readonly string $url,
+		private readonly int $order,
 		private array $children = []
 	) {
 	}
@@ -34,5 +35,15 @@ class MenuItemDto
 	public function getChildren(): array
 	{
 		return $this->children;
+	}
+
+	public function getOrder(): int
+	{
+		return $this->order;
+	}
+
+	public function sortChildren(callable $sortFunc): void
+	{
+		usort($this->children, $sortFunc);
 	}
 }

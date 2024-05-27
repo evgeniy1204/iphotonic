@@ -73,6 +73,9 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 	#[ORM\Column(name: 'show_on_main_page', nullable: false, options: ['default' => false])]
 	private bool $showOnMainPage;
 
+	#[ORM\Column(name: 'menu_order', type: Types::INTEGER, nullable: false)]
+	private int $menuOrder;
+
     public function __construct()
     {
 		$this->id = 0;
@@ -86,6 +89,7 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 		$this->images = [];
 		$this->category = null;
 		$this->technology = null;
+		$this->menuOrder = 0;
 		$this->relationProducts = new ArrayCollection();
         $this->seo = new SeoEmbed();
     }
@@ -275,5 +279,15 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 		if ($category->getParent()) {
 			$this->generateBreadcrumbs($breadcrumbs, $category->getParent());
 		}
+	}
+
+	public function getMenuOrder(): int
+	{
+		return $this->menuOrder;
+	}
+
+	public function setMenuOrder(int $menuOrder): void
+	{
+		$this->menuOrder = $menuOrder;
 	}
 }

@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -29,6 +30,7 @@ class TechnologyCrudController extends AbstractCrudController
         return [
 			FormField::addTab('General fields'),
 			TextField::new('name')->setRequired(true),
+			IntegerField::new('menuOrder')->setRequired(true),
 			TextField::new('slug')->setRequired(true),
 			AssociationField::new('parent'),
 			TextareaField::new('summary')->hideOnIndex(),

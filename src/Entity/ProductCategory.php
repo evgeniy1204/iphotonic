@@ -56,6 +56,9 @@ class ProductCategory implements BreadcrumbAwareInterface
 	]
 	private ?Technology $technology;
 
+	#[ORM\Column(name: 'menu_order', type: Types::INTEGER, nullable: false)]
+	private int $menuOrder;
+
     public function __construct()
     {
 		$this->id = 0;
@@ -64,6 +67,7 @@ class ProductCategory implements BreadcrumbAwareInterface
 		$this->description = null;
 		$this->parent = null;
 		$this->previewImage = null;
+		$this->menuOrder = 0;
         $this->children = new ArrayCollection();
         $this->equipments = new ArrayCollection();
     }
@@ -220,5 +224,15 @@ class ProductCategory implements BreadcrumbAwareInterface
 	public function setPreviewImage(?string $previewImage): void
 	{
 		$this->previewImage = $previewImage;
+	}
+
+	public function getMenuOrder(): int
+	{
+		return $this->menuOrder;
+	}
+
+	public function setMenuOrder(int $menuOrder): void
+	{
+		$this->menuOrder = $menuOrder;
 	}
 }

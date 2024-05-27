@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -30,6 +31,7 @@ class ProductCrudController extends AbstractCrudController
 		return [
 			FormField::addTab('General fields'),
 			AssociationField::new('category')->setRequired(true),
+			IntegerField::new('menuOrder')->setRequired(true),
 			TextField::new('name')->setRequired(true),
 			TextField::new('slug')->setRequired(true),
 			TextareaField::new('summary')->hideOnIndex(),

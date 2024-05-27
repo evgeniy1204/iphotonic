@@ -24,12 +24,20 @@ readonly class TechnologyCategoryMenuProvider
 	{
 		$technologyCategories = $this->technologyRepository->findBy(['parent' => $technology]);
 		$menuItems = [];
+		$sortFunc = function (MenuItemDto $aDto, MenuItemDto $bDto) {
+			return $aDto->getOrder() > $bDto->getOrder();
+		};
 
 		foreach ($technologyCategories as $technologyCategory) {
-			$item = new MenuItemDto($technologyCategory->getName(), $this->urlGenerator->generateTechnologyUrl($technologyCategory));
+			$item = new MenuItemDto($technologyCategory->getName(), $this->urlGenerator->generateTechnologyUrl($technologyCategory), $technologyCategory->getMenuOrder());
 			$menuItems[] = $item;
 
 			$this->generateMenu($dept, $technologyCategory, $item);
+
+			usort($menuItems, $sortFunc);
+
+			$this->sortMenu($menuItems, $sortFunc);
+
 		}
 
 		return $menuItems;
@@ -43,9 +51,24 @@ readonly class TechnologyCategoryMenuProvider
 			return;
 		}
 		foreach ($technology->getChildren() as $child) {
-			$item = new MenuItemDto($child->getName(), $this->urlGenerator->generateTechnologyUrl($child));
+			$item = new MenuItemDto($child->getName(), $this->urlGenerator->generateTechnologyUrl($child), $child->getMenuOrder());
 			$parent->addChild($item);
 			$this->generateMenu($dept, $child, $item, $currentStep);
+		}
+	}
+
+	/**
+	 * @param MenuItemDto[] $menuItems
+	 * @param callable $func
+	 * @return void
+	 */
+	private function sortMenu(array $menuItems, callable $sortFunc): void
+	{
+		foreach ($menuItems as $menuItem) {
+			if ($children = $menuItem->getChildren()) {
+				$menuItem->sortChildren($sortFunc);
+				$this->sortMenu($children, $sortFunc);
+			}
 		}
 	}
 }
