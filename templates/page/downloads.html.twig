@@ -7,20 +7,8 @@
         <div class="container">
 
             <div class="layout-full">
-
-                <nav class="breadcrumb" aria-label="breadcrumb">
-                    <ol class="breadcrumb-list">
-                        <li class="breadcrumb-item">
-                            <a class="breadcrumb-link" href="#">I-Photonics</a>
-                        </li>
-                        <li class="breadcrumb-item" aria-current="page">
-                            Downloads
-                        </li>
-                    </ol>
-                </nav>
-
+                {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs('Downloads', null)} %}
                 <h1 class="main-title">Downloads</h1>
-
                 <div class="downloads">
                     {% for download in downloads %}
                         <div class="downloads-item">

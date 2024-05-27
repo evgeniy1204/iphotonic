@@ -5,49 +5,34 @@
 {% block body %}
     <main class="main">
         <div class="container">
-
             <div class="layout-full">
-
-                <nav class="breadcrumb" aria-label="breadcrumb">
-                    <ol class="breadcrumb-list">
-                        <li class="breadcrumb-item">
-                            <a class="breadcrumb-link" href="#">I-Photonics</a>
-                        </li>
-                        <li class="breadcrumb-item" aria-current="page">
-                            Contacts
-                        </li>
-                    </ol>
-                </nav>
-
+                {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs('Contacts', null)} %}
                 <h1 class="main-title">Contacts</h1>
-
                 <div class="contacts">
                     <div class="contacts-wrapper">
                         <div class="contacts-info">
                             <h2>LITHUANIA</h2>
                             <dl class="contacts-list">
                                 <div>
-                                    <dt>I-Photonics UAB:</dt>
-                                    <dd>Parko g.3, Avižienių k., LT-14198, Vilniaus raj</dd>
+                                    {{ address|nl2br }}
                                 </div>
                                 <div>
                                     <dt>Phone:</dt>
                                     <dd>
-                                        <div>+ 370 668 90702</div>
-                                        <div>+ 49 1732918891</div>
+                                        {{ phones|nl2br }}
                                     </dd>
                                 </div>
                                 <div>
                                     <dt>Email:</dt>
-                                    <dd><a href="mailto:info@i-photonics.lt">info@i-photonics.lt</a></dd>
+                                    <dd><a href="mailto:{{ email }}">{{ email }}</a></dd>
                                 </div>
                                 <div>
                                     <dt>Web:</dt>
-                                    <dd><a href="https://www.i-photonics.lt">www.i-photonics.lt</a></dd>
+                                    <dd><a href="{{ webSite }}">{{ webSite }}</a></dd>
                                 </div>
                                 <div>
                                     <dt>Customer service:</dt>
-                                    <dd><a href="mailto:service@i-photonics.lt">service@i-photonics.lt</a></dd>
+                                    <dd><a href="mailto:{{ customerService }}">{{ customerService }}</a></dd>
                                 </div>
                             </dl>
                         </div>
@@ -59,15 +44,11 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="contacts-map">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150506.04233506104!2d27.428564956468154!3d53.88452714475675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcfd35b1e6ad3%3A0xb61b853ddb570d9!2sMinsk%2C%20Minsk%20Region!5e0!3m2!1sen!2sby!4v1716737137862!5m2!1sen!2sby" width="100%" height="530" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </main>
-
 {% endblock %}

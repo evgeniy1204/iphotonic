@@ -2,6 +2,7 @@ twig:
     file_name_pattern: '*.twig'
     globals:
         base_domain: '%base_domain%'
+        site_name: '%site_name%'
 
 when@test:
     twig:

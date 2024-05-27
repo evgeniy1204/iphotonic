@@ -6,6 +6,7 @@
 parameters:
     app.timezone_id: '%env(TIMEZONE_ID)%'
     base_domain: '%env(BASE_DOMAIN)%'
+    site_name: '%env(SITE_NAME)%'
 
 services:
     # default configuration for services in *this* file

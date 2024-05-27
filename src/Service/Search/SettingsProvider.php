@@ -42,6 +42,31 @@ readonly class SettingsProvider
 		return $this->getSettings()->getAboutUs();
 	}
 
+	public function getEmail(): ?string
+	{
+		return $this->getSettings()->getEmail();
+	}
+
+	public function getPhone(): ?string
+	{
+		return $this->getSettings()->getPhones();
+	}
+
+	public function getWebsite(): ?string
+	{
+		return $this->getSettings()->getWebSite();
+	}
+
+	public function getAddress(): ?string
+	{
+		return $this->getSettings()->getAddress();
+	}
+
+	public function getCustomerService(): ?string
+	{
+		return $this->getSettings()->getCustomerService();
+	}
+
 	public function getSocialLinks(): ?SocialNetworksDto
 	{
 		return SocialNetworksDto::fromSetting($this->getSettings());

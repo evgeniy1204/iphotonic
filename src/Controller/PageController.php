@@ -29,10 +29,15 @@ class PageController extends AbstractController
 	#[Route('/contacts', name: 'app_contacts_index', methods: [Request::METHOD_GET])]
 	public function contacts(SettingsProvider $settingsProvider): Response
 	{
-		$about = $settingsProvider->getAboutUsContent();
-		$socialLinks = $settingsProvider->getSocialLinks();
-
-		return $this->render('page/contacts.html.twig', ['about' => $about, 'socialLinks' => $socialLinks]);
+		return $this->render('page/contacts.html.twig', [
+			'about' => $settingsProvider->getAboutUsContent(),
+			'socialLinks' => $settingsProvider->getSocialLinks(),
+			'email' => $settingsProvider->getEmail(),
+			'phones' => $settingsProvider->getPhone(),
+			'address' => $settingsProvider->getAddress(),
+			'webSite' => $settingsProvider->getWebsite(),
+			'customerService' => $settingsProvider->getCustomerService()
+		]);
 	}
 
 	#[Route('/downloads', name: 'app_downloads_index', methods: [Request::METHOD_GET])]

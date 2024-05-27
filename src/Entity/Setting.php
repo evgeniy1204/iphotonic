@@ -67,6 +67,21 @@ class Setting
 	#[ORM\Column(name: 'main_right_block_images', type: Types::SIMPLE_ARRAY, nullable: true)]
 	private ?array $mainRightBlockImages;
 
+	#[ORM\Column(name: 'phones', type: Types::TEXT, nullable: true)]
+	private ?string $phones;
+
+	#[ORM\Column(name: 'email', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $email;
+
+	#[ORM\Column(name: 'address', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $address;
+
+	#[ORM\Column(name: 'web_site', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $webSite;
+
+	#[ORM\Column(name: 'customer_service', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $customerService;
+
 	public function __construct()
 	{
 		$this->id = 0;
@@ -75,6 +90,11 @@ class Setting
 		$this->instagram = null;
 		$this->contacts = null;
 		$this->aboutUs = null;
+		$this->email = null;
+		$this->phones = null;
+		$this->address = null;
+		$this->webSite = null;
+		$this->customerService = null;
 		$this->seo = new SeoEmbed();
 	}
 
@@ -227,5 +247,55 @@ class Setting
 	public function setTechnologyContent(?string $technologyContent): void
 	{
 		$this->technologyContent = $technologyContent;
+	}
+
+	public function getPhones(): ?string
+	{
+		return $this->phones;
+	}
+
+	public function setPhones(?string $phones): void
+	{
+		$this->phones = $phones;
+	}
+
+	public function getEmail(): ?string
+	{
+		return $this->email;
+	}
+
+	public function setEmail(?string $email): void
+	{
+		$this->email = $email;
+	}
+
+	public function getAddress(): ?string
+	{
+		return $this->address;
+	}
+
+	public function setAddress(?string $address): void
+	{
+		$this->address = $address;
+	}
+
+	public function getWebSite(): ?string
+	{
+		return $this->webSite;
+	}
+
+	public function setWebSite(?string $webSite): void
+	{
+		$this->webSite = $webSite;
+	}
+
+	public function getCustomerService(): ?string
+	{
+		return $this->customerService;
+	}
+
+	public function setCustomerService(?string $customerService): void
+	{
+		$this->customerService = $customerService;
 	}
 }

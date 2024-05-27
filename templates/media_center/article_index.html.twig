@@ -30,7 +30,7 @@
                         {% include 'blocks/media_center/article_item__block.html.twig' with {'withoutImage': true, 'item': item} %}
                     {% endfor %}
                 </div>
-                {% include 'blocks/pagination.html.twig' with {'pagination': pagination} %}
+                {% include 'blocks/pagination.html.twig' with {'pagination': pagination, 'route': 'app_article_index'} %}
             </div>
 
         </div>

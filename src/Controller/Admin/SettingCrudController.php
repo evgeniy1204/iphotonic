@@ -51,6 +51,17 @@ class SettingCrudController extends AbstractCrudController
 	public function configureFields(string $pageName): iterable
 	{
 		return [
+			FormField::addTab('Site'),
+			TextField::new('email'),
+			TextareaField::new('address'),
+			UrlField::new('webSite'),
+			TextField::new('customerService'),
+			TextareaField::new('phones'),
+			TextareaField::new('contacts'),
+			TextareaField::new('aboutUs'),
+			UrlField::new('linkedIn'),
+			UrlField::new('youtube'),
+			UrlField::new('instagram'),
 			FormField::addTab('Main page'),
 			TextField::new('mainLeftBlockTitle'),
 			UrlField::new('mainLeftBlockTitleUrl'),
@@ -69,14 +80,6 @@ class SettingCrudController extends AbstractCrudController
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
 				->setFormTypeOption('multiple', true)
 				->setRequired(false),
-			FormField::addTab('Contacts'),
-			TextareaField::new('contacts'),
-			FormField::addTab('About us'),
-			TextareaField::new('aboutUs'),
-			FormField::addTab('Social networks'),
-			UrlField::new('linkedIn'),
-			UrlField::new('youtube'),
-			UrlField::new('instagram'),
 			FormField::addTab('Technology'),
 			TinyMCEField::new('technologyContent')->hideOnIndex(),
 			...$this->getSeoFields(),
