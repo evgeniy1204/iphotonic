@@ -5,12 +5,22 @@
   .section-events {
     margin-bottom: 72px;
   }
+
+  .layout-full .section-events,
+  .layout-full .section-news {
+    margin-bottom: 60px;
+  }
 }
 
 @media (width >= 960px) {
   .section-products,
   .section-events {
     margin-bottom: 100px;
+  }
+
+  .layout-full .section-events,
+  .layout-full .section-news {
+    margin-bottom: 80px;
   }
 }
 
@@ -34,5 +44,20 @@
     margin-bottom: 32px;
     font-size: 37px;
     line-height: 1;
+  }
+}
+
+/* Action */
+
+@media (width < 960px) {
+  .section-action {
+    margin-top: 32px;
+  }
+}
+
+@media (width >= 960px) {
+  .section-action {
+    width: 300px;
+    margin-top: 40px;
   }
 }

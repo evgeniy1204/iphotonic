@@ -34,6 +34,12 @@ readonly class ProductCategoryMenuProvider
 			);
 			$menuItems[] = $item;
 
+			$products = $this->productRepository->findByCategoryIds([$productCategory->getId(), 100]);
+			foreach ($products as $product) {
+				$productItem = new MenuItemDto($product->getName(), $this->urlGenerator->generateProductUrl($product));
+				$item->addChild($productItem);
+			}
+
 			$this->generateMenu($dept, $productCategory, $item);
 		}
 

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <main class="main">
+        <div class="container">
+
+            <div class="layout-full">
+
+                {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_media_breadcrumbs('Photo & Video')} %}
+
+                <h1 class="main-title">Photo & Video</h1>
+
+                <div class="media-list">
+                    {% for item in pagination.items %}
+                    <article class="media-item">
+                        <a class="media-item-link" href="{{ path('app_media_item', {'slug': item.slug}) }}">
+                            <div class="media-item-image">
+                                <img src="{{ asset('uploads/mdeia_preview/' ~ item.preview) }}" alt="{{ item.title }}">
+                            </div>
+
+                            <h2 class="media-item-title">{{ item.title }}</h2>
+                        </a>
+                    </article>
+                    {% endfor %}
+                </div>
+                {% if pagination.totalPages > 1 %}
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            {% set prevPageNum = app.request.get('page') - 1 %}
+                            {% if prevPageNum > 0 %}
+                                <li class="pagination-item">
+                                    <a class="pagination-prev" href="{{ path('app_photo_and_video_index', {'page' : app.request.get('page') - 1}) }}"></a>
+                                </li>
+                            {% endif %}
+                            {% for i in range(1, pagination.totalPages) %}
+                                <li class="pagination-item">
+                                    <a class="pagination-link" href="{{ path('app_photo_and_video_index', {'page': i }) }}">{{ i }}</a>
+                                </li>
+                            {% endfor %}
+                            {% set nextPageNum = app.request.get('page') + 1 %}
+                            {% if nextPageNum <= pagination.totalPages %}
+                                <li class="pagination-item">
+                                    <a class="pagination-next" href="{{ path('app_photo_and_video_index', {'page' : nextPageNum}) }}"></a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+
+        </div>
+    </main>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ media.title }}{% endblock %}
+
+{% block body %}
+    <main class="main">
+        <div class="container">
+
+            <div class="layout-full">
+
+                <div class="post">
+
+                    {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_media_breadcrumbs(media.title)} %}
+
+
+                    <h1 class="main-title">{{ media.title }}</h1>
+
+                    <div class="post-content">
+                        <p>We know our products and services are substantial key for the growth of the business of our clients and are working constantly to provide turn key solutions to share our enthusiasm to our customers. </p>
+
+                        <p class="post-image">
+                            <img src="/images/_temp/photo-2.jpg" alt="">
+                        </p>
+
+                        <p>We know our products and services are substantial key for the growth of the business of our clients and are working constantly to provide turn key solutions to share our enthusiasm to our customers. </p>
+
+                        <p class="post-image">
+                            <img src="/images/_temp/photo-3.jpg" alt="">
+                        </p>
+
+                        <p class="post-image">
+                            <img src="/images/_temp/photo-2.jpg" alt="">
+                        </p>
+
+                        <p class="post-image">
+                            <img src="/images/_temp/photo-3.jpg" alt="">
+                        </p>
+                    </div>
+
+                    <div class="post-more">
+                        <div class="caption">View more</div>
+
+                        <article class="media-item">
+                            <a class="media-item-link" href="/photo-video-item">
+                                <div class="media-item-image">
+                                    <img src="/images/_temp/photo-2.jpg" alt="">
+                                </div>
+
+                                <h2 class="media-item-title">W3+Fair Wetzlar 2024</h2>
+                            </a>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock %}

@@ -16,17 +16,29 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/news-and-events')]
 class MediaCenterLandingController extends AbstractController
 {
-	private const PAGINATE_DEFAULT_PER_PAGE = 25;
+	private const PAGINATE_DEFAULT_PER_PAGE = 13;
 
 	#[Route('/', name: 'app_media_center_index')]
-	public function mediaCenterList(): Response
+	public function mediaCenterList(
+		EventRepository $eventRepository,
+		NewsRepository $newsRepository,
+		MediaRepository $mediaRepository
+	): Response
 	{
-		return $this->render('media_center/media_index.html.twig');
+		$events = $eventRepository->findUpcomingEvents(4);
+		$news = $newsRepository->findLatestNews(4);
+		$media = $mediaRepository->findOneLastMedia();
+
+		return $this->render('media_center/media_center_index.html.twig', [
+			'events' => $events,
+			'news' => $news,
+			'media' => $media,
+		]);
 	}
 
 	#[Route('/articles', name: 'app_article_index', methods: [Request::METHOD_GET])]
 	public function articleList(Request $request, NewsRepository $newsRepository): Response {
-		$pagination = new Pagination(self::PAGINATE_DEFAULT_PER_PAGE, $request->get('page', 1));
+		$pagination = new Pagination(self::PAGINATE_DEFAULT_PER_PAGE, (int) $request->get('page', 1));
 		$pagination->setTotalItems($newsRepository->findAllActiveCount());
 		$articles = $newsRepository->buildPaginationArticles($pagination);
 
@@ -50,11 +62,11 @@ class MediaCenterLandingController extends AbstractController
 	#[Route('/photos', name: 'app_photo_and_video_index', methods: [Request::METHOD_GET])]
 	public function photoAndVideoList(Request $request,MediaRepository $mediaRepository): Response
 	{
-		$pagination = new Pagination(self::PAGINATE_DEFAULT_PER_PAGE, $request->get('page', 1));
+		$pagination = new Pagination(self::PAGINATE_DEFAULT_PER_PAGE, (int) $request->get('page', 1));
 		$pagination->setTotalItems($mediaRepository->findAllActiveCount());
 		$media = $mediaRepository->buildPaginationArticles($pagination);
 
-		return $this->render('media_center/media_index.html.twig', [
+		return $this->render('media_center/photo_index.html.twig', [
 			'pagination' => $pagination->buildPaginationResponse($media),
 		]);
 	}
@@ -63,9 +75,11 @@ class MediaCenterLandingController extends AbstractController
 	public function article(string $slug, NewsRepository $newsRepository): Response
 	{
 		$news = $newsRepository->findOneBy(['slug' => $slug]);
+		$otherNews = $newsRepository->findLatestNews();
 
 		return $this->render('media_center/article_item.html.twig', [
 			'news' => $news,
+			'otherNews' => $otherNews,
 		]);
 	}
 
@@ -73,19 +87,21 @@ class MediaCenterLandingController extends AbstractController
 	public function event(string $slug, EventRepository $eventRepository): Response
 	{
 		$event = $eventRepository->findOneBy(['slug' => $slug]);
+		$otherEvents = $eventRepository->findUpcomingEvents(3);
 
 		return $this->render('media_center/event_item.html.twig', [
 			'event' => $event,
+			'otherEvents' => $otherEvents,
 		]);
 	}
 
 	#[Route('/media/{slug}', name: 'app_media_item', methods: [Request::METHOD_GET])]
 	public function media(string $slug, MediaRepository $mediaRepository): Response
 	{
-		$event = $mediaRepository->findOneBy(['slug' => $slug]);
+		$media = $mediaRepository->findOneBy(['slug' => $slug]);
 
-		return $this->render('media_center/media_item.html.twig', [
-			'event' => $event,
+		return $this->render('media_center/photo_item.html.twig', [
+			'media' => $media,
 		]);
 	}
 }

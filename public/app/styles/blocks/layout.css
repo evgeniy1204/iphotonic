@@ -5,6 +5,10 @@
     padding-top: 6px;
   }
 
+  .layout-full {
+    padding-top: 24px;
+  }
+
   .layout-sidebar {
     display: none;
   }
@@ -15,7 +19,11 @@
     display: grid;
     grid-template-columns: 232px 1fr;
     gap: 40px;
-    margin-top: 34px;
+    padding-top: 34px;
+  }
+
+  .layout-full {
+    padding-top: 32px;
   }
 
   .layout-content {

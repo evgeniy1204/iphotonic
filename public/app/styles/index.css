@@ -6,13 +6,18 @@
 
 /* Blocks */
 
+@import url('blocks/applications.css');
+@import url('blocks/article-grid.css');
 @import url('blocks/article-list.css');
+@import url('blocks/article.css');
 @import url('blocks/breadcrumb.css');
 @import url('blocks/button.css');
 @import url('blocks/card.css');
 @import url('blocks/catalog.css');
+@import url('blocks/contacts.css');
 @import url('blocks/container.css');
 @import url('blocks/content.css');
+@import url('blocks/downloads.css');
 @import url('blocks/event-cards.css');
 @import url('blocks/featured.css');
 @import url('blocks/footer.css');
@@ -23,8 +28,11 @@
 @import url('blocks/layout.css');
 @import url('blocks/listing.css');
 @import url('blocks/main.css');
+@import url('blocks/media.css');
 @import url('blocks/nav.css');
 @import url('blocks/page.css');
+@import url('blocks/pagination.css');
+@import url('blocks/post.css');
 @import url('blocks/product-cards.css');
 @import url('blocks/section.css');
 @import url('blocks/sidenav.css');

@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <main class="main">
+        <header class="main-lead">
+            {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs('Media center', null)} %}
+            <h1 class="main-title">Media center</h1>
+        </header>
+
+        <div class="container">
+            <div class="layout-full">
+                {# Upcoming events #}
+                {% if events %}
+                <section class="section-events">
+                    <h2 class="section-title">Upcoming events</h2>
+
+                    <div class="event-cards event-cards--list">
+                        <div class="event-cards-wrapper">
+                            {% for event in events %}
+                                <div class="event-card">
+                                    <div class="event-card-image">
+                                        <img src="{{ asset('uploads/event_preview/' ~ event.preview) }}" width="620" height="504" alt="" loading="lazy">
+                                    </div>
+
+                                    <div class="event-card-info">
+                                        <h2 class="event-card-title">
+                                            <a class="event-card-link" href="{{ path('app_event_item', {slug: event.slug}) }}">{{ event.title }}</a>
+                                        </h2>
+
+                                        <div class="event-card-desc">
+                                            <p class="event-card-text">
+                                                {{ event.summary|nl2br }}
+                                            </p>
+                                            <p class="event-card-date">{{ event.createdEventStartAt|date('d')}} - {{ event.createdEventEndAt|date('F j Y')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="section-action">
+                            <a class="button button--secondary button--block" href="{{ path('app_event_index') }}">All events</a>
+                        </div>
+                    </div>
+                </section>
+                {% endif %}
+
+                {# Company News #}
+
+                {% if news %}
+                <section class="section-news">
+                    <h2 class="section-title">Company News</h2>
+
+                    <div class="article-list">
+                        {% for item in news|slice(0, 1) %}
+                            <article class="article">
+                                <div class="article-image">
+                                    <img src="{{ asset('uploads/news_preview/' ~ item.preview) }}" alt="{{ item.title }}">
+                                </div>
+
+                                <div class="article-info">
+                                    <h3 class="article-title">
+                                        <a class="article-link" href="{{ generate_news_url(item) }}">
+                                           {{ item.title }}
+                                        </a>
+                                    </h3>
+                                    <p class="article-desc">
+                                        {{ item.summary|nl2br }}
+                                    </p>
+                                    <time class="article-date" datetime="{{ item.createdAt|date('Y.m.d') }}">
+                                        {{ item.createdAt|date('d.m.Y') }}
+                                    </time>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+
+                    <div class="article-grid">
+                        {% for item in news|slice(1, 3) %}
+                            <article class="article">
+                                <div class="article-image">
+                                    <img src="{{ asset('uploads/news_preview/' ~ item.preview) }}" alt="{{ item.title }}">
+                                </div>
+                                <div class="article-info">
+                                    <h3 class="article-title">
+                                        <a class="article-link" href="{{ generate_news_url(item) }}">
+                                            {{ item.title }}
+                                        </a>
+                                    </h3>
+                                    <p class="article-desc">
+                                        {{ item.summary|nl2br }}
+                                    </p>
+                                    <time class="article-date" datetime="{{ item.createdAt|date('Y.m.d') }}">
+                                        {{ item.createdAt|date('d.m.Y') }}
+                                    </time>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+
+                    <div class="section-action">
+                        <a class="button button--secondary button--block" href="{{ path('app_article_index') }}">All news</a>
+                    </div>
+                </section>
+                {% endif %}
+
+                {% if media %}
+                    <section class="sesction-media">
+                        <h2 class="section-title">Photo & Video</h2>
+
+                        <article class="media-item">
+                            <a class="media-item-link" href="{{ path('app_media_item', {'slug': media.slug}) }}">
+                                <div class="media-item-image">
+                                    <img src="{{ asset('uploads/mdeia_preview/' ~ media.preview) }}" alt="{{ media.title }}">
+                                </div>
+
+                                <h2 class="media-item-title">{{ media.title }}</h2>
+                            </a>
+                        </article>
+
+                        <div class="section-action">
+                            <a class="button button--secondary button--block" href="{{ path('app_photo_and_video_index') }}">All photo & video</a>
+                        </div>
+                    </section>
+                {% endif %}
+            </div>
+
+        </div>
+    </main>
+
+{% endblock %}

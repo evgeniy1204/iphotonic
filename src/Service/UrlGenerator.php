@@ -31,13 +31,22 @@ readonly class UrlGenerator
 
 	public function generateProductUrl(Product $product): string
 	{
-		$urlParams = [
-			'productCategorySlug' => $product->getCategory()->getParent()->getSlug(),
-			'productSubCategorySlug' => $product->getCategory()->getSlug(),
-			'productSlug' => $product->getSlug(),
-		];
+		if ($product->getCategory()->getParent()) {
+			$urlParams = [
+				'productCategorySlug' => $product->getCategory()->getParent()->getSlug(),
+				'productSubCategorySlug' => $product->getCategory()->getSlug(),
+				'productSlug' => $product->getSlug(),
+			];
 
-		return $this->router->generate('app_product_item', $urlParams);
+			return $this->router->generate('app_product_item', $urlParams);
+		} else {
+			$urlParams = [
+				'productCategorySlug' => $product->getCategory()->getSlug(),
+				'productSubCategorySlug' => $product->getSlug(),
+			];
+
+			return $this->router->generate('app_product_category', $urlParams);
+		}
 	}
 
 	public function generateTechnologyUrl(Technology $technology): string

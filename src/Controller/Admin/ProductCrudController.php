@@ -29,17 +29,9 @@ class ProductCrudController extends AbstractCrudController
 	{
 		return [
 			FormField::addTab('General fields'),
-			AssociationField::new('category')->setFormTypeOptions(
-				[
-					'query_builder' => function (ProductCategoryRepository $productCategoryRepository) {
-						return $productCategoryRepository->createQueryBuilder('ProductCategory')
-							->andWhere('ProductCategory.children IS EMPTY')
-							->andWhere('ProductCategory.parent IS NOT NULL');
-					}
-				]
-			)->setRequired(true),
-			TextField::new('name'),
-			TextField::new('slug'),
+			AssociationField::new('category')->setRequired(true),
+			TextField::new('name')->setRequired(true),
+			TextField::new('slug')->setRequired(true),
 			TextareaField::new('summary')->hideOnIndex(),
 			ImageField::new('images')
 				->hideOnIndex()
@@ -54,7 +46,7 @@ class ProductCrudController extends AbstractCrudController
 				->setRequired(false)
 				->hideOnIndex(),
 			TinyMCEField::new('text')->hideOnIndex(),
-			AssociationField::new('relationProducts'),
+			AssociationField::new('relationProducts')->hideOnIndex(),
 			AssociationField::new('technology')->setFormTypeOptions(
 				[
 					'query_builder' => function (TechnologyRepository $technologyRepository) {

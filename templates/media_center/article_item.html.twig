@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+{% endblock %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block body %}
+
+    <main class="main">
+        <div class="container">
+
+            <div class="layout-full">
+
+                <div class="post">
+                    {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_news_breadcrumbs(news.title, news)} %}
+                    <h1 class="main-title">{{ news.title }}</h1>
+                    <div class="post-content">
+                        <p>{{ news.summary }}</p>
+                        <p class="post-image"><img src="{{ asset('uploads/news_preview/' ~ news.preview) }}" alt="{{ news.title }}"></p>
+                        {{ news.text|raw }}
+                    </div>
+
+                    <div class="post-more">
+                        <div class="caption">Read more</div>
+
+                        <div class="article-grid">
+                            {% for item in otherNews|slice(0, 3) %}
+                                {% if news.id != item.id %}
+                                    <article class="article">
+                                        <div class="article-image">
+                                            <img src="{{ asset('uploads/news_preview/' ~ item.preview) }}" alt="{{ item.title }}">
+                                        </div>
+                                        <div class="article-info">
+                                            <h3 class="article-title">
+                                                <a class="article-link" href="{{ generate_news_url(item) }}">
+                                                    {{ item.title }}
+                                                </a>
+                                            </h3>
+                                            <p class="article-desc">
+                                                {{ item.summary|nl2br }}
+                                            </p>
+                                            <time class="article-date" datetime="{{ item.createdAt|date('Y.m.d') }}">
+                                                {{ item.createdAt|date('d.m.Y') }}
+                                            </time>
+                                        </div>
+                                    </article>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+{% endblock %}
+{% block javascripts %}
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".js-post-swiper", {
+            pagination: {
+                el: '.post-swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+{% endblock %}

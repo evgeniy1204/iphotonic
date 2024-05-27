@@ -38,7 +38,7 @@ class FileCrudController extends AbstractCrudController
 	public function configureFields(string $pageName): iterable
     {
 		return [
-            TextField::new('name'),
+            TextField::new('name')->setRequired(true),
 			ImageField::new('file')
 				->setRequired(false)
 				->hideOnIndex()

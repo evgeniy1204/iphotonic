@@ -35,12 +35,16 @@ class ProductLandingController extends AbstractController
 		ProductRepository $productRepository
 	): Response {
 		$productCategory = $productCategoryRepository->findOneBy(['slug' => $productSubCategorySlug ?? $productCategorySlug]);
-		$products = $productRepository->findByCategoryIds([$productCategory->getId()], 2);
+		if ($productCategory) {
+			$products = $productRepository->findByCategoryIds([$productCategory->getId()], 2);
 
-		return $this->render('product_category/index.html.twig', [
-			'productCategory' => $productCategory,
-			'products' => $products,
-		]);
+			return $this->render('product_category/index.html.twig', [
+				'productCategory' => $productCategory,
+				'products' => $products,
+			]);
+		}
+		return $this->getProductPage($productRepository, $productSubCategorySlug);
+
 	}
 
 	#[Route('/{productCategorySlug}/{productSubCategorySlug?}/{productSlug}', name: 'app_product_item', methods: [Request::METHOD_GET])]
@@ -50,7 +54,12 @@ class ProductLandingController extends AbstractController
 		string $productSlug,
 		ProductRepository $productRepository
 	): Response {
-		$product = $productRepository->findOneBy(['slug' => $productSlug]);
+		return $this->getProductPage($productRepository, $productSlug);
+	}
+
+	private function getProductPage(ProductRepository $productRepository, string $slug): Response
+	{
+		$product = $productRepository->findOneBy(['slug' => $slug]);
 		$similarProducts = $productRepository->findSimilarProducts($product);
 
 		$relationBlockTitle = 'Thing coating';

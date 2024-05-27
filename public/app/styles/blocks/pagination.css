@@ -1,0 +1,61 @@
+/* Pagination */
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style-type: '';
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 31px;
+}
+
+.pagination-item {
+  display: grid;
+}
+
+.pagination-link {
+  position: relative;
+  color: var(--color-blue-primary);
+  text-decoration: none;
+}
+
+.pagination-link::after {
+  position: absolute;
+  inset: -10px;
+  content: '';
+}
+
+.pagination-prev,
+.pagination-next {
+  width: 28px;
+  height: 28px;
+  background-color: var(--color-blue-primary);
+}
+
+.pagination-prev {
+  -webkit-mask: url('/images/prev.svg');
+  mask: url('/images/prev.svg');
+}
+
+.pagination-next {
+  -webkit-mask: url('/images/next.svg');
+  mask: url('/images/next.svg');
+}
+
+@media (width < 960px) {
+  .pagination {
+    margin-top: 60px;
+  }
+}
+
+@media (width >= 960px) {
+  .pagination {
+    margin-top: 90px;
+  }
+}

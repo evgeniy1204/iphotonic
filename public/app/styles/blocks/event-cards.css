@@ -5,6 +5,11 @@
   height: 100%;
 }
 
+.event-cards--list {
+  width: auto;
+  height: auto;
+}
+
 .event-card {
   position: relative;
 }
@@ -66,6 +71,11 @@
     display: none;
     width: 0;
     background: transparent;
+  }
+
+  .event-cards--list .event-cards-wrapper {
+    display: grid;
+    gap: 32px;
   }
 
   .event-card {
@@ -145,12 +155,34 @@
     padding-bottom: 20px;
   }
 
+  .event-cards--list .event-cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+
   .event-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
     align-items: center;
     width: calc(100% - 80px);
+  }
+
+  .event-cards--list .event-card:first-child {
+    grid-column: span 3;
+  }
+
+  .post-more .event-cards--list .event-card:first-child {
+    grid-column: auto;
+  }
+
+  .event-cards--list .event-card:not(:first-child),
+  .post-more .event-cards--list .event-card:first-child {
+    grid-template-columns: auto;
+    gap: 12px;
+    width: auto;
   }
 
   .event-card-image {
@@ -173,23 +205,6 @@
     font-size: 31px;
     letter-spacing: 0.01em;
     line-height: 35px;
-  }
-
-  .event-cards .swiper-pagination {
-    --swiper-pagination-top: auto;
-    --swiper-pagination-bottom: 0;
-    display: flex;
-    justify-content: center;
-  }
-
-  .event-cards .swiper-pagination-bullet {
-    --swiper-pagination-bullet-horizontal-gap: 5px;
-    --swiper-pagination-color: var(--color-black);
-    --swiper-pagination-bullet-inactive-color: var(--color-gray-100);
-    --swiper-pagination-bullet-inactive-opacity: 1;
-    width: 8px;
-    height: 8px;
-    border-radius: 0;
   }
 
   .event-cards-controls {
@@ -218,4 +233,21 @@
   .event-cards-controls .swiper-button-next::after {
     font-size: 32px;
   }
+}
+
+.swiper-pagination {
+  --swiper-pagination-top: auto;
+  --swiper-pagination-bottom: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-pagination-bullet {
+  --swiper-pagination-bullet-horizontal-gap: 5px;
+  --swiper-pagination-color: var(--color-black);
+  --swiper-pagination-bullet-inactive-color: var(--color-gray-100);
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 0;
 }

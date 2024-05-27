@@ -25,12 +25,12 @@ class ApplicationCrudController extends AbstractCrudController
     {
         return [
 			FormField::addTab('General fields'),
-            TextField::new('name'),
+            TextField::new('name')->setRequired(true),
 			ImageField::new('preview')
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Application::APPLICATION_IMAGE_FOLDER)
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Application::APPLICATION_IMAGE_FOLDER)
 				->hideOnIndex(),
-            TextareaField::new('text')->hideOnIndex(),
+            TinyMCEField::new('text')->hideOnIndex(),
 			...$this->getSeoFields(),
         ];
     }

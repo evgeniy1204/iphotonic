@@ -28,8 +28,8 @@ class TechnologyCrudController extends AbstractCrudController
     {
         return [
 			FormField::addTab('General fields'),
-			TextField::new('name'),
-			TextField::new('slug'),
+			TextField::new('name')->setRequired(true),
+			TextField::new('slug')->setRequired(true),
 			AssociationField::new('parent'),
 			TextareaField::new('summary')->hideOnIndex(),
 			ImageField::new('image')

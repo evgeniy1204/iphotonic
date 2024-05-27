@@ -8,6 +8,7 @@ use App\Entity\Download;
 use App\Repository\ApplicationRepository;
 use App\Repository\DownloadRepository;
 use App\Repository\PossibilitiesRepository;
+use App\Service\Search\SettingsProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -15,6 +15,10 @@
   line-height: 21px;
 }
 
+.main-lead .breadcrumb-list {
+  justify-content: center;
+}
+
 .breadcrumb-item {
   position: relative;
 }

@@ -5,22 +5,18 @@ declare(strict_types=1);
 namespace App\Service\Breadcrumb\BreadcrumbsBuilder;
 
 use App\Dto\BreadcrumbDto;
-use App\Entity\Media;
-use App\Service\Breadcrumb\BreadcrumbAwareInterface;
-use App\Service\Breadcrumb\BreadcrumbsBuilderInterface;
 use App\Service\UrlGenerator;
 
-readonly class MediaBreadcrumbsBuilder implements BreadcrumbsBuilderInterface
+readonly class MediaBreadcrumbsBuilder
 {
 	public function __construct(private UrlGenerator $urlGenerator)
 	{
 	}
 
 	/**
-	 * @param BreadcrumbAwareInterface|Media $breadcrumbAware
 	 * @return BreadcrumbDto[]
 	 */
-	public function build(BreadcrumbAwareInterface|Media $breadcrumbAware): array
+	public function build(): array
 	{
 		$breadcrumbs = [];
 		$breadcrumbs[] = new BreadcrumbDto(
@@ -33,10 +29,5 @@ readonly class MediaBreadcrumbsBuilder implements BreadcrumbsBuilderInterface
 		);
 
 		return $breadcrumbs;
-	}
-
-	public function isSupport(BreadcrumbAwareInterface $breadcrumbAware): bool
-	{
-		return $breadcrumbAware instanceof Media;
 	}
 }

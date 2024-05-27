@@ -49,6 +49,11 @@ class Media implements BreadcrumbAwareInterface
 		$this->createdAt = new DateTime();
 	}
 
+	public function __toString(): string
+	{
+		return $this->title ?? '';
+	}
+
 	public function getId(): int
     {
         return $this->id;

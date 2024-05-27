@@ -65,6 +65,11 @@ class Event implements SearchResultAwareInterface, BreadcrumbAwareInterface
         $this->active = false;
     }
 
+	public function __toString(): string
+	{
+		return $this->title ?? '';
+	}
+
     public function getId(): int
     {
         return $this->id;

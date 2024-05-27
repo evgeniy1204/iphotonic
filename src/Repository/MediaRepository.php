@@ -41,4 +41,16 @@ class MediaRepository extends ServiceEntityRepository
 
 		return $qb->getQuery()->getSingleScalarResult();
 	}
+
+	public function findOneLastMedia(): ?Media
+	{
+		$qb = $this->createQueryBuilder('Media');
+
+		$qb
+			->select('Media')
+			->andWhere('Media.active = TRUE')
+			->setMaxResults(1);
+
+		return $qb->getQuery()->getOneOrNullResult();
+	}
 }

@@ -44,7 +44,7 @@ class Application
 
 	public function __toString(): string
     {
-        return $this->name;
+        return $this->name ?? '';
     }
 
     public function getId(): int

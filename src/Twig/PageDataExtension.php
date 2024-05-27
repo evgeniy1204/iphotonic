@@ -11,6 +11,9 @@ use App\Entity\SeoEmbed;
 use App\Entity\Technology;
 use App\Service\Breadcrumb\BreadcrumbAwareInterface;
 use App\Service\Breadcrumb\BreadcrumbProvider;
+use App\Service\Breadcrumb\BreadcrumbsBuilder\EventBreadcrumbsBuilder;
+use App\Service\Breadcrumb\BreadcrumbsBuilder\MediaBreadcrumbsBuilder;
+use App\Service\Breadcrumb\BreadcrumbsBuilder\NewsBreadcrumbsBuilder;
 use App\Service\Menu\ProductCategoryMenuProvider;
 use App\Service\Menu\TechnologyCategoryMenuProvider;
 use App\Service\Search\SettingsProvider;
@@ -31,6 +34,9 @@ class PageDataExtension extends AbstractExtension
 		private readonly SettingsProvider $settingsProvider,
 		private readonly BreadcrumbProvider $breadcrumbProvider,
 		private readonly RouterInterface $router,
+		private readonly NewsBreadcrumbsBuilder $newsBreadcrumbsBuilder,
+		private readonly EventBreadcrumbsBuilder $eventBreadcrumbsBuilder,
+		private readonly MediaBreadcrumbsBuilder $mediaBreadcrumbsBuilder,
 		#[Autowire('%env(SITE_NAME)%')] private readonly string $siteName
 	) {
 	}
@@ -47,6 +53,9 @@ class PageDataExtension extends AbstractExtension
 			new TwigFunction('generate_technology_category_one_level_menu', [$this, 'generateTechnologyCategoryOneLevelMenu']),
 			new TwigFunction('get_footer_contacts', [$this, 'getFooterContacts']),
 			new TwigFunction('build_breadcrumbs', [$this, 'buildBreadcrumbs']),
+			new TwigFunction('build_news_breadcrumbs', [$this, 'buildNewsBreadcrumbs']),
+			new TwigFunction('build_events_breadcrumbs', [$this, 'buildEventsBreadcrumbs']),
+			new TwigFunction('build_media_breadcrumbs', [$this, 'buildMediaBreadcrumbs']),
 			new TwigFunction('get_default_meta', [$this, 'getMetaTagsData']),
 		];
 	}
@@ -85,6 +94,69 @@ class PageDataExtension extends AbstractExtension
 		);
 		if ($breadcrumbAware) {
 			foreach ($this->breadcrumbProvider->buildBreadcrumb($breadcrumbAware) as $item) {
+				$breadcrumbs[] = $item;
+			}
+		}
+		$breadcrumbs[] = new BreadcrumbDto($currentPage);
+
+		return $breadcrumbs;
+	}
+
+	/**
+	 * @param string $currentPage
+	 * @return BreadcrumbDto[]
+	 */
+	public function buildNewsBreadcrumbs(string $currentPage): array
+	{
+		$breadcrumbs = [];
+		$breadcrumbs[] = new BreadcrumbDto(
+			$this->siteName,
+			$this->router->generate('app_main_page'),
+		);
+		foreach ($this->newsBreadcrumbsBuilder->build() as $item) {
+			if ($item->getText() !== $currentPage) {
+				$breadcrumbs[] = $item;
+			}
+		}
+		$breadcrumbs[] = new BreadcrumbDto($currentPage);
+
+		return $breadcrumbs;
+	}
+
+	/**
+	 * @param string $currentPage
+	 * @return BreadcrumbDto[]
+	 */
+	public function buildEventsBreadcrumbs(string $currentPage): array
+	{
+		$breadcrumbs = [];
+		$breadcrumbs[] = new BreadcrumbDto(
+			$this->siteName,
+			$this->router->generate('app_main_page'),
+		);
+		foreach ($this->eventBreadcrumbsBuilder->build() as $item) {
+			if ($item->getText() !== $currentPage) {
+				$breadcrumbs[] = $item;
+			}
+		}
+		$breadcrumbs[] = new BreadcrumbDto($currentPage);
+
+		return $breadcrumbs;
+	}
+
+	/**
+	 * @param string $currentPage
+	 * @return BreadcrumbDto[]
+	 */
+	public function buildMediaBreadcrumbs(string $currentPage): array
+	{
+		$breadcrumbs = [];
+		$breadcrumbs[] = new BreadcrumbDto(
+			$this->siteName,
+			$this->router->generate('app_main_page'),
+		);
+		foreach ($this->mediaBreadcrumbsBuilder->build() as $item) {
+			if ($item->getText() !== $currentPage) {
 				$breadcrumbs[] = $item;
 			}
 		}
