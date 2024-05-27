@@ -7,12 +7,9 @@
 {% block title %}{{ news.title }}{% endblock %}
 
 {% block body %}
-
     <main class="main">
         <div class="container">
-
             <div class="layout-full">
-
                 <div class="post">
                     {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_news_breadcrumbs(news.title, news)} %}
                     <h1 class="main-title">{{ news.title }}</h1>
@@ -26,7 +23,7 @@
                         <div class="post-more">
                             <div class="caption">Read more</div>
                             <div class="article-grid">
-                                {% for item in otherNews|slice(0, 3) %}
+                                {% for item in otherNews %}
                                     {% if news.id != item.id %}
                                         {% include 'blocks/media_center/article_item__block.html.twig' with {'item': item} %}
                                     {% endif %}
@@ -35,9 +32,7 @@
                         </div>
                     {% endif %}
                 </div>
-
             </div>
-
         </div>
     </main>
 {% endblock %}

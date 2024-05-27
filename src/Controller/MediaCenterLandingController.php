@@ -11,6 +11,7 @@ use App\Service\Pagination;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/news-and-events')]
@@ -99,9 +100,14 @@ class MediaCenterLandingController extends AbstractController
 	public function media(string $slug, MediaRepository $mediaRepository): Response
 	{
 		$media = $mediaRepository->findOneBy(['slug' => $slug]);
+		if (!$media) {
+			throw new NotFoundHttpException();
+		}
+		$nextMedia = $mediaRepository->findNextMediaAfter($media);
 
 		return $this->render('media_center/photo_item.html.twig', [
 			'media' => $media,
+			'nextMedia' => $nextMedia,
 		]);
 	}
 }

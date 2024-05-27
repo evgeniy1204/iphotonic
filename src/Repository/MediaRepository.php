@@ -53,4 +53,18 @@ class MediaRepository extends ServiceEntityRepository
 
 		return $qb->getQuery()->getOneOrNullResult();
 	}
+
+	public function findNextMediaAfter(Media $media): ?Media
+	{
+		$qb = $this->createQueryBuilder('Media');
+
+		$qb
+			->select('Media')
+			->andWhere('Media.active = TRUE')
+			->andWhere('Media.id > :id')
+			->setParameter('id', $media->getId())
+			->setMaxResults(1);
+
+		return $qb->getQuery()->getOneOrNullResult();
+	}
 }

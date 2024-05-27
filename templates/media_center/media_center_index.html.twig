@@ -32,7 +32,6 @@
                 {% if news %}
                 <section class="section-news">
                     <h2 class="section-title">Company News</h2>
-
                     <div class="article-list">
                         {% for item in news|slice(0, 1) %}
                             {% include 'blocks/media_center/article_item__block.html.twig' with {'item': item} %}
@@ -61,8 +60,6 @@
                     </section>
                 {% endif %}
             </div>
-
         </div>
     </main>
-
 {% endblock %}
