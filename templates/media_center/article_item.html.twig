@@ -22,18 +22,18 @@
                         {{ news.text|raw }}
                     </div>
 
-                    <div class="post-more">
-                        <div class="caption">Read more</div>
-
-                        <div class="article-grid">
-                            {% for item in otherNews|slice(0, 3) %}
-                                {% if news.id != item.id %}
-                                    {% include 'blocks/media_center/article_item__block.html.twig' with {'item': item} %}
-                                {% endif %}
-                            {% endfor %}
+                    {% if otherNews %}
+                        <div class="post-more">
+                            <div class="caption">Read more</div>
+                            <div class="article-grid">
+                                {% for item in otherNews|slice(0, 3) %}
+                                    {% if news.id != item.id %}
+                                        {% include 'blocks/media_center/article_item__block.html.twig' with {'item': item} %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
-
-                    </div>
+                    {% endif %}
                 </div>
 
             </div>
