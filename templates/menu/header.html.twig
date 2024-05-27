@@ -34,7 +34,7 @@
             <form class="header-search header-search--closed" name="search-form" method="GET" action="{{ path('app_search_content') }}">
                 <div class="header-search-container">
                     <label class="header-search-label" for="search-field">Search</label>
-                    <input class="header-search-input" type="text" id="search-field" name="q" placeholder="Search" autocomplete="off">
+                    <input class="header-search-input" type="text" id="search-field" name="q" placeholder="Search"  value="{{ app.request.get('q') ?: '' }}" autocomplete="off">
                     <button class="header-search-button" type="submit">
                         <svg class="header-icon-search" width="24" height="24" aria-hidden="true">
                             <use href="{{ asset('images/icons.svg#search-small') }}"></use>

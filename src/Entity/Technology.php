@@ -171,12 +171,7 @@ class Technology implements SearchResultAwareInterface, BreadcrumbAwareInterface
 
 	public function getSearchedResultShortText(): string
 	{
-		return $this->name;
-	}
-
-	public function getSearchResultSlug(): string
-	{
-		return $this->slug;
+		return $this->summary;
 	}
 
 	public function getActive(): bool

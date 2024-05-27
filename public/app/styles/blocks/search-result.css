@@ -1,0 +1,27 @@
+.results-content .result-item .result-item-type {
+    opacity: 30;
+    font-size: 16px;
+    color: #a8a8a8;
+    margin-bottom: 10px;
+}
+.results-content .result-item .result-item-title {
+    opacity: 30;
+    font-size: 31px;
+    color: #0C0D0E;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+.results-content .result-item .result-item-title a {
+    text-decoration: none;
+    outline: none;
+    color: #0C0D0E;
+}
+.results-content .result-item .result-item-text {
+    margin-top: 10px;
+}
+.results-content .result-item {
+    border-bottom: 1px solid #E0E8EE;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

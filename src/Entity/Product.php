@@ -177,17 +177,12 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 
     public function getSearchResultTitle(): string
     {
-        return $this->name;
-    }
-
-    public function getSearchResultSlug(): string
-    {
-        return $this->name;
+        return $this->name ?? '';
     }
 
     public function getSearchedResultShortText(): string
     {
-        return $this->text ?? '';
+        return $this->summary ?? '';
     }
 
     public function getSlug(): ?string

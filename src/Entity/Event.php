@@ -180,18 +180,13 @@ class Event implements SearchResultAwareInterface, BreadcrumbAwareInterface
 		return SearchResultTypeEnum::TYPE_EVENT;
 	}
 
-	public function getSearchResultTitle(): ?string
+	public function getSearchResultTitle(): string
 	{
-		return $this->title;
+		return $this->title ?? '';
 	}
 
-	public function getSearchedResultShortText(): ?string
+	public function getSearchedResultShortText(): string
 	{
-		return $this->text;
-	}
-
-	public function getSearchResultSlug(): ?string
-	{
-		return $this->slug;
+		return $this->summary ?? '';
 	}
 }

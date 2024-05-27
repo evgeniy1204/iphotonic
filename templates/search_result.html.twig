@@ -3,11 +3,21 @@
 {% block body %}
     <main class="main">
         <div class="container">
-            Search by: {{ searchResponse.searchText }}
-            {% for searchResponseItem in searchResponse.searchResponseCollection %}
-                <p>{{ searchResponseItem.type.value }}</p>
-                <p><a href="{{ searchResponseItem.url }}">{{ searchResponseItem.title }}</a></p>
-            {% endfor %}
+            <div class="layout-full">
+                {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_breadcrumbs('Search result', null)} %}
+
+                <h1 class="main-title">Search result for "{{ searchResponse.searchText }}"</h1>
+
+                <div class="results-content">
+                    {% for searchResponseItem in searchResponse.searchResponseCollection %}
+                        <div class="result-item">
+                            <p class="result-item-type">{{ searchResponseItem.type.value }}</p>
+                            <p class="result-item-title"><a href="{{ searchResponseItem.url }}">{{ searchResponseItem.title }}</a></p>
+                            <p class="result-item-text">{{ searchResponseItem.text|raw }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </main>
 {% endblock %}
