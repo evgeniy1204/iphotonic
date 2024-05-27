@@ -32,15 +32,14 @@ class MainController extends AbstractController
         $membershipLogos = $membershipRepository->findAll();
 		$productsResult = [];
 		foreach ($productCategoryRepository->findParentCategories() as $productCategory) {
-
 			foreach ($productCategory->getChildren() as $childCategory) {
 				$finalCategories = $childCategory->getFinalCategories();
-				$finalCategoriesIds = [];
-				$finalCategoriesIds[] = $childCategory->getId();
+				$categoriesIds = [];
+				$categoriesIds[] = $childCategory->getId();
 				foreach ($finalCategories as $finalCategory) {
-					$finalCategoriesIds[] = $finalCategory->getId();
+					$categoriesIds[] = $finalCategory->getId();
 				}
-				$products = $productRepository->findByCategoryIds($finalCategoriesIds, 100);
+				$products = $productRepository->findByCategoryIds($categoriesIds, 100);
 				$productsResult[$productCategory->getName()][] = new MainProductsCollectionResponse($childCategory, $products);
 			}
 		}
