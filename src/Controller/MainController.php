@@ -35,13 +35,13 @@ class MainController extends AbstractController
 
 			foreach ($productCategory->getChildren() as $childCategory) {
 				$finalCategories = $childCategory->getFinalCategories();
+				$finalCategoriesIds = [];
 				$finalCategoriesIds[] = $childCategory->getId();
 				foreach ($finalCategories as $finalCategory) {
 					$finalCategoriesIds[] = $finalCategory->getId();
 				}
 				$products = $productRepository->findByCategoryIds($finalCategoriesIds, 100);
 				$productsResult[$productCategory->getName()][] = new MainProductsCollectionResponse($childCategory, $products);
-
 			}
 		}
 
