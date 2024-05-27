@@ -35,7 +35,7 @@ class MainController extends AbstractController
 
 			foreach ($productCategory->getChildren() as $childCategory) {
 				$finalCategories = $childCategory->getFinalCategories();
-				$finalCategoriesIds = [];
+				$finalCategoriesIds[] = $childCategory->getId();
 				foreach ($finalCategories as $finalCategory) {
 					$finalCategoriesIds[] = $finalCategory->getId();
 				}
