@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Search;
 
 use App\Dto\FooterContactsDto;
+use App\Dto\SocialNetworksDto;
 use App\Entity\SeoEmbed;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
@@ -34,5 +35,15 @@ readonly class SettingsProvider
 	public function getTechnologyContent(): ?string
 	{
 		return $this->getSettings()->getTechnologyContent();
+	}
+
+	public function getAboutUsContent(): ?string
+	{
+		return $this->getSettings()->getAboutUs();
+	}
+
+	public function getSocialLinks(): ?SocialNetworksDto
+	{
+		return SocialNetworksDto::fromSetting($this->getSettings());
 	}
 }

@@ -18,7 +18,7 @@
                     <div class="post-content">
                         <p>We know our products and services are substantial key for the growth of the business of our clients and are working constantly to provide turn key solutions to share our enthusiasm to our customers. </p>
 
-                        <p class="post-image">
+                        <p>
                             <img src="/images/_temp/photo-2.jpg" alt="">
                         </p>
 
@@ -37,20 +37,14 @@
                         </p>
                     </div>
 
+                    {% if otherPhotos %}
                     <div class="post-more">
                         <div class="caption">View more</div>
-
-                        <article class="media-item">
-                            <a class="media-item-link" href="/photo-video-item">
-                                <div class="media-item-image">
-                                    <img src="/images/_temp/photo-2.jpg" alt="">
-                                </div>
-
-                                <h2 class="media-item-title">W3+Fair Wetzlar 2024</h2>
-                            </a>
-                        </article>
+                        {% for otherPhoto in otherPhotos %}
+                            {% include 'blocks/media_center/photo_item__block.html.twig' with {'media': otherPhoto} %}
+                        {% endfor %}
                     </div>
-
+                    {% endif %}
                 </div>
             </div>
 

@@ -53,13 +53,9 @@
                         </div>
                         <div class="contacts-about">
                             <h2>About Us</h2>
-                            <p>I-Photonics produces a wide range of high performance and durable optical thin-film coatings.<br>Deep experience in physics of surfaces, plasma, technologies of thin films deposition and sputtering together with customized vacuum coating equipment allows us to offer advanced solutions for a variety of applications in photonics, telecommunications, sensing, medicine, and science.</p>
-                            <p>With 30 years of experience and a highly professional team we can offer custom-optimized optical elements tailored to your specific needs.<br>Our optical coatings cover the spectrum from 350 to 14 000 nm.</p>
-
+                            {{ about|nl2br }}
                             <div class="social">
-                                <a class="social-link social-link--linkedin" href="#" aria-label="LinkedIn" target="_blank"></a>
-                                <a class="social-link social-link--instagram" href="#" aria-label="Instagram" target="_blank"></a>
-                                <a class="social-link social-link--youtube" href="#" aria-label="YouTube" target="_blank"></a>
+                                {% include 'blocks/social_links__block.html.twig' with {'linkedInUrl': socialLinks.linkedIn, 'instagramUrl': socialLinks.instagram, 'youtubeUrl': socialLinks.youtube} %}
                             </div>
                         </div>
                     </div>

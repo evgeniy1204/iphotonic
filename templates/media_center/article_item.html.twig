@@ -28,24 +28,7 @@
                         <div class="article-grid">
                             {% for item in otherNews|slice(0, 3) %}
                                 {% if news.id != item.id %}
-                                    <article class="article">
-                                        <div class="article-image">
-                                            <img src="{{ asset('uploads/news_preview/' ~ item.preview) }}" alt="{{ item.title }}">
-                                        </div>
-                                        <div class="article-info">
-                                            <h3 class="article-title">
-                                                <a class="article-link" href="{{ generate_news_url(item) }}">
-                                                    {{ item.title }}
-                                                </a>
-                                            </h3>
-                                            <p class="article-desc">
-                                                {{ item.summary|nl2br }}
-                                            </p>
-                                            <time class="article-date" datetime="{{ item.createdAt|date('Y.m.d') }}">
-                                                {{ item.createdAt|date('d.m.Y') }}
-                                            </time>
-                                        </div>
-                                    </article>
+                                    {% include 'blocks/media_center/article_item__block.html.twig' with {'item': item} %}
                                 {% endif %}
                             {% endfor %}
                         </div>

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Download;
+use App\Repository\AboutUsRepository;
 use App\Repository\ApplicationRepository;
 use App\Repository\DownloadRepository;
 use App\Repository\PossibilitiesRepository;
@@ -18,19 +19,20 @@ use Symfony\Component\Routing\Attribute\Route;
 class PageController extends AbstractController
 {
 	#[Route('/about', name: 'app_about_index', methods: [Request::METHOD_GET])]
-	public function aboutUs(DownloadRepository $downloadRepository): Response
+	public function aboutUs(AboutUsRepository $aboutUsRepository): Response
 	{
-		$downloads = $downloadRepository->findAll();
+		$about = $aboutUsRepository->findAboutUsPage();
 
-		return $this->render('page/about.html.twig', ['downloads' => $downloads]);
+		return $this->render('page/about.html.twig', ['about' => $about]);
 	}
 
 	#[Route('/contacts', name: 'app_contacts_index', methods: [Request::METHOD_GET])]
-	public function contacts(DownloadRepository $downloadRepository): Response
+	public function contacts(SettingsProvider $settingsProvider): Response
 	{
-		$downloads = $downloadRepository->findAll();
+		$about = $settingsProvider->getAboutUsContent();
+		$socialLinks = $settingsProvider->getSocialLinks();
 
-		return $this->render('page/contacts.html.twig', ['downloads' => $downloads]);
+		return $this->render('page/contacts.html.twig', ['about' => $about, 'socialLinks' => $socialLinks]);
 	}
 
 	#[Route('/downloads', name: 'app_downloads_index', methods: [Request::METHOD_GET])]

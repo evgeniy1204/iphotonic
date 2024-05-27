@@ -15,9 +15,7 @@
                 </div>
 
                 <div class="footer-social social">
-                    <a class="social-link social-link--linkedin" href="{{ footerContacts.socialNetworksDto.linkedIn }}" aria-label="LinkedIn" target="_blank"></a>
-                    <a class="social-link social-link--instagram" href="{{ footerContacts.socialNetworksDto.instagram }}" aria-label="Instagram" target="_blank"></a>
-                    <a class="social-link social-link--youtube" href="{{ footerContacts.socialNetworksDto.youtube }}" aria-label="YouTube" target="_blank"></a>
+                    {% include 'blocks/social_links__block.html.twig' with {'linkedInUrl': footerContacts.socialNetworksDto.linkedIn, 'instagramUrl': footerContacts.socialNetworksDto.instagram, 'youtubeUrl': footerContacts.socialNetworksDto.youtube} %}
                 </div>
             </div>
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MediaRepository;
 use App\Service\Breadcrumb\BreadcrumbAwareInterface;
 use DateTime;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,7 +37,7 @@ class Media implements BreadcrumbAwareInterface
 	private bool $active;
 
 	#[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE, nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
-	private DateTime $createdAt;
+	private ?DateTimeInterface $createdAt;
 
 	public function __construct()
 	{
@@ -118,5 +119,10 @@ class Media implements BreadcrumbAwareInterface
 	public function getCreatedAt(): DateTime
 	{
 		return $this->createdAt;
+	}
+
+	public function setCreatedAt(?DateTimeInterface $createdAt): void
+	{
+		$this->createdAt = $createdAt;
 	}
 }
