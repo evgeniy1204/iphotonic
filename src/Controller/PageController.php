@@ -8,6 +8,7 @@ use App\Entity\Download;
 use App\Repository\AboutUsRepository;
 use App\Repository\ApplicationRepository;
 use App\Repository\DownloadRepository;
+use App\Repository\PartnerRepository;
 use App\Service\Search\SettingsProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -26,8 +27,11 @@ class PageController extends AbstractController
 	}
 
 	#[Route('/contacts', name: 'app_contacts_index', methods: [Request::METHOD_GET])]
-	public function contacts(SettingsProvider $settingsProvider): Response
-	{
+	public function contacts(
+		SettingsProvider $settingsProvider,
+		PartnerRepository $partnerRepository
+	): Response {
+
 		return $this->render('page/contacts.html.twig', [
 			'about' => $settingsProvider->getAboutUsContent(),
 			'socialLinks' => $settingsProvider->getSocialLinks(),
@@ -35,7 +39,8 @@ class PageController extends AbstractController
 			'phones' => $settingsProvider->getPhone(),
 			'address' => $settingsProvider->getAddress(),
 			'webSite' => $settingsProvider->getWebsite(),
-			'customerService' => $settingsProvider->getCustomerService()
+			'customerService' => $settingsProvider->getCustomerService(),
+			'partners' => $partnerRepository->findAll(),
 		]);
 	}
 

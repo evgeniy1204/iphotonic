@@ -1,0 +1,49 @@
+.partners {
+    margin-top: 70px;
+}
+.partners h2 {
+    font-size: 31px;
+}
+.partners .partner-item {
+    font-size: 18px;
+    width: 400px;
+    margin-top: 30px;
+}
+.partners .partner-item .partner-content {
+    margin-top: 20px;
+}
+.partner-content a {
+    text-decoration: none;
+    outline: none;
+    color: #2F81C0;
+    font-weight: bold;
+}
+
+.partners-grid {
+    display: grid;
+}
+
+.partners-grid .partner-img {
+    width: 360px;
+    height: 270px;
+    background-color: white;
+}
+
+.partners-grid img {
+    display: block;
+    object-fit: cover;
+    max-width: 100%;
+}
+
+@media (width < 960px) {
+    .partners-grid {
+        gap: 32px;
+    }
+}
+
+@media (width >= 960px) {
+    .partners-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+}
