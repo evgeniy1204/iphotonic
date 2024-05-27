@@ -1,33 +1,20 @@
 {% extends 'base.html.twig' %}
 
-
-{% block title %}{% endblock %}
+{% block title %}Photo & Video{% endblock %}
 
 {% block body %}
     <main class="main">
         <div class="container">
-
             <div class="layout-full">
-
                 {% include 'blocks/breadcrumbs.html.twig' with {'breadcrumbs': build_media_breadcrumbs('Photo & Video')} %}
-
                 <h1 class="main-title">Photo & Video</h1>
-
                 <div class="media-list">
                     {% for item in pagination.items %}
-                    <article class="media-item">
-                        <a class="media-item-link" href="{{ path('app_media_item', {'slug': item.slug}) }}">
-                            <div class="media-item-image">
-                                <img src="{{ asset('uploads/mdeia_preview/' ~ item.preview) }}" alt="{{ item.title }}">
-                            </div>
-                            <h2 class="media-item-title">{{ item.title }}</h2>
-                        </a>
-                    </article>
+                        {% include 'blocks/media_center/photo_item__block.html.twig' with {'media': item} %}
                     {% endfor %}
                 </div>
                 {% include 'blocks/pagination.html.twig' with {'pagination': pagination, 'route': 'app_photo_and_video_index'} %}
             </div>
-
         </div>
     </main>
 

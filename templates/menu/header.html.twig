@@ -55,8 +55,8 @@
                     <li><a class="nav-secondary-link" href="{{ path('app_about_index') }}">About Us</a></li>
                 </ul>
                 <a class="nav-secondary-link nav-secondary-email"
-                   href="mailto:info@i-photonics.lt">info@i-photonics.lt</a>
-                <a class="nav-secondary-link nav-secondary-contact" href="#">Contact Us</a>
+                   href="mailto:{{ get_site_email() }}">{{ get_site_email() }}</a>
+                <a class="nav-secondary-link nav-secondary-contact" href="{{ path('app_contacts_index') }}">Contact Us</a>
             </div>
         </nav>
 

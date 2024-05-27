@@ -8,7 +8,6 @@ use App\Entity\Download;
 use App\Repository\AboutUsRepository;
 use App\Repository\ApplicationRepository;
 use App\Repository\DownloadRepository;
-use App\Repository\PossibilitiesRepository;
 use App\Service\Search\SettingsProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -54,14 +53,6 @@ class PageController extends AbstractController
 		$applications = $applicationRepository->findAll();
 
 		return $this->render('page/applications.html.twig', ['applications' => $applications]);
-	}
-
-	#[Route('/possibilities', name: 'app_possibilities_index', methods: [Request::METHOD_GET])]
-	public function possibilities(PossibilitiesRepository $possibilitiesRepository): Response
-	{
-		$possibilities = $possibilitiesRepository->findPossibilitiesPage();
-
-		return $this->render('page/possibilities.html.twig', ['possibilities' => $possibilities]);
 	}
 
 	#[Route('/downloads/{id}', name: 'app_download_file', methods: [Request::METHOD_GET])]

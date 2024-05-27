@@ -52,6 +52,7 @@ class PageDataExtension extends AbstractExtension
 			new TwigFunction('generate_technology_category_menu', [$this, 'generateTechnologyCategoryMenu']),
 			new TwigFunction('generate_technology_category_one_level_menu', [$this, 'generateTechnologyCategoryOneLevelMenu']),
 			new TwigFunction('get_footer_contacts', [$this, 'getFooterContacts']),
+			new TwigFunction('get_site_email', [$this, 'getSiteEmail']),
 			new TwigFunction('build_breadcrumbs', [$this, 'buildBreadcrumbs']),
 			new TwigFunction('build_news_breadcrumbs', [$this, 'buildNewsBreadcrumbs']),
 			new TwigFunction('build_events_breadcrumbs', [$this, 'buildEventsBreadcrumbs']),
@@ -63,6 +64,11 @@ class PageDataExtension extends AbstractExtension
 	public function getFooterContacts(): FooterContactsDto
 	{
 		return $this->settingsProvider->getFooterInfo();
+	}
+
+	public function getSiteEmail(): ?string
+	{
+		return $this->settingsProvider->getEmail();
 	}
 
 	public function generateProductCategoryMenu(int $dept = self::DEFAULT_MENU_DEPT): array

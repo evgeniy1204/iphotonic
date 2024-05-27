@@ -11,7 +11,6 @@ use App\Entity\Media;
 use App\Entity\Membership;
 use App\Entity\News;
 use App\Entity\Partner;
-use App\Entity\Possibilities;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Entity\Setting;
@@ -43,7 +42,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Iphotonic')
+            ->setTitle('I-Photonics')
             ->disableDarkMode();
     }
 
@@ -63,7 +62,6 @@ class DashboardController extends AbstractDashboardController
 		yield MenuItem::linkToCrud('Settings', 'fa fa-cog', Setting::class);
 		yield MenuItem::linkToCrud('Downloads', 'fa fa-download', Download::class);
 		yield MenuItem::linkToCrud('About us', 'fa fa-address-card', AboutUs::class);
-		yield MenuItem::linkToCrud('Possibilities', 'fa fa-bolt', Possibilities::class);
 		yield MenuItem::linkToCrud('Partners', 'fa fa-users', Partner::class);
 		yield MenuItem::linkToCrud('Memberships', 'fa fa-users-rectangle', Membership::class);
     }

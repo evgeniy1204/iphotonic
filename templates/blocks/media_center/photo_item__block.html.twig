@@ -1,9 +1,8 @@
 <article class="media-item">
     <a class="media-item-link" href="{{ path('app_media_item', {'slug': media.slug}) }}">
         <div class="media-item-image">
-            <img src="{{ asset('uploads/mdeia_preview/' ~ media.preview) }}" alt="{{ media.title }}">
+            <img src="{{ asset('uploads/media_preview/' ~ media.preview) }}" alt="{{ media.title }}">
         </div>
-
         <h2 class="media-item-title">{{ media.title }}</h2>
     </a>
 </article>
