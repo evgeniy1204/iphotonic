@@ -74,11 +74,10 @@ class SettingCrudController extends AbstractCrudController
 			TextField::new('mainRightBlockTitle'),
 			UrlField::new('mainRightBlockTitleUrl'),
 			TextareaField::new('mainRightBlockSummary'),
-			ImageField::new('mainRightBlockImages')
+			ImageField::new('mainRightBlockImage')
 				->hideOnIndex()
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
-				->setFormTypeOption('multiple', true)
 				->setRequired(false),
 			FormField::addTab('Technology'),
 			TinyMCEField::new('technologyContent')->hideOnIndex(),

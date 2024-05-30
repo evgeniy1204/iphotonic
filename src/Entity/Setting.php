@@ -64,8 +64,8 @@ class Setting
 	#[ORM\Column(name: 'main_right_block_summary', type: Types::STRING, length: 255, nullable: true)]
 	private ?string $mainRightBlockSummary;
 
-	#[ORM\Column(name: 'main_right_block_images', type: Types::SIMPLE_ARRAY, nullable: true)]
-	private ?array $mainRightBlockImages;
+	#[ORM\Column(name: 'main_right_block_image', type: Types::SIMPLE_ARRAY, nullable: true)]
+	private ?string $mainRightBlockImage;
 
 	#[ORM\Column(name: 'phones', type: Types::TEXT, nullable: true)]
 	private ?string $phones;
@@ -94,6 +94,12 @@ class Setting
 		$this->phones = null;
 		$this->address = null;
 		$this->webSite = null;
+		$this->mainLeftBlockSummary = null;
+		$this->mainLeftBlockImage = null;
+		$this->mainRightBlockImage = null;
+		$this->mainRightBlockSummary = null;
+		$this->mainLeftBlockTitleUrl = null;
+		$this->mainRightBlockTitleUrl = null;
 		$this->customerService = null;
 		$this->seo = new SeoEmbed();
 	}
@@ -209,16 +215,6 @@ class Setting
 		$this->mainRightBlockSummary = $mainRightBlockSummary;
 	}
 
-	public function getMainRightBlockImages(): ?array
-	{
-		return $this->mainRightBlockImages;
-	}
-
-	public function setMainRightBlockImages(?array $mainRightBlockImages): void
-	{
-		$this->mainRightBlockImages = $mainRightBlockImages;
-	}
-
 	public function getMainLeftBlockTitleUrl(): ?string
 	{
 		return $this->mainLeftBlockTitleUrl;
@@ -297,5 +293,15 @@ class Setting
 	public function setCustomerService(?string $customerService): void
 	{
 		$this->customerService = $customerService;
+	}
+
+	public function getMainRightBlockImage(): ?string
+	{
+		return $this->mainRightBlockImage;
+	}
+
+	public function setMainRightBlockImage(?string $mainRightBlockImage): void
+	{
+		$this->mainRightBlockImage = $mainRightBlockImage;
 	}
 }

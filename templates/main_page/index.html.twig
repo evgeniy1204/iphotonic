@@ -2,6 +2,13 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <style>
+        .membership {
+            background: white;
+            padding-bottom: 50px;
+            padding-top: 50px;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -41,7 +48,7 @@
                         <div class="hero-feature-info">
                             <span>{{ data.setting.mainRightBlockSummary|raw|nl2br }}</span>
 
-                            <img src="{{ asset('uploads/main/') ~ data.setting.mainLeftBlockImage }}" alt="">
+                            <img src="{{ asset('uploads/main/') ~ data.setting.mainRightBlockImage }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -152,6 +159,29 @@
             </div>
         {% endif %}
     </main>
+    {% if data.membershipLogos is not empty %}
+        <div class="membership">
+            <div class="container">
+                <h2 class="section-title">Membership</h2>
+                <div class="membership-list">
+                    <div class="swiper">
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                            {% for membership in data.membershipLogos %}
+                                <div class="swiper-slide">
+                                    <a href="{{ membership.url }}"><img src="{{ asset('uploads/membership/' ~ membership.logo ) }}" width="300px" alt=""></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!-- If we need navigation buttons -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
@@ -193,6 +223,17 @@
                 if (event.matches) {
                     breakpointChecker();
                 }
+            });
+            const swiper = new Swiper('.swiper', {
+                // Optional parameters
+                direction: 'horizontal',
+                loop: true,
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
             });
 
             breakpointChecker();
