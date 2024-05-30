@@ -64,7 +64,7 @@ class Setting
 	#[ORM\Column(name: 'main_right_block_summary', type: Types::STRING, length: 255, nullable: true)]
 	private ?string $mainRightBlockSummary;
 
-	#[ORM\Column(name: 'main_right_block_image', type: Types::SIMPLE_ARRAY, nullable: true)]
+	#[ORM\Column(name: 'main_right_block_image', type: Types::STRING, length: 255, nullable: true)]
 	private ?string $mainRightBlockImage;
 
 	#[ORM\Column(name: 'phones', type: Types::TEXT, nullable: true)]
