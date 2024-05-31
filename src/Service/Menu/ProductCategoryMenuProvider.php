@@ -69,14 +69,14 @@ readonly class ProductCategoryMenuProvider
 				$parent->addChild($item);
 				$this->generateMenu($dept, $child, $item, $currentStep);
 			}
-		} else {
+		} /*else {
 			$productCategoryIds = $productCategory->getChildren() ? $productCategory->getFinalCategories() : [$productCategory->getId()];
 			$products = $this->productRepository->findByCategoryIds($productCategoryIds);
 			foreach ($products as $product) {
 				$item = new MenuItemDto($product->getName(), $this->urlGenerator->generateProductUrl($product), $product->getMenuOrder());
 				$parent->addChild($item);
 			}
-		}
+		}*/
 	}
 
 	/**
