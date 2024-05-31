@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Dto\CardInfoDto;
 use App\Repository\EventRepository;
 use App\Repository\MembershipRepository;
 use App\Repository\NewsRepository;
@@ -12,6 +13,7 @@ use App\Repository\ProductRepository;
 use App\Response\MainPageResponse;
 use App\Response\MainProductsCollectionResponse;
 use App\Service\Search\SettingsProvider;
+use App\Service\UrlGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -25,7 +27,8 @@ class MainController extends AbstractController
 		ProductCategoryRepository $productCategoryRepository,
 		ProductRepository $productRepository,
 		MembershipRepository $membershipRepository,
-		SettingsProvider $settingsProvider
+		SettingsProvider $settingsProvider,
+		UrlGenerator $urlGenerator,
 	): Response {
         $events = $eventRepository->findUpcomingEvents();
         $news = $newsRepository->findLatestNews();
@@ -39,8 +42,18 @@ class MainController extends AbstractController
 				foreach ($finalCategories as $finalCategory) {
 					$categoriesIds[] = $finalCategory->getId();
 				}
+				$productCards = [];
 				$products = $productRepository->findByCategoryIds($categoriesIds, 100);
-				$productsResult[$productCategory->getName()][] = new MainProductsCollectionResponse($childCategory, $products);
+				foreach ($products as $product) {
+					$productCards[] = new CardInfoDto(
+						$product->getPreviewImagePath(),
+						$urlGenerator->generateProductUrl($product),
+						$product->getName(),
+						$product->getSummary(),
+						$product->getMenuOrder(),
+					);
+				}
+				$productsResult[$productCategory->getName()][] = new MainProductsCollectionResponse($childCategory, $productCards);
 			}
 		}
 

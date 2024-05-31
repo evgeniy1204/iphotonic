@@ -82,7 +82,7 @@
                             </div>
                             {% for childProductsData in productsData %}
                             <div id="tab-panel-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}" role="tabpanel" aria-labelledby="tab-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}">
-                                {% include 'blocks/product/product_cards_block.html.twig' with {'products': childProductsData.products} %}
+                                {% include 'blocks/cards/cards_block.html.twig' with {'cards': childProductsData.productCards} %}
                             </div>
                             {% endfor %}
                         </div>

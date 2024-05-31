@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Response;
 
-use App\Entity\Product;
+use App\Dto\CardInfoDto;
 use App\Entity\ProductCategory;
 
 readonly class MainProductsCollectionResponse
 {
 	/**
 	 * @param ProductCategory $productCategory
-	 * @param Product[] 	   $products
+	 * @param CardInfoDto[]   $productCards
 	 */
 	public function __construct(
 		private ProductCategory $productCategory,
-		private array $products
+		private array $productCards
 	) {
 	}
 
@@ -24,8 +24,8 @@ readonly class MainProductsCollectionResponse
 		return $this->productCategory;
 	}
 
-	public function getProducts(): array
+	public function getProductCards(): array
 	{
-		return $this->products;
+		return $this->productCards;
 	}
 }

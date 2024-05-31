@@ -15,10 +15,8 @@
                         {{ productCategory.summary|raw }}
                     </div>
 
-                    {% if productCategory.children %}
-                        {% include 'blocks/product_category/product_category_cards_block.html.twig' with {'product_categories': productCategory.children} %}
-                    {% else%}
-                        {% include 'blocks/product/product_cards_block.html.twig' with {'products': products} %}
+                    {% if cards %}
+                        {% include 'blocks/cards/cards_block.html.twig' with {'cards': cards} %}
                     {% endif %}
 
                     <div class="content">

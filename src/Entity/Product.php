@@ -285,4 +285,9 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 	{
 		$this->menuOrder = $menuOrder;
 	}
+
+	public function getPreviewImagePath(): string
+	{
+		return sprintf('%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::PRODUCT_FILES_FOLDER, $this->getImages()[0] ?? '');
+	}
 }

@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Dto\CardInfoDto;
+use App\Entity\ProductCategory;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
+use App\Service\UrlGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,15 +35,40 @@ class ProductLandingController extends AbstractController
 		string $productCategorySlug,
 		?string $productSubCategorySlug,
 		ProductCategoryRepository $productCategoryRepository,
-		ProductRepository $productRepository
+		ProductRepository $productRepository,
+		UrlGenerator $urlGenerator,
 	): Response {
+		/** @var ProductCategory $productCategory */
 		$productCategory = $productCategoryRepository->findOneBy(['slug' => $productSubCategorySlug ?? $productCategorySlug]);
 		if ($productCategory) {
-			$products = $productRepository->findByCategoryIds([$productCategory->getId()], 10);
+			$cards = [];
+			$products = $productRepository->findByCategoryIds([$productCategory->getId()], 100);
+			foreach ($productCategory->getChildren() as $productCategoryChild) {
+				$cards[] = new CardInfoDto(
+					$productCategoryChild->getPreviewImagePath(),
+					$urlGenerator->generateProductCategoryUrl($productCategoryChild),
+					$productCategoryChild->getName(),
+					$productCategoryChild->getSummary(),
+					$productCategoryChild->getMenuOrder(),
+				);
+			}
+			foreach ($products as $product) {
+				$cards[] = new CardInfoDto(
+					$product->getPreviewImagePath(),
+					$urlGenerator->generateProductUrl($product),
+					$product->getName(),
+					$product->getSummary(),
+					$product->getMenuOrder(),
+				);
+			}
+			$sortFunc = function (CardInfoDto $aDto, CardInfoDto $bDto) {
+				return $aDto->getOrderNumber() > $bDto->getOrderNumber();
+			};
+			usort($cards, $sortFunc);
 
 			return $this->render('product_category/index.html.twig', [
 				'productCategory' => $productCategory,
-				'products' => $products,
+				'cards' => $cards,
 			]);
 		}
 		return $this->getProductPage($productRepository, $productSubCategorySlug);

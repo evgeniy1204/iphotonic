@@ -1,17 +1,17 @@
-{% if products %}
+{% if cards %}
     <div class="product-cards">
-        {% for product in products %}
+        {% for card in cards %}
             <div class="product-card">
                 <div class="product-card-image">
-                    <img src="{{ asset('uploads/product/' ~ product.images|first) }}"
-                         alt="{{ product.name }}">
+                    <img src="{{ asset(card.imageUrl) }}"
+                         alt="{{ card.name }}">
                 </div>
                 <h4 class="product-card-title">
                     <a class="product-card-link"
-                       href="{{ generate_product_url(product) }}">{{ product.name }}</a>
+                       href="{{ card.url }}">{{ card.name }}</a>
                 </h4>
                 <div class="product-card-desc">
-                    {{ product.summary|raw|nl2br }}
+                    {{ card.summary|raw|nl2br }}
                 </div>
             </div>
         {% endfor %}

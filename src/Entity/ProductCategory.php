@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Constants;
 use App\Repository\ProductCategoryRepository;
 use App\Service\Breadcrumb\BreadcrumbAwareInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -234,5 +235,10 @@ class ProductCategory implements BreadcrumbAwareInterface
 	public function setMenuOrder(int $menuOrder): void
 	{
 		$this->menuOrder = $menuOrder;
+	}
+
+	public function getPreviewImagePath(): string
+	{
+		return sprintf('%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::PRODUCT_CATEGORY_PREVIEW_FOLDER, $this->previewImage);
 	}
 }

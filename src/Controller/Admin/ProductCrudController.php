@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use App\Constants;
 use App\Entity\Product;
 use App\Field\TinyMCEField;
-use App\Repository\ProductCategoryRepository;
 use App\Repository\TechnologyRepository;
 use App\Trait\SeoFieldsTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -16,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 class ProductCrudController extends AbstractCrudController
 {
