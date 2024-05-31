@@ -14,9 +14,10 @@ readonly class ProductCategoryMenuProvider
 {
 	public function __construct(
 		private ProductCategoryRepository $productCategoryRepository,
-		private ProductRepository $productRepository,
-		private UrlGenerator $urlGenerator
-	) {
+		private ProductRepository         $productRepository,
+		private UrlGenerator              $urlGenerator
+	)
+	{
 	}
 
 	/**
@@ -58,25 +59,19 @@ readonly class ProductCategoryMenuProvider
 	private function generateMenu(int $dept, ProductCategory $productCategory, MenuItemDto $parent, int $currentStep = 0): void
 	{
 		$currentStep++;
-		if ($currentStep !== $dept && $productCategory->getChildren()) {
-			foreach ($productCategory->getChildren() as $child) {
-				$item = new MenuItemDto($child->getName(), $this->urlGenerator->generateProductCategoryUrl($child), $child->getMenuOrder());
-				$products = $this->productRepository->findByCategoryIds([$child->getId(), 100]);
-				foreach ($products as $product) {
-					$productItem = new MenuItemDto($product->getName(), $this->urlGenerator->generateProductUrl($product), $product->getMenuOrder());
-					$item->addChild($productItem);
-				}
-				$parent->addChild($item);
-				$this->generateMenu($dept, $child, $item, $currentStep);
-			}
-		} /*else {
-			$productCategoryIds = $productCategory->getChildren() ? $productCategory->getFinalCategories() : [$productCategory->getId()];
-			$products = $this->productRepository->findByCategoryIds($productCategoryIds);
+		if ($currentStep === $dept) {
+			return;
+		}
+		foreach ($productCategory->getChildren() as $child) {
+			$item = new MenuItemDto($child->getName(), $this->urlGenerator->generateProductCategoryUrl($child), $child->getMenuOrder());
+			$products = $this->productRepository->findByCategoryIds([$child->getId(), 100]);
 			foreach ($products as $product) {
-				$item = new MenuItemDto($product->getName(), $this->urlGenerator->generateProductUrl($product), $product->getMenuOrder());
-				$parent->addChild($item);
+				$productItem = new MenuItemDto($product->getName(), $this->urlGenerator->generateProductUrl($product), $product->getMenuOrder());
+				$item->addChild($productItem);
 			}
-		}*/
+			$parent->addChild($item);
+			$this->generateMenu($dept, $child, $item, $currentStep);
+		}
 	}
 
 	/**
