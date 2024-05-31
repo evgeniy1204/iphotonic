@@ -61,6 +61,11 @@ readonly class ProductCategoryMenuProvider
 		if ($currentStep !== $dept && $productCategory->getChildren()) {
 			foreach ($productCategory->getChildren() as $child) {
 				$item = new MenuItemDto($child->getName(), $this->urlGenerator->generateProductCategoryUrl($child), $child->getMenuOrder());
+				$products = $this->productRepository->findByCategoryIds([$child->getId(), 100]);
+				foreach ($products as $product) {
+					$productItem = new MenuItemDto($product->getName(), $this->urlGenerator->generateProductUrl($product), $product->getMenuOrder());
+					$item->addChild($productItem);
+				}
 				$parent->addChild($item);
 				$this->generateMenu($dept, $child, $item, $currentStep);
 			}
