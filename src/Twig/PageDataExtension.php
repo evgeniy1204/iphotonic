@@ -6,6 +6,7 @@ namespace App\Twig;
 
 use App\Dto\BreadcrumbDto;
 use App\Dto\FooterContactsDto;
+use App\Dto\MenuItemCollection;
 use App\Entity\ProductCategory;
 use App\Entity\SeoEmbed;
 use App\Entity\Technology;
@@ -71,22 +72,22 @@ class PageDataExtension extends AbstractExtension
 		return $this->settingsProvider->getEmail();
 	}
 
-	public function generateProductCategoryMenu(int $dept = self::DEFAULT_MENU_DEPT): array
+	public function generateProductCategoryMenu(int $dept = self::DEFAULT_MENU_DEPT): MenuItemCollection
 	{
 		return $this->productCategoryMenuProvider->provide($dept);
 	}
 
-	public function generateProductCategoryOneLevelMenu(?ProductCategory $parent): array
+	public function generateProductCategoryOneLevelMenu(?ProductCategory $parent): MenuItemCollection
 	{
 		return $this->productCategoryMenuProvider->provide(1, $parent);
 	}
 
-	public function generateTechnologyCategoryMenu(int $dept = self::DEFAULT_MENU_DEPT): array
+	public function generateTechnologyCategoryMenu(int $dept = self::DEFAULT_MENU_DEPT): MenuItemCollection
 	{
 		return $this->technologyCategoryMenuProvider->provide($dept);
 	}
 
-	public function generateTechnologyCategoryOneLevelMenu(?Technology $technology): array
+	public function generateTechnologyCategoryOneLevelMenu(?Technology $technology): MenuItemCollection
 	{
 		return $this->technologyCategoryMenuProvider->provide(1, $technology);
 	}

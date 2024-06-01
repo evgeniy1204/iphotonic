@@ -5,9 +5,8 @@
                 <img class="nav-home-icon" src="{{ asset('images/logo.svg') }}" width="70" height="63" alt="logo">
             </a>
             <div class="nav-primary-container">
-                <div class="nav-primary-title">Catalog</div>
                 <ul class="nav-primary-list">
-                    {% for item in menuItems %}
+                    {% for item in menu.items %}
                         <li class="nav-primary-item">
                             <a class="nav-primary-link" href="{{ item.url }}">{{ item.name }}</a>
                             <div class="nav-primary-submenu">
@@ -62,7 +61,55 @@
 
     </div>
 
-    <button class="header-nav-button" type="button" aria-expanded="false" aria-controls="menu" aria-label="Toggle menu">
+    <div class="header-menu header-menu--closed">
+        <div class="menu">
+            <div class="menu-caption">Catalog</div>
+            {% for item in menuItems %}
+                <div class="menu-section">
+                    <button class="menu-slide-open js-menu-slide-open" type="button">
+                        {{ item.name }}
+                    </button>
+                    <div class="menu-slide menu-slide--closed">
+                        <button class="menu-slide-close js-menu-slide-close" type="button">
+                            {{ item.name }}
+                        </button>
+
+                        <ul class="menu-slide-list">
+                            {% if item.children %}
+                                {% for child in item.children %}
+                                    <li>
+                                        <a href="{{ child.url }}">{{ child.name }}</a>
+                                        <ul>
+                                            {% for product in child.children %}
+                                                <li><a href="{{ product.url }}">{{ product.name }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="menu-secondary">
+                <ul class="menu-secondary-list">
+                    <li><a class="menu-secondary-link" href="{{ path('app_technology_index') }}">Technology</a></li>
+                    <li><a class="menu-secondary-link" href="{{ path('app_application_index') }}">Applications</a></li>
+                    <li><a class="menu-secondary-link" href="{{ path('app_media_center_index') }}">Media center</a></li>
+                    <li><a class="menu-secondary-link" href="{{ path('app_downloads_index') }}">Downloads</a></li>
+                    <li><a class="menu-secondary-link" href="{{ path('app_contacts_index') }}">Contacts</a></li>
+                    <li><a class="menu-secondary-link" href="{{ path('app_about_index') }}">About Us</a></li>
+                </ul>
+            </div>
+
+            <div class="menu-extra">
+                <a class="menu-extra-link" href="mailto:{{ get_site_email() }}">{{ get_site_email() }}</a>
+            </div>
+        </div>
+    </div>
+
+    <button class="header-menu-button" type="button" aria-expanded="false" aria-controls="menu" aria-label="Toggle menu">
         <svg class="header-icon-menu" width="50" height="50" aria-hidden="true">
             <use href="{{ asset('images/icons.svg#menu') }}"></use>
         </svg>

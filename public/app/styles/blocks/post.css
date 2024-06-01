@@ -1,24 +1,24 @@
 /* Post */
 
-.post-image {
+.post-content p:has(> img) {
   position: relative;
   max-width: fit-content;
   margin-inline: auto;
 }
 
-.post-image::after,
-.post-image img {
+.post-content p:has(> img)::after,
+.post-content p:has(> img) img {
   border-radius: 4px;
 }
 
-.post-image::after {
+.post-content p:has(> img)::after {
   position: absolute;
   inset: 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
   content: '';
 }
 
-.post-image img {
+.post-content p:has(> img) img {
   display: block;
   max-width: 100%;
   height: auto;
@@ -29,7 +29,7 @@
 }
 
 @media (width < 960px) {
-  .post-image,
+  .post-content p:has(> img),
   .post-swiper {
     margin-block: 24px;
   }
@@ -46,7 +46,13 @@
 
   .post .breadcrumb,
   .post .main-title,
-  .post-content > *:not([class]) {
+  .post-content > h2,
+  .post-content > h3,
+  .post-content > h4,
+  .post-content > ul,
+  .post-content > ol,
+  .post-content > blockquote,
+  .post-content > p:not(:has(> img)) {
     max-width: 734px;
     margin-inline: auto;
   }
@@ -59,7 +65,7 @@
     margin-bottom: 32px;
   }
 
-  .post-image,
+  .post-content p:has(> img),
   .post-swiper {
     margin-block: 40px;
   }

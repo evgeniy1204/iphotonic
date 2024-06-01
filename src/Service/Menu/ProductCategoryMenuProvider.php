@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Menu;
 
+use App\Dto\MenuItemCollection;
 use App\Dto\MenuItemDto;
 use App\Entity\ProductCategory;
 use App\Repository\ProductCategoryRepository;
@@ -20,10 +21,7 @@ readonly class ProductCategoryMenuProvider
 	{
 	}
 
-	/**
-	 * @return MenuItemDto[]
-	 */
-	public function provide(int $dept, ?ProductCategory $parent = null): array
+	public function provide(int $dept, ?ProductCategory $parent = null): MenuItemCollection
 	{
 		$productCategories = $this->productCategoryRepository->findBy(['parent' => $parent]);
 		$menuItems = [];
@@ -52,7 +50,7 @@ readonly class ProductCategoryMenuProvider
 			$this->sortMenu($menuItems, $sortFunc);
 		}
 
-		return $menuItems;
+		return new MenuItemCollection($menuItems);
 	}
 
 

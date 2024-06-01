@@ -10,7 +10,9 @@ class MenuItemDto
 		private readonly string $name,
 		private readonly string $url,
 		private readonly int $order,
-		private array $children = []
+		private ?MenuItemDto $parent = null,
+		private array $children = [],
+		private bool $isActive = false,
 	) {
 	}
 
@@ -26,6 +28,7 @@ class MenuItemDto
 
 	public function addChild(MenuItemDto $item): void
 	{
+		$item->setParent($this);
 		$this->children[] = $item;
 	}
 
@@ -45,5 +48,30 @@ class MenuItemDto
 	public function sortChildren(callable $sortFunc): void
 	{
 		usort($this->children, $sortFunc);
+	}
+
+	public function isActive(): bool
+	{
+		return $this->isActive;
+	}
+
+	public function markActive(): void
+	{
+		$this->isActive = true;
+	}
+
+	public function resolveActive(string $currentPath): void
+	{
+		$this->isActive = $this->url === $currentPath;
+	}
+
+	public function getParent(): ?MenuItemDto
+	{
+		return $this->parent;
+	}
+
+	private function setParent(MenuItemDto $parent): void
+	{
+		$this->parent = $parent;
 	}
 }

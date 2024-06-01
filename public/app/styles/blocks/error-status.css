@@ -1,0 +1,77 @@
+/* Error Status */
+
+.error-status {
+  text-align: center;
+}
+
+.error-status-title {
+  position: relative;
+  max-width: fit-content;
+  margin: 0 auto;
+}
+
+.error-status-title::after {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  content: '';
+  pointer-events: none;
+}
+
+.error-status-text p {
+  margin: 0;
+}
+
+@media (width < 960px) {
+  .error-status {
+    padding-top: 20px;
+  }
+
+  .error-status-title {
+    padding-inline: 14px;
+    font-size: 180.282px;
+    line-height: 173px;
+  }
+
+  .error-status-title::after {
+    inset: auto 0 -6px;
+    height: 105px;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+
+  .error-status-text {
+    margin-block: 30px 21px;
+    padding-inline: 15px;
+  }
+}
+
+@media (width >= 960px) {
+  .error-status {
+    padding-top: 2px;
+  }
+
+  .error-status-title {
+    padding-inline: 32px;
+    font-size: 417px;
+    line-height: 400px;
+  }
+
+  .error-status-title::after {
+    inset: auto 0 -16px;
+    height: 244px;
+    box-shadow: 0px 4px 28px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  .error-status-text {
+    margin-block: 56px 28px;
+  }
+
+  .error-status-text p {
+    font-size: 24px;
+    line-height: 28px;
+  }
+}

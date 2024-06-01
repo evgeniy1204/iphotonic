@@ -58,7 +58,6 @@
                                     </p>
                                 {% endfor %}
                             </div>
-
                             <div class="card-action">
                                 <a class="button button--primary" href="#">Contact Us</a>
                             </div>
@@ -74,7 +73,7 @@
                     {% include 'blocks/technology/technology.html.twig' with {'technology': product.technology} %}
                 </div>
 
-                {% include 'menu/left_sidebar.html.twig' with {'menuItems': generate_product_category_menu() } %}
+                {% include 'menu/left_sidebar.html.twig' with {'menu': generate_product_category_menu() } %}
             </div>
         </div>
     </main>

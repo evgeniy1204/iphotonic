@@ -16,13 +16,6 @@
     width: 36px;
     height: 32px;
   }
-
-  .header-nav--opened .nav-home {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-  }
 }
 
 @media (width >= 960px) {
@@ -43,34 +36,13 @@
     isolation: isolate;
   }
 
-  .header-nav--opened .nav-primary {
-    display: block;
-    background-color: #fff;
-  }
-
-  .nav-primary-title {
-    display: none;
-    margin-bottom: -5px;
-    padding: 100px 20px 0;
-    color: var(--color-gray-200);
-    letter-spacing: 0.01em;
-  }
-
-  .header-nav--opened .nav-primary-title {
-    display: block;
-  }
-
   .nav-primary-container {
     background-color: #fff;
     border-block: 1px solid var(--color-separator);
     box-shadow: 0 -51px 0 #fff;
   }
 
-  .header-nav--opened .nav-primary-container {
-    border-top: none;
-  }
-
-  .header-nav:not(.header-nav--opened) .nav-primary-list {
+  .header-nav .nav-primary-list {
     display: flex;
     justify-content: space-between;
     margin: 0;
@@ -81,46 +53,12 @@
     scrollbar-width: none;
   }
 
-  .header-nav:not(.header-nav--opened) .nav-primary-list a {
+  .header-nav .nav-primary-list a {
     display: block;
     padding: 10px 15px 11px;
     color: var(--color-black);
     text-align: center;
     text-decoration: none;
-  }
-}
-
-@media (width >= 960px) {
-  .nav-primary-title {
-    display: none;
-  }
-}
-
-/* Secondary */
-
-@media (width < 960px) {
-  .header-nav--opened {
-    position: fixed;
-    inset: 0;
-    display: grid;
-    align-content: start;
-    overflow-x: clip;
-    overflow-y: auto;
-    padding-left: 32px;
-    isolation: isolate;
-    overscroll-behavior: contain;
-  }
-
-  .header-nav--opened::after {
-    position: fixed;
-    inset: 0 0 0 32px;
-    z-index: -1;
-    content: '';
-  }
-
-  .header-nav--opened::after,
-  .header-nav--opened .nav-secondary {
-    background-color: #fff;
   }
 }
 
@@ -138,22 +76,10 @@
     height: 63px;
   }
 
-  .header-nav--opened .nav-primary-list {
-    height: auto;
-    padding-bottom: 27px;
-  }
-
   .nav-primary-link {
     display: block;
     color: var(--color-black);
     text-decoration: none;
-  }
-
-  .header-nav--opened .nav-primary-link {
-    padding: 12px 20px;
-    font-size: 22px;
-    letter-spacing: 0.01em;
-    line-height: 28px;
   }
 
   .nav-primary-submenu {
@@ -245,11 +171,6 @@
   .nav-primary ul ul,
   .nav-secondary {
     display: none;
-  }
-
-  .header-nav--opened .nav-primary ul ul,
-  .header-nav--opened .nav-secondary {
-    display: block;
   }
 
   .nav-secondary-list {

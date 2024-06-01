@@ -27,7 +27,7 @@ class MediaCenterLandingController extends AbstractController
 	): Response
 	{
 		$events = $eventRepository->findUpcomingEvents(4);
-		$news = $newsRepository->findLatestNews(4);
+		$news = $newsRepository->findLatestNews(limit: 4);
 		$media = $mediaRepository->findOneLastMedia();
 
 		return $this->render('media_center/media_center_index.html.twig', [
@@ -75,8 +75,11 @@ class MediaCenterLandingController extends AbstractController
 	#[Route('/articles/{slug}', name: 'app_article_item', methods: [Request::METHOD_GET])]
 	public function article(string $slug, NewsRepository $newsRepository): Response
 	{
-		$news = $newsRepository->findOneBy(['slug' => $slug]);
-		$otherNews = $newsRepository->findLatestNews();
+		$news = $newsRepository->findOneBy(['slug' => $slug, 'active' => true]);
+		if (!$news) {
+			throw new NotFoundHttpException();
+		}
+		$otherNews = $newsRepository->findLatestNews([$news->getId()]);
 
 		return $this->render('media_center/article_item.html.twig', [
 			'news' => $news,
@@ -87,7 +90,10 @@ class MediaCenterLandingController extends AbstractController
 	#[Route('/events/{slug}', name: 'app_event_item', methods: [Request::METHOD_GET])]
 	public function event(string $slug, EventRepository $eventRepository): Response
 	{
-		$event = $eventRepository->findOneBy(['slug' => $slug]);
+		$event = $eventRepository->findOneBy(['slug' => $slug, 'active' => true]);
+		if (!$event) {
+			throw new NotFoundHttpException();
+		}
 		$otherEvents = $eventRepository->findUpcomingEvents(3);
 
 		return $this->render('media_center/event_item.html.twig', [
@@ -99,7 +105,7 @@ class MediaCenterLandingController extends AbstractController
 	#[Route('/media/{slug}', name: 'app_media_item', methods: [Request::METHOD_GET])]
 	public function media(string $slug, MediaRepository $mediaRepository): Response
 	{
-		$media = $mediaRepository->findOneBy(['slug' => $slug]);
+		$media = $mediaRepository->findOneBy(['slug' => $slug, 'active' => true]);
 		if (!$media) {
 			throw new NotFoundHttpException();
 		}

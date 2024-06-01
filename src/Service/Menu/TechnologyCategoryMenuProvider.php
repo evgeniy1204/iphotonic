@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Menu;
 
+use App\Dto\MenuItemCollection;
 use App\Dto\MenuItemDto;
 use App\Entity\Technology;
 use App\Repository\TechnologyRepository;
@@ -17,10 +18,7 @@ readonly class TechnologyCategoryMenuProvider
 	) {
 	}
 
-	/**
-	 * @return MenuItemDto[]
-	 */
-	public function provide(int $dept, ?Technology $technology = null): array
+	public function provide(int $dept, ?Technology $technology = null): MenuItemCollection
 	{
 		$technologyCategories = $this->technologyRepository->findBy(['parent' => $technology]);
 		$menuItems = [];
@@ -40,7 +38,7 @@ readonly class TechnologyCategoryMenuProvider
 
 		}
 
-		return $menuItems;
+		return new MenuItemCollection($menuItems);
 	}
 
 

@@ -26,8 +26,15 @@
 }
 
 @media (width >= 960px) {
+  .page,
+  .page-body {
+    height: 100%;
+  }
+
   .page-body {
     --page-line-height: 27px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
     font-size: 18px;
   }
 }

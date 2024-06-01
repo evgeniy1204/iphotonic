@@ -11,7 +11,7 @@
                     <h1 class="main-title">{{ event.title }}</h1>
                     <div class="post-content">
                         <p>{{ event.summary|nl2br }}</p>
-                        <p class="post-image">
+                        <p>
                             <img src="{{ asset('uploads/event_preview/' ~ event.preview) }}" width="1000" alt="{{ event.title }}">
                         </p>
                         <p>{{ event.text|raw }}</p>

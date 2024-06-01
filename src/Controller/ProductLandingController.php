@@ -10,6 +10,7 @@ use App\Service\UrlGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/catalog')]
@@ -40,6 +41,9 @@ class ProductLandingController extends AbstractController
 	): Response {
 		/** @var ProductCategory $productCategory */
 		$productCategory = $productCategoryRepository->findOneBy(['slug' => $productSubCategorySlug ?? $productCategorySlug]);
+		if (!$productCategory) {
+			throw new NotFoundHttpException();
+		}
 		if ($productCategory) {
 			$cards = [];
 			$products = $productRepository->findByCategoryIds([$productCategory->getId()], 100);
@@ -88,6 +92,9 @@ class ProductLandingController extends AbstractController
 	private function getProductPage(ProductRepository $productRepository, string $slug): Response
 	{
 		$product = $productRepository->findOneBy(['slug' => $slug]);
+		if (!$product) {
+			throw new NotFoundHttpException();
+		}
 		$similarProducts = $productRepository->findSimilarProducts($product);
 
 		$relationBlockTitle = 'Thing coating';

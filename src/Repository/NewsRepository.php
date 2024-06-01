@@ -17,14 +17,20 @@ class NewsRepository extends ServiceEntityRepository
 	/**
 	 * @return News[]
 	 */
-	public function findLatestNews(int $limit = 3): array
+	public function findLatestNews(array $excludeIds = [], int $limit = 3): array
 	{
-		return $this->createQueryBuilder('n')
+		$qb = $this->createQueryBuilder('n');
+		if ($excludeIds) {
+			$qb->andWhere('n.id NOT IN (:excludeIds)')
+				->setParameter('excludeIds', $excludeIds);
+		}
+
+		$qb
 			->andWhere('n.active = TRUE')
 			->orderBy('n.createdAt', 'DESC')
-			->setMaxResults($limit)
-			->getQuery()
-			->getResult();
+			->setMaxResults($limit);
+
+		return $qb->getQuery()->getResult();
 	}
 
 	/**

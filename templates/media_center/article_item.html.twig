@@ -15,7 +15,7 @@
                     <h1 class="main-title">{{ news.title }}</h1>
                     <div class="post-content">
                         <p>{{ news.summary }}</p>
-                        <p class="post-image"><img src="{{ asset('uploads/news_preview/' ~ news.preview) }}" alt="{{ news.title }}"></p>
+                        <p><img src="{{ asset('uploads/news_preview/' ~ news.preview) }}" alt="{{ news.title }}"></p>
                         {{ news.text|raw }}
                     </div>
 
@@ -43,6 +43,10 @@
     <!-- Initialize Swiper -->
     <script>
         var swiper = new Swiper(".js-post-swiper", {
+            centeredSlides: true,
+            roundLengths: true,
+            loop: true,
+            slidesPerView: 1,
             pagination: {
                 el: '.post-swiper-pagination',
                 clickable: true,
