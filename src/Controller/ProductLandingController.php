@@ -41,9 +41,6 @@ class ProductLandingController extends AbstractController
 	): Response {
 		/** @var ProductCategory $productCategory */
 		$productCategory = $productCategoryRepository->findOneBy(['slug' => $productSubCategorySlug ?? $productCategorySlug]);
-		if (!$productCategory) {
-			throw new NotFoundHttpException();
-		}
 		if ($productCategory) {
 			$cards = [];
 			$products = $productRepository->findByCategoryIds([$productCategory->getId()], 100);
