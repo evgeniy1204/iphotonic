@@ -17,7 +17,7 @@
                                 <div class="sidenav-wrapper">
                                     <a class="sidenav-link" href="{{ child.url }}" aria-current="{% if child.url == currentPath %}page{% endif %}">{{ child.name }}</a>
                                     {% if child.children %}
-                                        <button class="sidenav-toggle js-sidenav-toggle" type="button" aria-expanded="true"></button>
+                                        <button class="sidenav-toggle js-sidenav-toggle" type="button" aria-expanded="false"></button>
                                     {% endif %}
                                 </div>
                                     {% if child.children %}
@@ -25,21 +25,28 @@
                                             {% for subChild in child.children %}
                                                 <li class="sidenav-sublist-item">
                                                     <div class="sidenav-wrapper">
-                                                        <a class="sidenav-link" href="{{ subChild.url }}" aria-current="{% if subChild.url == currentPath %}page{% endif %}">{{ subChild.name }}</a>
+                                                        {% set parentActive = subChild.url == currentPath %}
+                                                        <a class="sidenav-link" href="{{ subChild.url }}" aria-current="{% if parentActive %}page{% endif %}">{{ subChild.name }}</a>
                                                         {% if subChild.children %}
-                                                        <button class="sidenav-toggle js-sidenav-toggle" type="button" aria-expanded="true"></button>
+                                                            {% set hasSubChildActiveLink = false  %}
+                                                            {% for product in subChild.children %}
+                                                                {% if product.url == currentPath %}
+                                                                    {% set hasSubChildActiveLink = true %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        <button class="sidenav-toggle js-sidenav-toggle" type="button" aria-expanded="{% if hasSubChildActiveLink or parentActive %}true{% else %}false{% endif %}"></button>
                                                         {% endif %}
                                                     </div>
                                                     {% if subChild.children %}
-                                                    <ul class="sidenav-sublist is-active">
-                                                        {% for product in subChild.children %}
-                                                            <li class="sidenav-sublist-item">
-                                                                <div class="sidenav-wrapper">
-                                                                    <a class="sidenav-link" href="{{ product.url }}" aria-current="{% if product.url == currentPath %}page{% endif %}">{{ product.name }}</a>
-                                                                </div>
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
+                                                        <ul class="sidenav-sublist{% if hasSubChildActiveLink or parentActive %} is-active{% endif %}">
+                                                            {% for product in subChild.children %}
+                                                                <li class="sidenav-sublist-item">
+                                                                    <div class="sidenav-wrapper">
+                                                                        <a class="sidenav-link" href="{{ product.url }}" aria-current="{% if product.url == currentPath %}page{% endif %}">{{ product.name }}</a>
+                                                                    </div>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
                                                     {% endif %}
                                                 </li>
                                             {% endfor %}
