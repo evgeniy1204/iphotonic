@@ -2,13 +2,6 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <style>
-        .membership {
-            background: white;
-            padding-bottom: 50px;
-            padding-top: 50px;
-        }
-    </style>
 {% endblock %}
 
 {% block body %}
@@ -160,27 +153,30 @@
         {% endif %}
     </main>
     {% if data.membershipLogos is not empty %}
-        <div class="membership">
+        <section class="section-membership">
             <div class="container">
-                <h2 class="section-title">Membership</h2>
-                <div class="membership-list">
-                    <div class="swiper">
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-                        <!-- Additional required wrapper -->
-                        <div class="swiper-wrapper">
-                            {% for membership in data.membershipLogos %}
-                                <div class="swiper-slide">
-                                    <a href="{{ membership.url }}"><img src="{{ asset('uploads/membership/' ~ membership.logo ) }}" width="300px" alt=""></a>
-                                </div>
-                            {% endfor %}
+                <div class="swiper logos">
+                    <div class="membership-title-controls">
+                        <div class="membership-title">
+                            <h2 class="section-title">Membership</h2>
                         </div>
-                        <!-- If we need navigation buttons -->
-
+                        <div class="logos-controls">
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                    <div class="swiper-wrapper">
+                        {% for membership in data.membershipLogos %}
+                        <div class="swiper-slide logos-item">
+                            <a class="" href="{{ membership.url }}">
+                                <img src="{{ asset('uploads/membership/' ~ membership.logo ) }}" alt="">
+                            </a>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     {% endif %}
 {% endblock %}
 
@@ -188,6 +184,21 @@
     <script src="{{ asset('app/scripts/tabs.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        let slidesPerView = 5;
+        if ($(window).width() >= 500 && $(window).width() < 980) {
+            slidesPerView = 3;
+        }
+        if ($(window).width() < 500) {
+            slidesPerView = 2;
+        }
+        var swiper = new Swiper(".logos", {
+            slidesPerView: slidesPerView,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
         (function() {
             'use strict';
 
@@ -223,17 +234,6 @@
                 if (event.matches) {
                     breakpointChecker();
                 }
-            });
-            const swiper = new Swiper('.swiper', {
-                // Optional parameters
-                direction: 'horizontal',
-                loop: true,
-
-                // Navigation arrows
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
             });
 
             breakpointChecker();

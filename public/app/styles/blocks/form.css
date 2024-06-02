@@ -6,7 +6,7 @@
 
 .form--modal {
   gap: 16px;
-  width: 301px;
+  max-width: 301px;
 }
 
 .form-submit {

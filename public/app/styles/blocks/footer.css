@@ -5,6 +5,11 @@
   border-top: 1px solid var(--color-separator);
 }
 
+.footer-extra-nav-contact {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 @media (width < 960px) {
   .footer {
     display: grid;

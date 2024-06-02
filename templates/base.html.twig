@@ -94,8 +94,6 @@
                 </div>
             </div>
         </div>
-        {% block javascripts %}
-        {% endblock %}
         <script src="{{ asset('app/scripts/index.js') }}"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script>
@@ -103,12 +101,12 @@
             const modalFormClose = document.querySelector('.js-modal-form .js-modal-close');
             const modalThanksClose = document.querySelector('.js-modal-thanks .js-modal-close');
 
-            modalButton.addEventListener('click', () => {
+            $('.js-modal-button').on('click', function (e) {
                 page.classList.add('page--clip');
                 document.querySelector('.js-modal-form').classList.add('modal--active');
                 document.querySelector('.modal-title').textContent = document.querySelector('.main-title').textContent
                 $('.product-field').val(document.querySelector('.main-title').textContent);
-            });
+            })
 
             modalFormClose.addEventListener('click', () => {
                 page.classList.remove('page--clip');
@@ -141,5 +139,7 @@
                 });
             });
         </script>
+        {% block javascripts %}
+        {% endblock %}
     </body>
 </html>

@@ -3,6 +3,10 @@
 .header {
   background-color: #fff;
 }
+.nav-secondary-contact {
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 @media (width < 960px) {
   .header {
