@@ -1,10 +1,11 @@
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 {% if currentLevelMenuItems %}
     <nav class="inline-nav">
         <ul class="inline-nav-list">
             {% for currentLevelMenuItem in currentLevelMenuItems.items %}
                 <li class="inline-nav-item">
                     <a class="inline-nav-link" href="{{ currentLevelMenuItem.url }}"
-                       aria-current="{% if currentLevelMenuItem.isActive %}page{% endif %}">{{ currentLevelMenuItem.name }}</a>
+                       aria-current="{% if currentLevelMenuItem.url == currentPath %}page{% endif %}">{{ currentLevelMenuItem.name }}</a>
                 </li>
             {% endfor %}
         </ul>
