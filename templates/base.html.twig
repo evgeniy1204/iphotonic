@@ -113,6 +113,8 @@
             modalFormClose.addEventListener('click', () => {
                 page.classList.remove('page--clip');
                 document.querySelector('.js-modal-form').classList.remove('modal--active');
+                $('.ajax-submit input, .ajax-submit textarea').val('');
+                $('.form-error').html('');
             });
             modalThanksClose.addEventListener('click', () => {
                 page.classList.remove('page--clip');
