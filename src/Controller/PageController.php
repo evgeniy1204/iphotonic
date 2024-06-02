@@ -36,7 +36,7 @@ class PageController extends AbstractController
 			'about' => $settingsProvider->getAboutUsContent(),
 			'socialLinks' => $settingsProvider->getSocialLinks(),
 			'email' => $settingsProvider->getEmail(),
-			'phones' => $settingsProvider->getPhone(),
+			'phones' => $settingsProvider->getPhones(),
 			'address' => $settingsProvider->getAddress(),
 			'webSite' => $settingsProvider->getWebsite(),
 			'customerService' => $settingsProvider->getCustomerService(),

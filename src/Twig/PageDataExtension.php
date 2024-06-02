@@ -59,7 +59,13 @@ class PageDataExtension extends AbstractExtension
 			new TwigFunction('build_events_breadcrumbs', [$this, 'buildEventsBreadcrumbs']),
 			new TwigFunction('build_media_breadcrumbs', [$this, 'buildMediaBreadcrumbs']),
 			new TwigFunction('get_default_meta', [$this, 'getMetaTagsData']),
+			new TwigFunction('get_site_phones', [$this, 'getSitePhones']),
 		];
+	}
+
+	public function getSitePhones(): ?string
+	{
+		return $this->settingsProvider->getPhones();
 	}
 
 	public function getFooterContacts(): FooterContactsDto

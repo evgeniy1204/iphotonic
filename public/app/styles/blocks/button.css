@@ -6,10 +6,12 @@
   padding: 10px 24px;
   border: none;
   border-radius: 2px;
+  font-family: inherit;
   font-size: 18px;
   line-height: 27px;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .button--primary {

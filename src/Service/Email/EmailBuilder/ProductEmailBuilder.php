@@ -15,10 +15,10 @@ readonly class ProductEmailBuilder
 	{
 	}
 
-	public function buildEmail(EmailDto $emailDto): EmailInterface
+	public function buildEmail(string $subject, EmailDto $emailDto): EmailInterface
 	{
 		return new Email(
-			'Product message',
+			$subject,
 			$this->twig->render('email/product_email.html.twig', ['email' => $emailDto])
 		);
 	}

@@ -47,7 +47,7 @@ readonly class SettingsProvider
 		return $this->getSettings()->getEmail();
 	}
 
-	public function getPhone(): ?string
+	public function getPhones(): ?string
 	{
 		return $this->getSettings()->getPhones();
 	}

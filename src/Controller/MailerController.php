@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MailerController extends AbstractController
 {
-	#[Route('/send-email', methods: [Request::METHOD_POST])]
+	#[Route('/send-email', name: 'send_email', methods: [Request::METHOD_POST])]
 	public function sendEmail(
 		#[MapRequestPayload]
 		EmailRequest $emailRequest,
@@ -24,6 +24,7 @@ class MailerController extends AbstractController
 		ProductEmailBuilder $productEmailBuilder
 	): Response {
 		$emailSender->send($productEmailBuilder->buildEmail(
+			$emailRequest->product,
 			new EmailDto($emailRequest->name, $emailRequest->email, $emailRequest->message)
 		));
 

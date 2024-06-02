@@ -26,4 +26,6 @@ class EmailRequest
 		Assert\NotNull,
 	]
 	public string $message;
+
+	public string $product;
 }

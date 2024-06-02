@@ -2,7 +2,6 @@
 
 @import url('global/colors.css');
 @import url('global/box-model.css');
-@import url('global/typography.css');
 
 /* Blocks */
 
@@ -22,6 +21,7 @@
 @import url('blocks/event-cards.css');
 @import url('blocks/featured.css');
 @import url('blocks/footer.css');
+@import url('blocks/form.css');
 @import url('blocks/gallery.css');
 @import url('blocks/header.css');
 @import url('blocks/hero.css');
@@ -31,6 +31,7 @@
 @import url('blocks/main.css');
 @import url('blocks/media.css');
 @import url('blocks/menu.css');
+@import url('blocks/modal.css');
 @import url('blocks/nav.css');
 @import url('blocks/page.css');
 @import url('blocks/pagination.css');

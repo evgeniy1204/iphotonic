@@ -21,6 +21,11 @@ readonly class MenuItemCollection
 		$this->sortMenu($this->items, $this->getSortFunc());
 	}
 
+	public function getItems(): array
+	{
+		return $this->items;
+	}
+
 	/**
 	 * @param MenuItemDto[] $items
 	 * @param string $currentPath
@@ -44,11 +49,6 @@ readonly class MenuItemCollection
 			$parent->markActive();
 			$this->doActiveForLastParent($parent);
 		}
-	}
-
-	public function getItems(): array
-	{
-		return $this->items;
 	}
 
 	/**
