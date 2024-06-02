@@ -123,6 +123,7 @@
                 e.preventDefault();
                 let frm = $('.ajax-submit');
                 $('.email-field').removeClass('form-input--error');
+                $('.form-error').html('');
                 $.ajax({
                     type: frm.attr('method'),
                     url: frm.attr('action'),
