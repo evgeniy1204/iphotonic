@@ -76,7 +76,7 @@
     margin: 0;
   }
 
-  .featured .listing-card:only-child {
+/*  .featured .listing-card:only-child {
     display: grid;
     grid-column: span 3;
     grid-template-areas:
@@ -101,5 +101,5 @@
     grid-area: d;
     max-width: 390px;
     padding-bottom: 45px;
-  }
+  }*/
 }
