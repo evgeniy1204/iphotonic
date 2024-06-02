@@ -2,11 +2,12 @@
 
 .form {
   display: grid;
+  width: 340px;
 }
 
 .form--modal {
   gap: 16px;
-  max-width: 301px;
+  max-width: 340px;
 }
 
 .form-submit {
