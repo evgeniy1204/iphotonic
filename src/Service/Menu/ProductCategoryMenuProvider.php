@@ -10,24 +10,23 @@ use App\Entity\ProductCategory;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use App\Service\UrlGenerator;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
 
 readonly class ProductCategoryMenuProvider
 {
 	public function __construct(
 		private ProductCategoryRepository $productCategoryRepository,
 		private ProductRepository         $productRepository,
-		private UrlGenerator              $urlGenerator
-	)
-	{
+		private UrlGenerator              $urlGenerator,
+		private RequestStack 			  $requestStack
+	) {
 	}
 
 	public function provide(int $dept, ?ProductCategory $parent = null): MenuItemCollection
 	{
 		$productCategories = $this->productCategoryRepository->findBy(['parent' => $parent]);
 		$menuItems = [];
-		$sortFunc = function (MenuItemDto $aDto, MenuItemDto $bDto) {
-			return $aDto->getOrder() > $bDto->getOrder();
-		};
 
 		/** @var ProductCategory $productCategory */
 		foreach ($productCategories as $productCategory) {
@@ -45,12 +44,9 @@ readonly class ProductCategoryMenuProvider
 			}
 
 			$this->generateMenu($dept, $productCategory, $item);
-			usort($menuItems, $sortFunc);
-
-			$this->sortMenu($menuItems, $sortFunc);
 		}
 
-		return new MenuItemCollection($menuItems);
+		return new MenuItemCollection($this->getCurrentPath(), $menuItems);
 	}
 
 
@@ -72,18 +68,10 @@ readonly class ProductCategoryMenuProvider
 		}
 	}
 
-	/**
-	 * @param MenuItemDto[] $menuItems
-	 * @param callable $func
-	 * @return void
-	 */
-	private function sortMenu(array $menuItems, callable $sortFunc): void
+	private function getCurrentPath(): string
 	{
-		foreach ($menuItems as $menuItem) {
-			if ($children = $menuItem->getChildren()) {
-				$menuItem->sortChildren($sortFunc);
-				$this->sortMenu($children, $sortFunc);
-			}
-		}
+		$currentRequest = $this->requestStack->getCurrentRequest();
+
+		return $currentRequest->getPathInfo();
 	}
 }

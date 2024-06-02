@@ -9,36 +9,31 @@ use App\Dto\MenuItemDto;
 use App\Entity\Technology;
 use App\Repository\TechnologyRepository;
 use App\Service\UrlGenerator;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 readonly class TechnologyCategoryMenuProvider
 {
 	public function __construct(
 		private TechnologyRepository $technologyRepository,
-		private UrlGenerator $urlGenerator
-	) {
+		private UrlGenerator         $urlGenerator,
+		private RequestStack         $requestStack
+	)
+	{
 	}
 
 	public function provide(int $dept, ?Technology $technology = null): MenuItemCollection
 	{
 		$technologyCategories = $this->technologyRepository->findBy(['parent' => $technology]);
 		$menuItems = [];
-		$sortFunc = function (MenuItemDto $aDto, MenuItemDto $bDto) {
-			return $aDto->getOrder() > $bDto->getOrder();
-		};
 
 		foreach ($technologyCategories as $technologyCategory) {
 			$item = new MenuItemDto($technologyCategory->getName(), $this->urlGenerator->generateTechnologyUrl($technologyCategory), $technologyCategory->getMenuOrder());
 			$menuItems[] = $item;
 
 			$this->generateMenu($dept, $technologyCategory, $item);
-
-			usort($menuItems, $sortFunc);
-
-			$this->sortMenu($menuItems, $sortFunc);
-
 		}
 
-		return new MenuItemCollection($menuItems);
+		return new MenuItemCollection($this->getCurrentPath(), $menuItems);
 	}
 
 
@@ -55,18 +50,10 @@ readonly class TechnologyCategoryMenuProvider
 		}
 	}
 
-	/**
-	 * @param MenuItemDto[] $menuItems
-	 * @param callable $func
-	 * @return void
-	 */
-	private function sortMenu(array $menuItems, callable $sortFunc): void
+	private function getCurrentPath(): string
 	{
-		foreach ($menuItems as $menuItem) {
-			if ($children = $menuItem->getChildren()) {
-				$menuItem->sortChildren($sortFunc);
-				$this->sortMenu($children, $sortFunc);
-			}
-		}
+		$currentRequest = $this->requestStack->getCurrentRequest();
+
+		return $currentRequest->getPathInfo();
 	}
 }

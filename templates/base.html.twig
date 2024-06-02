@@ -15,15 +15,15 @@
         <link rel="stylesheet" href="{{ asset('app/styles/index.css') }}">
     </head>
     <body class="page-body">
-        {% set menuItems = generate_product_category_menu() %}
+        {% set menu = generate_product_category_menu() %}
 
         {% block header_menu %}
-            {% include 'menu/header.html.twig' with {'menu' : menuItems} %}
+            {% include 'menu/header.html.twig' with {'menu' : menu} %}
         {% endblock %}
         {% block body %}
         {% endblock %}
         {% block footer %}
-            {% include 'menu/footer.html.twig' with {'menu' : menuItems} %}
+            {% include 'menu/footer.html.twig' with {'menu' : menu} %}
         {% endblock %}
         {% block javascripts %}
         {% endblock %}

@@ -72,7 +72,6 @@
                     {% include 'blocks/product/list_card_section.html.twig' with {'sectionName': relationBlockTitle, 'products': product.relationProducts} %}
                     {% include 'blocks/technology/technology.html.twig' with {'technology': product.technology} %}
                 </div>
-
                 {% include 'menu/left_sidebar.html.twig' with {'menu': generate_product_category_menu() } %}
             </div>
         </div>
