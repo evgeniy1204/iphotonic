@@ -168,7 +168,7 @@
                     <div class="swiper-wrapper">
                         {% for membership in data.membershipLogos %}
                         <div class="swiper-slide logos-item">
-                            <a class="" href="{{ membership.url }}">
+                            <a class="" href="{{ membership.url }}" target="_blank">
                                 <img src="{{ asset('uploads/membership/' ~ membership.logo ) }}" alt="">
                             </a>
                         </div>

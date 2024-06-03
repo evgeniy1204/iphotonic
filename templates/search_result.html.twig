@@ -9,13 +9,18 @@
                 <h1 class="main-title">Search result for "{{ searchResponse.searchText }}"</h1>
 
                 <div class="results-content">
-                    {% for searchResponseItem in searchResponse.searchResponseCollection %}
-                        <div class="result-item">
-                            <p class="result-item-type">{{ searchResponseItem.type.value }}</p>
-                            <p class="result-item-title"><a href="{{ searchResponseItem.url }}">{{ searchResponseItem.title }}</a></p>
-                            <p class="result-item-text">{{ searchResponseItem.text|raw }}</p>
-                        </div>
-                    {% endfor %}
+                    {% if searchResponse.searchResponseCollection %}
+                        {% for searchResponseItem in searchResponse.searchResponseCollection %}
+                            <div class="result-item">
+                                <p class="result-item-type">{{ searchResponseItem.type.value }}</p>
+                                <p class="result-item-title"><a href="{{ searchResponseItem.url }}">{{ searchResponseItem.title }}</a></p>
+                                <p class="result-item-text">{{ searchResponseItem.text|raw }}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="not-found-title">Nothing found</p>
+                        <p class="not-found-description">Please try again with some different keywords</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -15,5 +15,25 @@ form .hidden {
     display:flex;
     align-items: center;
     justify-content:center;
-    background: #ffffff;
+    background: none;
+}
+
+p.not-found-title {
+    font-size: 53px;
+    font-weight: bold;
+}
+
+p.not-found-description {
+    font-size: 37px;
+}
+
+@media (width < 960px) {
+    p.not-found-title {
+        font-size: 37px;
+        font-weight: bold;
+    }
+
+    p.not-found-description {
+        font-size: 25px;
+    }
 }

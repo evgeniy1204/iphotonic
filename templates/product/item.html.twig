@@ -43,7 +43,6 @@
                                     {% endfor %}
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="card-info">
@@ -76,6 +75,39 @@
             </div>
         </div>
     </main>
+    <div class="card-modal card-modal-gallery">
+        <div class="card-modal-window">
+            <button class="modal-close js-modal-close">
+                <svg class="header-icon-close" width="26" height="26" aria-hidden="true">
+                    <use href="/images/icons.svg#close"></use>
+                </svg>
+            </button>
+            <div class="modal-wrapper">
+                <div class="modal-gallery swiper js-modal-gallery">
+                    <div class="modal-gallery-wrapper swiper-wrapper">
+                        {% for image in product.images %}
+                            <div class="modal-gallery-slide swiper-slide">
+                                <img src="{{ asset('uploads/product/' ~ image) }}" alt="{{ image }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {#<div class="modal-gallery-thumbs swiper js-modal-gallery-thumbs" thumbsSlider="">
+                    <div class="modal-gallery-thumbs-wrapper swiper-wrapper">
+                        {% for image in product.images %}
+                            <div class="gallery-thumb swiper-slide">
+                                <img src="{{ asset('uploads/product/' ~ image) }}" width="40" height="40" alt="{{ image }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>#}
+            </div>
+        </div>
+        <div class="modal-gallery-controls">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -89,6 +121,7 @@
         });
         var swiper2 = new Swiper(".js-gallery", {
             spaceBetween: 10,
+            zoom: true,
             navigation: {
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
@@ -97,6 +130,27 @@
                 swiper: swiper,
             },
         });
+
+        var swiper3 = new Swiper(".js-modal-gallery-thumbs", {
+            spaceBetween: 1,
+            freeMode: true,
+        });
+        var swiper4 = new Swiper(".js-modal-gallery", {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            }
+        });
+        $('.card-modal-gallery .js-modal-close').on('click', () => {
+            page.classList.remove('page--clip');
+            document.querySelector('.card-modal-gallery').classList.remove('card-modal--active');
+        });
+        $('.card-gallery .gallery-slide').on('click', function (e) {
+            page.classList.add('page--clip');
+            $('.card-modal-gallery').addClass('card-modal--active');
+            swiper4.slideTo(swiper2.activeIndex, 1, false)
+        })
     </script>
 
 {% endblock %}
