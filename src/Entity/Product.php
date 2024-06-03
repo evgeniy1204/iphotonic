@@ -147,7 +147,13 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 
     public function setImages(?array $images): void
     {
-        $this->images = $images ?? [];
+		$resultSet = [];
+		foreach ($images as $image) {
+			if ($image) {
+				$resultSet[] = $image;
+			}
+		}
+        $this->images = $resultSet;
     }
 
     public function getSummary(): ?string
@@ -167,7 +173,13 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 
     public function setFiles(?array $files): void
     {
-        $this->files = $files ?? [];
+		$resultSet = [];
+		foreach ($files as $file) {
+			if ($file) {
+				$resultSet[] = $file;
+			}
+		}
+        $this->files = $resultSet;
     }
 
     public function getSearchResultType(): SearchResultTypeEnum
