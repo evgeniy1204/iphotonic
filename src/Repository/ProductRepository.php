@@ -75,7 +75,7 @@ class ProductRepository extends ServiceEntityRepository
 	/**
 	 * @return Product[]
 	 */
-	public function findProductsForMainPageWithCategory(ProductCategory $productCategory): array
+	public function findProductsForMainPageWithCategoryIds(array $productCategoryIds): array
 	{
 		$qb = $this->createQueryBuilder('Product');
 
@@ -83,8 +83,8 @@ class ProductRepository extends ServiceEntityRepository
 			->select('Product')
 			->andWhere('Product.showOnMainPage = TRUE')
 			->andWhere('Product.active = TRUE')
-			->andWhere('Product.category = :productCategory')
-			->setParameter('productCategory', $productCategory);
+			->andWhere('Product.category IN (:productCategoryIds)')
+			->setParameter('productCategoryIds', $productCategoryIds);
 
 		return $qb->getQuery()->getResult();
 	}

@@ -43,17 +43,31 @@ class MainController extends AbstractController
 					$categoriesIds[] = $finalCategory->getId();
 				}
 				$productCards = [];
-				$products = $productRepository->findByCategoryIds($categoriesIds, 100);
-				foreach ($products as $product) {
-					$productCards[] = new CardInfoDto(
-						$product->getPreviewImagePath(),
-						$urlGenerator->generateProductUrl($product),
-						$product->getName(),
-						$product->getSummary(),
-						$product->getMenuOrder(),
-					);
+				$products = $productRepository->findProductsForMainPageWithCategoryIds($categoriesIds);
+				if ($products) {
+					foreach ($products as $product) {
+						$productCards[] = new CardInfoDto(
+							$product->getPreviewImagePath(),
+							$urlGenerator->generateProductUrl($product),
+							$product->getName(),
+							$product->getSummary(),
+							$product->getMenuOrder(),
+						);
+					}
+				} else {
+					foreach ($childCategory->getChildren() as $child) {
+						$productCards[] = new CardInfoDto(
+							$child->getPreviewImagePath(),
+							$urlGenerator->generateProductCategoryUrl($child),
+							$child->getName(),
+							$child->getSummary(),
+							$child->getMenuOrder(),
+						);
+					}
 				}
-				$productsResult[$productCategory->getName()][] = new MainProductsCollectionResponse($childCategory, $productCards);
+				if ($productCards) {
+					$productsResult[$productCategory->getName()][] = new MainProductsCollectionResponse($childCategory, $productCards);
+				}
 			}
 		}
 
