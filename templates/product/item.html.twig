@@ -89,7 +89,9 @@
                     <div class="modal-gallery-wrapper swiper-wrapper">
                         {% for image in product.images %}
                             <div class="modal-gallery-slide swiper-slide">
-                                <img src="{{ asset('uploads/product/' ~ image) }}" alt="{{ image }}">
+                                <div class="swiper-zoom-container">
+                                    <img src="{{ asset('uploads/product/' ~ image) }}" alt="{{ image }}">
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
@@ -139,6 +141,7 @@
         });
         var swiper4 = new Swiper(".js-modal-gallery", {
             spaceBetween: 10,
+            zoom: true,
             navigation: {
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
