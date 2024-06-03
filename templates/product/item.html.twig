@@ -24,7 +24,9 @@
                                 <div class="gallery-wrapper swiper-wrapper">
                                     {% for image in product.images %}
                                         <div class="gallery-slide swiper-slide">
-                                            <img src="{{ asset('uploads/product/' ~ image) }}" alt="{{ image }}">
+                                            <div class="swiper-zoom-container">
+                                                <img src="{{ asset('uploads/product/' ~ image) }}" alt="{{ image }}">
+                                            </div>
                                         </div>
                                     {% endfor %}
                                 </div>
