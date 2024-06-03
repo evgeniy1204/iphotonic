@@ -222,9 +222,9 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 	/**
 	 * eturn Product[]
 	 */
-	public function getRelationProducts(): array
+	public function getRelationProducts(): Collection
 	{
-		return $this->relationProducts->toArray();
+		return $this->relationProducts;
 	}
 
 	public function setRelationProducts(Collection $relationProducts): void

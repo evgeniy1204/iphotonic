@@ -48,7 +48,9 @@ class ProductCrudController extends AbstractCrudController
 				->setRequired(false)
 				->hideOnIndex(),
 			TinyMCEField::new('text')->hideOnIndex(),
-			AssociationField::new('relationProducts')->hideOnIndex(),
+			AssociationField::new('relationProducts')
+				->setLabel('Coatings')
+				->hideOnIndex(),
 			AssociationField::new('technology')->setFormTypeOptions(
 				[
 					'query_builder' => function (TechnologyRepository $technologyRepository) {

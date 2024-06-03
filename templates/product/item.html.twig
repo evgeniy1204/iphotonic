@@ -69,7 +69,7 @@
                     </div>
 
                     {% include 'blocks/product/list_card_section.html.twig' with {'sectionName': product.category.name, 'products': similarProducts} %}
-                    {% include 'blocks/product/list_card_section.html.twig' with {'sectionName': relationBlockTitle, 'products': product.relationProducts} %}
+                    {% include 'blocks/product/list_card_section.html.twig' with {'sectionName': relationBlockTitle, 'products': product.relationProducts.toArray} %}
                     {% include 'blocks/technology/technology.html.twig' with {'technology': product.technology} %}
                 </div>
                 {% include 'menu/left_sidebar.html.twig' with {'menu': generate_product_category_menu() } %}
