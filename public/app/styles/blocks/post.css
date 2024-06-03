@@ -26,6 +26,13 @@
 
 .post-swiper-pagination {
   position: relative;
+  margin-top: 10px;
+}
+
+.post-swiper img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 @media (width < 960px) {
