@@ -1,38 +1,44 @@
 {% extends 'base_login.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('app/styles/form-login.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('app/styles/login.css') }}">
 {% endblock %}
 {% block body %}
-        <div class="wrapper">
-            <div class="container">
-                <h1>Welcome</h1>
-                <form method="post" class="form">
-                    <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="username" required autofocus>
-                    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-                    <input type="hidden" name="_csrf_token"
-                           value="{{ csrf_token('authenticate') }}"
-                    >
-                    {% if error %}
-                        <div class="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
-                    <button type="submit" id="login-button">Login</button>
-                </form>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">I-Photonics Admin Panel</h2>
+                </div>
             </div>
-
-            <ul class="bg-bubbles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="login-wrap p-4 p-md-5">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="fa fa-user-o"></span>
+                        </div>
+                        <h3 class="text-center mb-4">Sign In</h3>
+                        <form method="POST" class="login-form">
+                            <div class="form-group">
+                                <input value="{{ last_username }}" name="_username" id="username"  class="form-control rounded-left" placeholder="Username" required autofocus>
+                            </div>
+                            <div class="form-group d-flex">
+                                <input type="password" name="_password" id="password" class="form-control rounded-left" placeholder="Password" autocomplete="current-password" required>
+                            </div>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+                            </div>
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 {% endblock %}
+
+
