@@ -47,26 +47,3 @@
         gap: 40px;
     }
 }
-
-.membership-title-controls {
-    display: flex;
-}
-.logos-controls {
-    position: relative;
-    width: 70px;
-    margin-bottom: 25px;
-}
-
-.logos-controls .swiper-button-next, .logos-controls .swiper-button-prev {
-    color: var(--color-black);
-}
-
-.logos-controls .swiper-button-next:after, .logos-controls .swiper-button-prev:after {
-    font-size: 15px;
-}
-table {
-    width: 100%;
-}
-table tr td {
-    padding: 3px 5px 5px 5px;
-}

@@ -8,16 +8,14 @@
         {% endblock %}
         <title>{% block title %}I-Photonics{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ asset('app/styles/index.css') }}">
+        <link rel="stylesheet" href="{{ asset('app/styles/base.css') }}">
+        <link rel="stylesheet" href="{{ asset('app/styles/search-result.css') }}">
+        <link rel="stylesheet" href="{{ asset('app/styles/partner.css') }}">
+        <link rel="stylesheet" href="{{ asset('app/styles/membership-logos.css') }}">
         {% block stylesheets %}
         {% endblock %}
-        <style>
-            form .hidden {
-                display: none;
-            }
-        </style>
-        <link rel="stylesheet" href="{{ asset('app/search-result.css') }}">
-        <link rel="stylesheet" href="{{ asset('app/partner.css') }}">
-        <link rel="stylesheet" href="{{ asset('app/styles/index.css') }}">
     </head>
     <body class="page-body">
         {% set menu = generate_product_category_menu() %}
@@ -30,115 +28,8 @@
         {% block footer %}
             {% include 'menu/footer.html.twig' with {'menu' : menu} %}
         {% endblock %}
-        <div class="modal js-modal-form">
-            <div class="modal-window">
-                <button class="modal-close js-modal-close">
-                    <svg class="header-icon-close" width="26" height="26" aria-hidden="true">
-                        <use href="/images/icons.svg#close"></use>
-                    </svg>
-                </button>
-
-                <div class="modal-caption">Make an order</div>
-
-                <div class="modal-title"></div>
-
-                <form class="form form--modal ajax-submit" method="POST" action="{{ path('send_email') }}">
-                    <div class="form-item">
-                        <label class="form-control">
-                            <span class="form-label">Your name</span>
-
-                            <input class="form-input" type="text" required name="name">
-                        </label>
-                    </div>
-
-                    <div class="form-item field-email">
-                        <label class="form-control">
-                            <span class="form-label">Your E-mail</span>
-
-                            <input class="form-input email-field" required type="text" name="email" inputmode="email">
-                        </label>
-                    </div>
-
-                    <div class="form-item">
-                        <label class="form-control">
-                            <span class="form-label">Message</span>
-
-                            <textarea class="form-input" required name="message"></textarea>
-                        </label>
-                    </div>
-                    <input class="form-input hidden product-field" type="text" name="product">
-                    <div class="form-error"></div>
-
-                    <div class="form-submit">
-                        <button class="button button--primary button--block" type="submit">Send</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="modal js-modal-thanks">
-            <div class="modal-window">
-                <button class="modal-close js-modal-close">
-                    <svg class="header-icon-close" width="26" height="26" aria-hidden="true">
-                        <use href="/images/icons.svg#close"></use>
-                    </svg>
-                </button>
-
-                <div class="modal-thank">
-                    <div class="modal-thank-title">Thank You!</div>
-                    <div class="modal-thank-desc">form submitted successfully</div>
-                </div>
-
-                <div class="modal-note">
-                    <b>Phone:</b><br>
-                    {{ get_site_phones()|nl2br }}
-                </div>
-            </div>
-        </div>
+        {% include 'blocks/modal.html.twig' %}
         <script src="{{ asset('app/scripts/index.js') }}"></script>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script>
-            const modalButton = document.querySelector('.js-modal-button');
-            const modalFormClose = document.querySelector('.js-modal-form .js-modal-close');
-            const modalThanksClose = document.querySelector('.js-modal-thanks .js-modal-close');
-
-            $('.js-modal-button').on('click', function (e) {
-                page.classList.add('page--clip');
-                document.querySelector('.js-modal-form').classList.add('modal--active');
-                document.querySelector('.modal-title').textContent = document.querySelector('.main-title').textContent
-                $('.product-field').val(document.querySelector('.main-title').textContent);
-            })
-
-            modalFormClose.addEventListener('click', () => {
-                page.classList.remove('page--clip');
-                document.querySelector('.js-modal-form').classList.remove('modal--active');
-                $('.ajax-submit input, .ajax-submit textarea').val('');
-                $('.form-error').html('');
-            });
-            modalThanksClose.addEventListener('click', () => {
-                page.classList.remove('page--clip');
-                document.querySelector('.js-modal-thanks').classList.remove('modal--active');
-            });
-
-            $('.ajax-submit').on('submit', function (e) {
-                e.preventDefault();
-                let frm = $('.ajax-submit');
-                $('.email-field').removeClass('form-input--error');
-                $('.form-error').html('');
-                $.ajax({
-                    type: frm.attr('method'),
-                    url: frm.attr('action'),
-                    data: frm.serialize(),
-                    success: function (data) {
-                        document.querySelector('.js-modal-form').classList.remove('modal--active');
-                        document.querySelector('.js-modal-thanks').classList.add('modal--active');
-                        $('.ajax-submit input, .ajax-submit textarea').val('');
-                    },
-                    error: function (data) {
-                        $('.form-error').html('Error submitted form');
-                    },
-                });
-            });
-        </script>
         {% block javascripts %}
         {% endblock %}
     </body>
