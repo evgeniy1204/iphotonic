@@ -147,6 +147,7 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 
     public function setImages(?array $images): void
     {
+		$images = $images ?: [];
 		$resultSet = [];
 		foreach ($images as $image) {
 			if ($image) {
@@ -173,6 +174,7 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 
     public function setFiles(?array $files): void
     {
+		$files = $files ?: [];
 		$resultSet = [];
 		foreach ($files as $file) {
 			if ($file) {
