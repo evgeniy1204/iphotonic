@@ -116,6 +116,10 @@
   cursor: zoom-in;
 }
 
+.gallery-thumbs.hide, .modal-gallery-thumbs.hide, .modal-gallery-controls.hide, .gallery-controls.hide div {
+  display: none;
+}
+
 @media (width < 960px) {
   .modal-gallery {
     width: 600px;

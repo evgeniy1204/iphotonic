@@ -6,7 +6,6 @@
 
 .product-card {
   position: relative;
-  display: grid;
   gap: 8px;
   padding: 8px 8px 24px;
   background-color: #fff;

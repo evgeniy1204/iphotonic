@@ -38,10 +38,14 @@
   content: '- ';
 }
 
-.content a:not([class]) {
+.content a:not([class]), .post-content a:not([class]) {
   color: var(--color-link);
   font-weight: 700;
   text-decoration: none;
+}
+
+.content a:not([class]):hover, .post-content a:not([class]):hover {
+  color: var(--color-link-hover);
 }
 
 @media (width < 960px) {

@@ -20,6 +20,21 @@
   line-height: 28px;
 }
 
+.sidenav-sublist-item:hover::after {
+  background-color: var(--color-blue-primary);
+  opacity: 0.1;
+}
+
+.sidenav-list .sidenav-link:hover:hover .sidenav-link[aria-current='page']::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-blue-primary);
+  border-radius: 4px;
+  opacity: 0.1;
+  content: '';
+}
+
 /* Item */
 
 .sidenav-item {

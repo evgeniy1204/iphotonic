@@ -14,15 +14,14 @@
                 <div class="applications">
                     {% for application in applications %}
                         <div class="applications-item">
-                            <a class="applications-item-link" href="#">
-                                <div class="applications-item-image">
-                                    <img src="{{ asset('uploads/application/' ~ application.preview) }}" alt="{{ application.name }}">
-                                </div>
-                                <h2 class="applications-item-title">{{ application.name }}</h2>
-                                <div class="applications-item-info">
-                                    {{ application.text|raw }}
-                                </div>
-                            </a>
+                            <div class="applications-item-image">
+                                <img src="{{ asset('uploads/application/' ~ application.preview) }}"
+                                     alt="{{ application.name }}">
+                            </div>
+                            <h2 class="applications-item-title">{{ application.name }}</h2>
+                            <div class="applications-item-info">
+                                {{ application.text|raw }}
+                            </div>
                         </div>
                     {% endfor %}
                 </div>

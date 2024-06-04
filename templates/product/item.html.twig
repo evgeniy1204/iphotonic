@@ -31,12 +31,12 @@
                                     {% endfor %}
                                 </div>
 
-                                <div class="gallery-controls">
+                                <div class="gallery-controls{% if product.images|length == 1 %} hide{% endif %}">
                                     <div class="swiper-button-prev"></div>
                                     <div class="swiper-button-next"></div>
                                 </div>
                             </div>
-                            <div class="gallery-thumbs swiper js-gallery-thumbs" thumbsSlider="">
+                            <div class="gallery-thumbs swiper js-gallery-thumbs{% if product.images|length == 1 %} hide{% endif %}" thumbsSlider="">
                                 <div class="gallery-thumbs-wrapper swiper-wrapper">
                                     {% for image in product.images %}
                                         <div class="gallery-thumb swiper-slide">
@@ -92,18 +92,19 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="modal-gallery-thumbs swiper js-modal-gallery-thumbs" thumbsSlider="">
-                    <div class="modal-gallery-thumbs-wrapper swiper-wrapper">
-                        {% for image in product.images %}
-                            <div class="gallery-thumb swiper-slide">
-                                <img src="{{ asset('uploads/product/' ~ image) }}" width="40" height="40" alt="{{ image }}">
-                            </div>
-                        {% endfor %}
+                    <div class="modal-gallery-thumbs swiper js-modal-gallery-thumbs{% if product.images|length == 1 %} hide{% endif %}" thumbsSlider="">
+                        <div class="modal-gallery-thumbs-wrapper swiper-wrapper">
+                            {% for image in product.images %}
+                                <div class="gallery-thumb swiper-slide">
+                                    <img src="{{ asset('uploads/product/' ~ image) }}" width="40" height="40" alt="{{ image }}">
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
+
             </div>
         </div>
-        <div class="modal-gallery-controls">
+        <div class="modal-gallery-controls{% if product.images|length == 1 %} hide{% endif %}">
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </div>

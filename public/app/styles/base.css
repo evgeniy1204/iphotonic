@@ -47,6 +47,28 @@ p.not-found-description {
     overflow-x: auto !important;
 }
 
+
+.header .nav-secondary-list li:hover, .nav-secondary-contact:hover, .footer .footer-extra-nav-list li:hover, .footer-extra-nav-contact:hover  {
+    opacity: 0.8;
+}
+
+.header .nav-primary-list li.nav-primary-item {
+    border-bottom: 2px solid white;
+}
+
+.header .nav-primary-list li.nav-primary-item:hover {
+    border-bottom: 2px solid var(--color-blue-primary);
+}
+
+.article:hover .article-link {
+    color: var(--color-link-hover);
+}
+
+.article:hover .article-image:after {
+    background-image: var(--gradient-primary);
+    opacity: .3;
+}
+
 @media (width < 960px) {
     p.not-found-title {
         font-size: 37px;
