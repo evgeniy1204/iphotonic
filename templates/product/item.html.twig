@@ -46,13 +46,10 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-info">
                             <h1 class="main-title desktop-only">{{ product.name }}</h1>
-
                             <div class="card-about">
                                {{ product.summary }}
-
                                 {% for filePaths in product.filePaths %}
                                     <p>
                                         <a class="link-doc" href="{{ asset(filePaths.path) }}" target="_blank">{{ filePaths.name }}</a>
@@ -64,7 +61,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="content">
                         {{ product.text|raw }}
                     </div>
@@ -79,7 +75,7 @@
     </main>
     <div class="card-modal card-modal-gallery">
         <div class="card-modal-window">
-            <button class="modal-close js-modal-close">
+            <button class="card-modal-close js-modal-close">
                 <svg class="header-icon-close" width="26" height="26" aria-hidden="true">
                     <use href="/images/icons.svg#close"></use>
                 </svg>
@@ -134,28 +130,29 @@
                 swiper: swiper,
             },
         });
-
-        var swiper3 = new Swiper(".js-modal-gallery-thumbs", {
-            spaceBetween: 1,
-            freeMode: true,
-        });
-        var swiper4 = new Swiper(".js-modal-gallery", {
-            spaceBetween: 10,
-            zoom: true,
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            }
-        });
-        $('.card-modal-gallery .js-modal-close').on('click', () => {
-            page.classList.remove('page--clip');
-            document.querySelector('.card-modal-gallery').classList.remove('card-modal--active');
-        });
-        $('.card-gallery .gallery-slide').on('click', function (e) {
-            page.classList.add('page--clip');
-            $('.card-modal-gallery').addClass('card-modal--active');
-            swiper4.slideTo(swiper2.activeIndex, 1, false)
-        })
+        if ($(window).width() >= 980) {
+            var swiper3 = new Swiper(".js-modal-gallery-thumbs", {
+                spaceBetween: 1,
+                freeMode: true,
+            });
+            var swiper4 = new Swiper(".js-modal-gallery", {
+                spaceBetween: 10,
+                zoom: true,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                }
+            });
+            $('.card-modal-gallery .js-modal-close').on('click', () => {
+                page.classList.remove('page--clip');
+                document.querySelector('.card-modal-gallery').classList.remove('card-modal--active');
+            });
+            $('.card-gallery .gallery-slide').on('click', function (e) {
+                page.classList.add('page--clip');
+                $('.card-modal-gallery').addClass('card-modal--active');
+                swiper4.slideTo(swiper2.activeIndex, 1, false)
+            })
+        }
     </script>
 
 {% endblock %}

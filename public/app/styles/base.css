@@ -8,7 +8,11 @@ form .hidden {
     display: none;
 }
 .modal-title {
-    width: 360px;
+    width: 300px;
+}
+
+.modal-window {
+    padding: 17px !important;
 }
 
 .swiper-slide {
@@ -25,6 +29,18 @@ p.not-found-title {
 
 p.not-found-description {
     font-size: 37px;
+}
+
+.gallery-controls {
+    display: none;
+}
+
+.gallery-controls {
+    display: none;
+}
+
+.card-gallery:hover .gallery-controls {
+    display: block;
 }
 
 @media (width < 960px) {
