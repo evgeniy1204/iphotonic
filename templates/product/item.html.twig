@@ -146,6 +146,9 @@
                     swiper: swiper3,
                 },
             });
+            swiper4.on('slideChange', function ({realIndex:r, previousIndex:p}) {
+                swiper2.slideTo(r, 1, false)
+            });
             $('.card-modal-gallery .js-modal-close').on('click', () => {
                 page.classList.remove('page--clip');
                 document.querySelector('.card-modal-gallery').classList.remove('card-modal--active');
