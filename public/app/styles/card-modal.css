@@ -22,6 +22,11 @@
   padding: 5px;
   background: #ffffff;
   border-radius: 15px;
+  display: grid;
+}
+
+.card-modal-window .modal-wrapper {
+  display: grid;
 }
 
 .card-modal-close {

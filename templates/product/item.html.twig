@@ -92,7 +92,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                {#<div class="modal-gallery-thumbs swiper js-modal-gallery-thumbs" thumbsSlider="">
+                <div class="modal-gallery-thumbs swiper js-modal-gallery-thumbs" thumbsSlider="">
                     <div class="modal-gallery-thumbs-wrapper swiper-wrapper">
                         {% for image in product.images %}
                             <div class="gallery-thumb swiper-slide">
@@ -100,7 +100,7 @@
                             </div>
                         {% endfor %}
                     </div>
-                </div>#}
+                </div>
             </div>
         </div>
         <div class="modal-gallery-controls">
@@ -141,7 +141,10 @@
                 navigation: {
                     nextEl: ".swiper-button-next",
                     prevEl: ".swiper-button-prev",
-                }
+                },
+                thumbs: {
+                    swiper: swiper3,
+                },
             });
             $('.card-modal-gallery .js-modal-close').on('click', () => {
                 page.classList.remove('page--clip');
