@@ -68,6 +68,10 @@
   width: 100%;
 }
 
+.modal-gallery-slide {
+  height: 800px !important;
+}
+
 .modal-gallery-thumbs-wrapper {
   display: flex;
   align-items: center;
