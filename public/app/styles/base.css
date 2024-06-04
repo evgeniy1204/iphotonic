@@ -43,6 +43,10 @@ p.not-found-description {
     display: block;
 }
 
+.product-category-content img {
+    max-width: 100%;
+}
+
 @media (width < 960px) {
     p.not-found-title {
         font-size: 37px;
