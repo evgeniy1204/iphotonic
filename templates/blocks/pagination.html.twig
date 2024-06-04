@@ -10,7 +10,7 @@
             {% endif %}
             {% for i in range(1, pagination.totalPages) %}
                 <li class="pagination-item">
-                    <a class="pagination-link" href="{{ path(route, {'page': i }) }}">{{ i }}</a>
+                    <a class="pagination-link{% if currentPage == i %} active{% endif %}" href="{{ path(route, {'page': i }) }}">{{ i }}</a>
                 </li>
             {% endfor %}
             {% set nextPageNum = currentPage + 1 %}

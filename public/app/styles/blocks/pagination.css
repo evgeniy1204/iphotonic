@@ -25,6 +25,11 @@
   text-decoration: none;
 }
 
+.pagination-link.active {
+  color: var(--color-gray-200);
+  text-decoration: underline;
+}
+
 .pagination-link::after {
   position: absolute;
   inset: -10px;
