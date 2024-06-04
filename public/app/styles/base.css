@@ -43,8 +43,8 @@ p.not-found-description {
     display: block;
 }
 
-.product-category-content img {
-    max-width: 100%;
+.product-category-content p:has(> img) {
+    overflow-x: auto !important;
 }
 
 @media (width < 960px) {
