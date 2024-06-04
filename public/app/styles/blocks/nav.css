@@ -118,6 +118,7 @@
   .nav-primary-item:hover .nav-primary-submenu {
     opacity: 1;
     visibility: visible;
+    transition-delay: 0.2s;
   }
 
   .nav-primary-sublist {
