@@ -55,8 +55,12 @@
   display: flex;
   align-items: center;
 }
+.modal-gallery-wrapper .modal-gallery-slide {
+  padding: 10px;
+}
 .modal-gallery-wrapper img {
   max-width: 100%;
+  width: 100%;
 }
 
 .modal-gallery-thumbs-wrapper {
