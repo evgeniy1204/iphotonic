@@ -50,6 +50,10 @@
   display: flex;
 }
 
+.sidenav-wrapper:hover {
+  background-color: #dfe7ed;
+}
+
 /* Link */
 
 .sidenav-link {
@@ -83,6 +87,10 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  opacity: 0.5;
+}
+.sidenav-toggle:hover {
+  opacity: 0.9;
 }
 
 .sidenav-toggle::after {
