@@ -24,13 +24,13 @@ class EventCrudController extends AbstractCrudController
         return [
             TextField::new('title')
 				->setRequired(true),
-            TextField::new('slug')->hideOnIndex()->setRequired(true),
+            TextField::new('slug')->setRequired(true),
 			ImageField::new('preview')
 				->setRequired(true)
 				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Event::PREVIEW_IMAGE_FOLDER)
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Event::PREVIEW_IMAGE_FOLDER)
 				->setRequired(false),
-			TextareaField::new('summary'),
+			TextareaField::new('summary')->hideOnIndex(),
             DateTimeField::new('createdEventStartAt')
 				->hideOnIndex()
 				->setRequired(true)
