@@ -52,10 +52,25 @@
   line-height: 25px;
 }
 
+.event-card-image {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.event-card-image::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+}
+
+.event-card:hover .event-card-image::after {
+  background-image: var(--gradient-primary);
+  opacity: .3;
+}
+
 @media (width < 960px) {
   .event-cards {
     overflow: visible;
-    width: auto;
     width: auto;
   }
 
@@ -63,7 +78,6 @@
     gap: 20px;
     overflow-x: auto;
     overflow-y: clip;
-    width: auto;
     width: auto;
     margin-inline: -15px;
     padding-inline: 15px;
@@ -85,7 +99,6 @@
   .event-card {
     flex: 0 0 calc(100% - 33px);
     width: auto;
-    width: auto;
     scroll-snap-align: center;
   }
 
@@ -93,21 +106,9 @@
     scroll-margin-inline: 15px;
   }
 
-  .event-card-image {
-    position: relative;
-    margin-bottom: 12px;
-  }
-
   .event-card-image::after,
   .event-card-image img {
     border-radius: 4px;
-  }
-
-  .event-card-image::after {
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    content: '';
   }
 
   .event-card-image img {
