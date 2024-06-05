@@ -10,6 +10,10 @@
   cursor: pointer;
 }
 
+.footer-nav-list a:hover {
+  color: var(--color-link-hover);
+}
+
 @media (width < 960px) {
   .footer {
     display: grid;
