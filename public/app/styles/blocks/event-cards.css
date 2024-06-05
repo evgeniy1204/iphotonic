@@ -14,6 +14,10 @@
   position: relative;
 }
 
+.event-card:hover .event-card-link {
+  color: var(--color-link-hover);
+}
+
 .event-card-link {
   outline: none;
   color: var(--color-black);

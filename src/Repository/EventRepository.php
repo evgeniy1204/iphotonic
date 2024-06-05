@@ -17,14 +17,22 @@ class EventRepository extends ServiceEntityRepository
 	/**
 	 * @return Event[]
 	 */
-	public function findUpcomingEvents(int $limit = 10): array
+	public function findUpcomingEvents(array $excludedIds = [], int $limit = 10): array
 	{
-		return $this->createQueryBuilder('e')
-			->andWhere('e.active = TRUE')
+		$qb = $this
+			->createQueryBuilder('e')
+			->andWhere('e.active = TRUE');
+
+		if ($excludedIds) {
+			$qb
+				->andWhere('e.id NOT IN (:excludedIds)')
+				->setParameter('excludedIds', $excludedIds);
+		}
+		$qb
 			->orderBy('e.createdEventStartAt', 'ASC')
-			->setMaxResults($limit)
-			->getQuery()
-			->getResult();
+			->setMaxResults($limit);
+
+		return $qb->getQuery()->getResult();
 	}
 
 	/**

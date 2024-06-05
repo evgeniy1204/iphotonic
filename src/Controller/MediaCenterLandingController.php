@@ -26,7 +26,7 @@ class MediaCenterLandingController extends AbstractController
 		MediaRepository $mediaRepository
 	): Response
 	{
-		$events = $eventRepository->findUpcomingEvents(4);
+		$events = $eventRepository->findUpcomingEvents(limit: 4);
 		$news = $newsRepository->findLatestNews(limit: 4);
 		$media = $mediaRepository->findOneLastMedia();
 
@@ -94,7 +94,7 @@ class MediaCenterLandingController extends AbstractController
 		if (!$event) {
 			throw new NotFoundHttpException();
 		}
-		$otherEvents = $eventRepository->findUpcomingEvents(3);
+		$otherEvents = $eventRepository->findUpcomingEvents([$event->getId()], 3);
 
 		return $this->render('media_center/event_item.html.twig', [
 			'event' => $event,
