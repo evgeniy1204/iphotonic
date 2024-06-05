@@ -23,6 +23,10 @@
   position: relative;
 }
 
+.breadcrumb-item:hover .breadcrumb-link {
+  opacity: .9;
+}
+
 .breadcrumb-item:not(:last-child)::after {
   position: absolute;
   top: 3px;
