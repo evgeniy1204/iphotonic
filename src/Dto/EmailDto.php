@@ -7,6 +7,7 @@ namespace App\Dto;
 readonly class EmailDto
 {
 	public function __construct(
+		private string $product,
 		private string $name,
 		private string $email,
 		private string $text
@@ -26,5 +27,10 @@ readonly class EmailDto
 	public function getText(): string
 	{
 		return $this->text;
+	}
+
+	public function getProduct(): string
+	{
+		return $this->product;
 	}
 }

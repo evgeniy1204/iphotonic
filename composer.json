@@ -20,6 +20,7 @@
         "symfony/filesystem": "7.0.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.0.*",
+        "symfony/google-mailer": "7.0.*",
         "symfony/http-client": "7.0.*",
         "symfony/mailer": "7.0.*",
         "symfony/mailer-send-mailer": "7.0.*",

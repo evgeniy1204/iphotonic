@@ -25,7 +25,7 @@ class MailerController extends AbstractController
 	): Response {
 		$emailSender->send($productEmailBuilder->buildEmail(
 			$emailRequest->product,
-			new EmailDto($emailRequest->name, $emailRequest->email, $emailRequest->message)
+			new EmailDto($emailRequest->product, $emailRequest->name, $emailRequest->email, $emailRequest->message)
 		));
 
 		return new Response();

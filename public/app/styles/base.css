@@ -11,7 +11,7 @@ form .hidden {
     width: 300px;
 }
 
-.modal-window {
+.js-modal-form .modal-window {
     padding: 17px !important;
 }
 
