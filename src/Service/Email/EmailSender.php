@@ -6,6 +6,7 @@ namespace App\Service\Email;
 
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 readonly class EmailSender
@@ -15,15 +16,19 @@ readonly class EmailSender
 		#[Autowire('%env(EMAIL_SENDER)%')]
 		private string $emailSender,
 		#[Autowire('%env(EMAIL_RECEIVER)%')]
-		private string $emailReceiver
+		private string $emailReceivers
 	) {
 	}
 
 	public function send(EmailInterface $email): void
 	{
+		$receivers = [];
+		foreach (explode(',', $this->emailReceivers) as $emailReceiver) {
+			$receivers[] = new Address($emailReceiver);
+		}
 		$email = (new Email())
 			->from($this->emailSender)
-			->to($this->emailReceiver)
+			->to(...$receivers)
 			->subject($email->getSubject())
 			->html($email->getText());
 
