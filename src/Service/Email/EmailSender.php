@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\Email;
 
+use App\Service\Search\SettingsProvider;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 readonly class EmailSender
@@ -15,20 +15,15 @@ readonly class EmailSender
 		private MailerInterface $mailer,
 		#[Autowire('%env(EMAIL_SENDER)%')]
 		private string $emailSender,
-		#[Autowire('%env(EMAIL_RECEIVER)%')]
-		private string $emailReceivers
+		private SettingsProvider $settingsProvider,
 	) {
 	}
 
 	public function send(EmailInterface $email): void
 	{
-		$receivers = [];
-		foreach (explode(',', $this->emailReceivers) as $emailReceiver) {
-			$receivers[] = new Address($emailReceiver);
-		}
 		$email = (new Email())
 			->from($this->emailSender)
-			->to(...$receivers)
+			->to($this->settingsProvider->getEmail() ?? '')
 			->subject($email->getSubject())
 			->html($email->getText());
 
