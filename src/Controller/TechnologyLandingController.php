@@ -17,15 +17,12 @@ class TechnologyLandingController extends AbstractController
 	public function index(
 		TechnologyRepository $technologyRepository,
 		SettingsProvider $settingsProvider,
-		ProductRepository $productRepository,
 	): Response {
-		$technologies = $technologyRepository->findBy(['active' => true]);
-		$products = $productRepository->findByTechnologies($technologies);
+		$technologies = $technologyRepository->findBy(['active' => true, 'parent' => null]);
 
 		return $this->render('technology/index.html.twig', [
 			'technologies' => $technologies,
 			'content' => $settingsProvider->getTechnologyContent(),
-			'products' => $products,
 		]);
 	}
 

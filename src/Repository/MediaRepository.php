@@ -25,6 +25,7 @@ class MediaRepository extends ServiceEntityRepository
 		$qb
 			->select('Media')
 			->andWhere('Media.active = TRUE')
+			->orderBy('Media.createdAt', 'DESC')
 			->setMaxResults($pagination->getPerPage())
 			->setFirstResult($pagination->calculateOffset());
 
@@ -49,6 +50,7 @@ class MediaRepository extends ServiceEntityRepository
 		$qb
 			->select('Media')
 			->andWhere('Media.active = TRUE')
+			->orderBy('Media.createdAt', 'DESC')
 			->setMaxResults(1);
 
 		return $qb->getQuery()->getOneOrNullResult();

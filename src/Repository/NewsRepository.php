@@ -64,6 +64,7 @@ class NewsRepository extends ServiceEntityRepository
 		$qb
 			->select('News')
 			->andWhere('News.active = TRUE')
+			->orderBy('News.createdAt', 'DESC')
 			->setMaxResults($pagination->getPerPage())
 			->setFirstResult($pagination->calculateOffset());
 

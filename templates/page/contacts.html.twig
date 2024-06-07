@@ -56,6 +56,7 @@
                     <div class="partners-grid">
                         {% for partner in partners %}
                             <div class="partner-item">
+                                <h2>{{ partner.name }}</h2>
                                 <div class="partner-img">
                                     <img src="{{ asset('uploads/partner/' ~ partner.logo) }}" alt="{{ partner.name }}">
                                 </div>

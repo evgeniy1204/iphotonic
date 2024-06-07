@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Dto\CardInfoDto;
+use App\Dto\ProductCategoryDto;
 use App\Repository\EventRepository;
 use App\Repository\MembershipRepository;
 use App\Repository\NewsRepository;
@@ -35,6 +36,23 @@ class MainController extends AbstractController
         $membershipLogos = $membershipRepository->findAll();
 		$productsResult = [];
 		foreach ($productCategoryRepository->findParentCategories() as $productCategory) {
+			$products = $productRepository->findProductsForMainPageWithCategoryIds([$productCategory->getId()]);
+			if ($products) {
+				foreach ($products as $product) {
+					$productCards = [];
+					$productCards[] = new CardInfoDto(
+						$product->getPreviewImagePath(),
+						$urlGenerator->generateProductUrl($product),
+						$product->getName(),
+						$product->getSummary(),
+						$product->getMenuOrder(),
+					);
+					$productsResult[$productCategory->getName()][] = new MainProductsCollectionResponse(new ProductCategoryDto(
+						$product->getId(),
+						$product->getName(),
+					), $productCards, $product->getMenuOrder());
+				}
+			}
 			foreach ($productCategory->getChildren() as $childCategory) {
 				$finalCategories = $childCategory->getFinalCategories();
 				$categoriesIds = [];
@@ -66,7 +84,7 @@ class MainController extends AbstractController
 					}
 				}
 				if ($productCards) {
-					$productsResult[$productCategory->getName()][] = new MainProductsCollectionResponse($childCategory, $productCards);
+					$productsResult[$productCategory->getName()][] = new MainProductsCollectionResponse(new ProductCategoryDto($childCategory->getId(), $childCategory->getName()), $productCards, $childCategory->getMenuOrder());
 				}
 			}
 		}

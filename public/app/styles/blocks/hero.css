@@ -1,7 +1,13 @@
 /* Hero */
 
 .hero-about {
-  display: grid;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-about .hero-description {
+  max-width: 50%;
 }
 
 .hero-feature-title {
@@ -54,6 +60,11 @@
     font-size: 15px;
     line-height: 21px;
     text-align: center;
+    display: grid;
+  }
+
+  .hero-about .hero-description {
+    max-width: 100%;
   }
 
   .hero-logo img {
@@ -79,38 +90,23 @@
     line-height: 21px;
   }
 
-  .hero-feature--primary .hero-feature-info {
+  .hero-feature--primary .hero-feature-info, .hero-feature--secondary .hero-feature-info {
     display: grid;
     grid-template-columns: 1fr 157px;
   }
 
-  .hero-feature--primary .hero-feature-info span {
+  .hero-feature--primary .hero-feature-info span, .hero-feature--secondary .hero-feature-info span {
     padding: 20px 15px;
   }
 
-  .hero-feature--primary .hero-feature-info img {
+  .hero-feature--primary .hero-feature-info img,  .hero-feature--secondary .hero-feature-info img {
     width: 157px;
     height: 122px;
-  }
-
-  .hero-feature--secondary .hero-feature-info {
-    padding: 20px 15px;
-  }
-
-  .hero-feature--secondary .hero-feature-info span {
-    display: block;
-    max-width: 295px;
-    margin-bottom: 16px;
-  }
-
-  .hero-feature--secondary .hero-feature-info img {
-    display: block;
-    width: 100%;
-    height: auto;
   }
 }
 
 @media (width >= 960px) {
+
   .hero {
     margin-bottom: 100px;
     padding-top: 48px;
@@ -180,5 +176,7 @@
 
   .hero-feature--secondary .hero-feature-info span {
     max-width: 476px;
+    margin-inline: auto;
+    text-align: center;
   }
 }

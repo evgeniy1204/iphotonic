@@ -4,10 +4,9 @@ namespace App\Response;
 
 use App\Entity\Event;
 use App\Entity\News;
-use App\Entity\SeoEmbed;
 use App\Entity\Setting;
 
-readonly class MainPageResponse
+class MainPageResponse
 {
 	/**
 	 * @param Setting $setting
@@ -17,12 +16,13 @@ readonly class MainPageResponse
 	 * @param string[] $membershipLogos
 	 */
     public function __construct(
-		private Setting $setting,
+		private readonly Setting $setting,
         private array $productsWithCategory = [],
-        private array $events = [],
-        private array $news = [],
-        private array $membershipLogos = [],
+        private readonly array $events = [],
+        private readonly array $news = [],
+        private readonly array $membershipLogos = [],
     ) {
+		$this->sort($this->productsWithCategory, $this->getSortFunc());
     }
 
 	/**
@@ -60,5 +60,26 @@ readonly class MainPageResponse
 	public function getSetting(): Setting
 	{
 		return $this->setting;
+	}
+
+	/**
+	 * @param array $items
+	 * @param callable $sortFunc
+	 * @return void
+	 */
+	private function sort(array $items, callable $sortFunc): void
+	{
+		foreach ($items as $key => $children) {
+			usort($children, $sortFunc);
+			$items[$key] = $children;
+		}
+		$this->productsWithCategory = $items;
+	}
+
+	private function getSortFunc(): callable
+	{
+		return function (MainProductsCollectionResponse $aDto, MainProductsCollectionResponse $bDto) {
+			return $aDto->getOrder() > $bDto->getOrder();
+		};
 	}
 }
