@@ -75,6 +75,14 @@
         $('.product-field').val(document.querySelector('.main-title').textContent);
     })
 
+    $('.js-modal-form').on('click', function (e) {
+        if ($(e.target).closest('.modal-window').length) {
+            return;
+        }
+        page.classList.remove('page--clip');
+        document.querySelector('.js-modal-form').classList.remove('modal--active');
+    })
+
     modalFormClose.addEventListener('click', () => {
         page.classList.remove('page--clip');
         document.querySelector('.js-modal-form').classList.remove('modal--active');

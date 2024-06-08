@@ -155,7 +155,12 @@
                 if ($(e.target).hasClass('swiper-button-prev') || $(e.target).hasClass('swiper-button-next') || $(e.target).hasClass('modal-image')) {
                     return;
                 }
-
+                if ($(e.target).closest('.modal-gallery-slide').length) {
+                    return;
+                }
+                if ($(e.target).closest('.modal-gallery-thumbs').length) {
+                    return;
+                }
                 page.classList.remove('page--clip');
                 document.querySelector('.card-modal-gallery').classList.remove('card-modal--active');
             });
