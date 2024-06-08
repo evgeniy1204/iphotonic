@@ -76,12 +76,6 @@ class Setting
 	#[ORM\Column(name: 'address', type: Types::STRING, length: 255, nullable: true)]
 	private ?string $address;
 
-	#[ORM\Column(name: 'web_site', type: Types::STRING, length: 255, nullable: true)]
-	private ?string $webSite;
-
-	#[ORM\Column(name: 'customer_service', type: Types::STRING, length: 255, nullable: true)]
-	private ?string $customerService;
-
 	public function __construct()
 	{
 		$this->id = 0;
@@ -93,14 +87,12 @@ class Setting
 		$this->email = null;
 		$this->phones = null;
 		$this->address = null;
-		$this->webSite = null;
 		$this->mainLeftBlockSummary = null;
 		$this->mainLeftBlockImage = null;
 		$this->mainRightBlockImage = null;
 		$this->mainRightBlockSummary = null;
 		$this->mainLeftBlockTitleUrl = null;
 		$this->mainRightBlockTitleUrl = null;
-		$this->customerService = null;
 		$this->seo = new SeoEmbed();
 	}
 
@@ -273,26 +265,6 @@ class Setting
 	public function setAddress(?string $address): void
 	{
 		$this->address = $address;
-	}
-
-	public function getWebSite(): ?string
-	{
-		return $this->webSite;
-	}
-
-	public function setWebSite(?string $webSite): void
-	{
-		$this->webSite = $webSite;
-	}
-
-	public function getCustomerService(): ?string
-	{
-		return $this->customerService;
-	}
-
-	public function setCustomerService(?string $customerService): void
-	{
-		$this->customerService = $customerService;
 	}
 
 	public function getMainRightBlockImage(): ?string

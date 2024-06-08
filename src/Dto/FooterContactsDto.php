@@ -16,7 +16,7 @@ readonly class FooterContactsDto
 
 	public static function fromSetting(Setting $setting): self
 	{
-		return new self($setting->getContacts(), SocialNetworksDto::fromSetting($setting));
+		return new self($setting->getAddress(), SocialNetworksDto::fromSetting($setting));
 	}
 
 	public function getContacts(): ?string

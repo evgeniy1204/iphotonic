@@ -14,29 +14,8 @@
                 <div class="contacts">
                     <div class="contacts-wrapper">
                         <div class="contacts-info">
-                            <h2>LITHUANIA</h2>
                             <dl class="contacts-list">
-                                <div>
-                                    {{ address|nl2br }}
-                                </div>
-                                <div>
-                                    <dt>Phone:</dt>
-                                    <dd>
-                                        {{ phones|nl2br }}
-                                    </dd>
-                                </div>
-                                <div>
-                                    <dt>Email:</dt>
-                                    <dd><a href="mailto:{{ email }}">{{ email }}</a></dd>
-                                </div>
-                                <div>
-                                    <dt>Web:</dt>
-                                    <dd><a href="{{ webSite }}">{{ webSite }}</a></dd>
-                                </div>
-                                <div>
-                                    <dt>Customer service:</dt>
-                                    <dd><a href="mailto:{{ customerService }}">{{ customerService }}</a></dd>
-                                </div>
+                                {{ contacts|raw }}
                             </dl>
                         </div>
                         <div class="contacts-about">

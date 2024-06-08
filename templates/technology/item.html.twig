@@ -14,7 +14,7 @@
                     </div>
 
                     {% include 'blocks/technology/technology_cards_block.html.twig' with {'technologies': technology.children} %}
-                    {% include 'blocks/product/equipments.html.twig' with {'equipments': products} %}
+                    {% include 'blocks/product/equipments.html.twig' with {'title': 'Vacuum Coating Systems', 'equipments': products} %}
                 </div>
 
                 {% include 'menu/left_sidebar.html.twig' with {'menu': generate_technology_category_menu() } %}

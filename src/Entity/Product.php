@@ -49,6 +49,12 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 	]
 	private Collection $relationProducts;
 
+	#[
+		ORM\ManyToMany(targetEntity: Product::class),
+		ORM\JoinTable('product_relation_second_products')
+	]
+	private Collection $relationSecondProducts;
+
     #[ORM\Column(name: 'images', type: Types::SIMPLE_ARRAY, nullable: true)]
     private array $images;
 
@@ -91,6 +97,7 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 		$this->technology = null;
 		$this->menuOrder = 0;
 		$this->relationProducts = new ArrayCollection();
+		$this->relationSecondProducts = new ArrayCollection();
         $this->seo = new SeoEmbed();
     }
 
@@ -303,5 +310,15 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
 	public function getPreviewImagePath(): string
 	{
 		return sprintf('%s%s/%s', Constants::ADMIN_ROOT_READ_IMAGES_DIR, self::PRODUCT_FILES_FOLDER, $this->getImages()[0] ?? '');
+	}
+
+	public function getRelationSecondProducts(): Collection
+	{
+		return $this->relationSecondProducts;
+	}
+
+	public function setRelationSecondProducts(Collection $relationSecondProducts): void
+	{
+		$this->relationSecondProducts = $relationSecondProducts;
 	}
 }

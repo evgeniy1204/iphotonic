@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Dto\CardInfoDto;
+use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
@@ -88,13 +89,13 @@ class ProductLandingController extends AbstractController
 
 	private function getProductPage(ProductRepository $productRepository, string $slug): Response
 	{
+		/** @var $product Product */
 		$product = $productRepository->findOneBy(['slug' => $slug]);
 		if (!$product) {
 			throw new NotFoundHttpException();
 		}
-		$similarProducts = $productRepository->findSimilarProducts($product);
 
-		$relationBlockTitle = 'Thing coating';
+		$relationBlockTitle = '';
 		$relationProductCategories = [];
 		foreach ($product->getRelationProducts() as $relationProduct) {
 			$relationProductCategories[] = $relationProduct->getCategory()->getName();
@@ -102,10 +103,24 @@ class ProductLandingController extends AbstractController
 		$relationProductCategories = array_unique($relationProductCategories);
 		$relationBlockTitle = count($relationProductCategories) === 1 ? $relationProductCategories[0] : $relationBlockTitle;
 
+		$relationSecondBlockTitle = '';
+		$relationSecondProductCategories = [];
+		foreach ($product->getRelationSecondProducts() as $relationSecondProduct) {
+			$relationSecondProductCategories[] = $relationSecondProduct->getCategory()->getName();
+		}
+		$relationSecondProductCategories = array_unique($relationSecondProductCategories);
+		$relationSecondBlockTitle = count($relationSecondProductCategories) === 1 ? $relationSecondProductCategories[0] : $relationSecondBlockTitle;
+		if (!$relationSecondBlockTitle) {
+			if ($firstProduct = $product->getRelationSecondProducts()->first()) {
+				$relationSecondBlockTitle = $firstProduct->getCategory()?->getName();
+			}
+		}
+
 		return $this->render('product/item.html.twig', [
 			'product' => $product,
-			'similarProducts' => $similarProducts,
-			'relationBlockTitle' => $relationBlockTitle
+			'similarProducts' => $productRepository->findSimilarProducts($product),
+			'relationBlockTitle' => $relationBlockTitle,
+			'relationSecondBlockTitle' => $relationSecondBlockTitle
 		]);
 	}
 }

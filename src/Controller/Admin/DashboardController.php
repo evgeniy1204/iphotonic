@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\AboutUs;
 use App\Entity\Application;
+use App\Entity\Certificate;
 use App\Entity\Download;
 use App\Entity\Event;
 use App\Entity\File;
@@ -60,6 +61,7 @@ class DashboardController extends AbstractDashboardController
 		yield MenuItem::linkToCrud('Photo & Video', 'fa fa-photo', Media::class);
 		yield MenuItem::section('Site', 'fa fa-cogs');
 		yield MenuItem::linkToCrud('Settings', 'fa fa-cog', Setting::class);
+		yield MenuItem::linkToCrud('Certificates', 'fa fa-download', Certificate::class);
 		yield MenuItem::linkToCrud('Downloads', 'fa fa-download', Download::class);
 		yield MenuItem::linkToCrud('About us', 'fa fa-address-card', AboutUs::class);
 		yield MenuItem::linkToCrud('Partners', 'fa fa-users', Partner::class);

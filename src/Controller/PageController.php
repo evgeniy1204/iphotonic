@@ -34,12 +34,8 @@ class PageController extends AbstractController
 
 		return $this->render('page/contacts.html.twig', [
 			'about' => $settingsProvider->getAboutUsContent(),
+			'contacts' => $settingsProvider->getContacts(),
 			'socialLinks' => $settingsProvider->getSocialLinks(),
-			'email' => $settingsProvider->getEmail(),
-			'phones' => $settingsProvider->getPhones(),
-			'address' => $settingsProvider->getAddress(),
-			'webSite' => $settingsProvider->getWebsite(),
-			'customerService' => $settingsProvider->getCustomerService(),
 			'partners' => $partnerRepository->findAll(),
 		]);
 	}

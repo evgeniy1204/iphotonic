@@ -1,4 +1,4 @@
-{% set footerContacts = get_footer_contacts() %}
+{% set footer = get_footer_data() %}
 <footer class="footer">
     <div class="footer-box">
         <div class="footer-container footer-container--primary">
@@ -9,12 +9,12 @@
 
                 <div class="footer-contacts">
                     <div class="footer-contacts-text">
-                        {{ footerContacts.contacts|raw|nl2br }}
+                        {{ footer.contacts.contacts|raw|nl2br }}
                     </div>
                 </div>
 
                 <div class="footer-social social">
-                    {% include 'blocks/social_links__block.html.twig' with {'linkedInUrl': footerContacts.socialNetworksDto.linkedIn, 'instagramUrl': footerContacts.socialNetworksDto.instagram, 'youtubeUrl': footerContacts.socialNetworksDto.youtube} %}
+                    {% include 'blocks/social_links__block.html.twig' with {'linkedInUrl': footer.contacts.socialNetworksDto.linkedIn, 'instagramUrl': footer.contacts.socialNetworksDto.instagram, 'youtubeUrl': footer.contacts.socialNetworksDto.youtube} %}
                 </div>
             </div>
 
@@ -50,8 +50,9 @@
         </div>
 
         <div class="footer-awards">
-            <img src="{{ asset('images/award.png') }}" width="80" height="80" alt="">
-            <img src="{{ asset('images/award.png') }}" width="80" height="80" alt="">
+            {% for certificate in footer.certificates %}
+                <a href="{{ certificate.url }}" target="_blank"><img src="{{ asset('uploads/certificate/' ~ certificate.logo) }}" width="80" height="80" alt=""></a>
+            {% endfor %}
         </div>
     </div>
 </footer>

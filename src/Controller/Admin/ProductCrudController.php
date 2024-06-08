@@ -49,7 +49,10 @@ class ProductCrudController extends AbstractCrudController
 				->hideOnIndex(),
 			TinyMCEField::new('text')->hideOnIndex(),
 			AssociationField::new('relationProducts')
-				->setLabel('Coatings')
+				->setLabel('Select products for first block')
+				->hideOnIndex(),
+			AssociationField::new('relationSecondProducts')
+				->setLabel('Select products for second block')
 				->hideOnIndex(),
 			AssociationField::new('technology')->setFormTypeOptions(
 				[

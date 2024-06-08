@@ -8,10 +8,13 @@
 }
 
 .contacts-list {
-  display: grid;
   gap: 23px;
   margin: 0;
   padding-top: 5px;
+}
+
+.contacts-list p {
+  margin-bottom: 0;
 }
 
 .contacts-list div {

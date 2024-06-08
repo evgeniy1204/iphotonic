@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use App\Dto\BreadcrumbDto;
-use App\Dto\FooterContactsDto;
 use App\Dto\MenuItemCollection;
 use App\Entity\ProductCategory;
 use App\Entity\SeoEmbed;
 use App\Entity\Technology;
+use App\Repository\CertificateRepository;
 use App\Service\Breadcrumb\BreadcrumbAwareInterface;
 use App\Service\Breadcrumb\BreadcrumbProvider;
 use App\Service\Breadcrumb\BreadcrumbsBuilder\EventBreadcrumbsBuilder;
@@ -38,6 +38,7 @@ class PageDataExtension extends AbstractExtension
 		private readonly NewsBreadcrumbsBuilder $newsBreadcrumbsBuilder,
 		private readonly EventBreadcrumbsBuilder $eventBreadcrumbsBuilder,
 		private readonly MediaBreadcrumbsBuilder $mediaBreadcrumbsBuilder,
+		private readonly CertificateRepository $certificateRepository,
 		#[Autowire('%env(SITE_NAME)%')] private readonly string $siteName
 	) {
 	}
@@ -52,7 +53,7 @@ class PageDataExtension extends AbstractExtension
 			new TwigFunction('generate_product_category_one_level_menu', [$this, 'generateProductCategoryOneLevelMenu']),
 			new TwigFunction('generate_technology_category_menu', [$this, 'generateTechnologyCategoryMenu']),
 			new TwigFunction('generate_technology_category_one_level_menu', [$this, 'generateTechnologyCategoryOneLevelMenu']),
-			new TwigFunction('get_footer_contacts', [$this, 'getFooterContacts']),
+			new TwigFunction('get_footer_data', [$this, 'getFooterData']),
 			new TwigFunction('get_site_email', [$this, 'getSiteEmail']),
 			new TwigFunction('build_breadcrumbs', [$this, 'buildBreadcrumbs']),
 			new TwigFunction('build_news_breadcrumbs', [$this, 'buildNewsBreadcrumbs']),
@@ -68,9 +69,12 @@ class PageDataExtension extends AbstractExtension
 		return $this->settingsProvider->getPhones();
 	}
 
-	public function getFooterContacts(): FooterContactsDto
+	public function getFooterData(): array
 	{
-		return $this->settingsProvider->getFooterInfo();
+		return [
+			'contacts' => $this->settingsProvider->getFooterInfo(),
+			'certificates' => $this->certificateRepository->findAll(),
+		];
 	}
 
 	public function getSiteEmail(): ?string

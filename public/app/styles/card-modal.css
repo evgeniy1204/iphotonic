@@ -3,7 +3,7 @@
 .card-modal {
   position: fixed;
   inset: 0;
-  z-index: 300;
+  z-index: 1;
   display: none;
   place-content: center;
   overflow: auto;
@@ -72,10 +72,6 @@
 .modal-gallery-wrapper img {
   max-width: 100%;
   width: 100%;
-}
-
-.modal-gallery-slide {
-  height: 800px !important;
 }
 
 .modal-gallery-thumbs-wrapper {
