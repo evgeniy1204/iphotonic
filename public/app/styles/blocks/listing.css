@@ -89,6 +89,10 @@
     gap: 16px;
     margin-block: 28px;
   }
+  .listing-grid {
+    gap: 16px;
+    margin-block: 28px;
+  }
 
   .featured .listing {
     margin: 0;
