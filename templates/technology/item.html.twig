@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+{% endblock %}
+
 {% block body %}
     <main class="main">
         <div class="container">
@@ -14,11 +18,28 @@
                     </div>
 
                     {% include 'blocks/technology/technology_cards_block.html.twig' with {'technologies': technology.children} %}
-                    {% include 'blocks/product/equipments.html.twig' with {'title': 'Vacuum Coating Systems', 'equipments': products} %}
+                    {% include 'blocks/product/list_card_section.html.twig' with {'sectionName': 'Vacuum Coating Systems', 'products': products} %}
                 </div>
 
                 {% include 'menu/left_sidebar.html.twig' with {'menu': generate_technology_category_menu() } %}
             </div>
         </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var slidePerView = 3;
+        if ($(window).width() < 980) {
+            slidePerView = 1;
+        }
+        var swiper4 = new Swiper(".listing-slide", {
+            slidesPerView: slidePerView,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
 {% endblock %}

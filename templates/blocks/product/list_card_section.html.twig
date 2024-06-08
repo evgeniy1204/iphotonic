@@ -1,26 +1,49 @@
 {% if products %}
-    <section class="featured featured--primary">
-        <h2 class="featured-title">{{ sectionName }}</h2>
-
-        <div class="featured-box">
-            <div class="listing">
-                {% for product in products %}
-                    <div class="listing-card">
-                        <div class="listing-card-image">
-                            <img src="{{ asset('uploads/product/' ~ product.images|first) }}"
-                                 alt="">
+    {% if products|length > 3 %}
+        <section class="featured featured--primary">
+            <h2 class="featured-title">{{ sectionName }}</h2>
+            <div class="featured-box listing-slide swiper">
+                <div class="listing swiper-wrapper">
+                    {% for product in products %}
+                        <div class="listing-card swiper-slide">
+                            <div class="listing-card-image">
+                                <img src="{{ asset('uploads/product/' ~ product.images|first) }}" alt="">
+                            </div>
+                            <h4 class="listing-card-title">
+                                <a class="listing-card-link" href="{{ generate_product_url(product) }}">{{ product.name }}</a>
+                            </h4>
+                            <div class="listing-card-desc">
+                                {{ product.summary|raw|nl2br }}
+                            </div>
                         </div>
-                        <h4 class="listing-card-title">
-                            <a class="listing-card-link"
-                               href="{{ generate_product_url(product) }}">{{ product.name }}</a>
-                        </h4>
-                        <div class="listing-card-desc">
-                            {{ product.summary|raw|nl2br }}
-                        </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+                <div class="listing-card-controls">
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
             </div>
-
-        </div>
-    </section>
+        </section>
+    {% else %}
+        <section class="featured featured--primary">
+            <h2 class="featured-title">{{ sectionName }}</h2>
+            <div class="featured-box">
+                <div class="listing-grid">
+                    {% for product in products %}
+                        <div class="listing-card">
+                            <div class="listing-card-image">
+                                <img src="{{ asset('uploads/product/' ~ product.images|first) }}" alt="">
+                            </div>
+                            <h4 class="listing-card-title">
+                                <a class="listing-card-link" href="{{ generate_product_url(product) }}">{{ product.name }}</a>
+                            </h4>
+                            <div class="listing-card-desc">
+                                {{ product.summary|raw|nl2br }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
 {% endif %}

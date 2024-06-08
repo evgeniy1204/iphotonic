@@ -23,7 +23,7 @@
                         {{ productCategory.description|raw }}
                     </div>
 
-                    {% include 'blocks/product/equipments.html.twig' with {'equipments': productCategory.equipments} %}
+                    {% include 'blocks/product/list_card_section.html.twig' with {'sectionName': 'Equipments', 'products': productCategory.equipments} %}
                     {% include 'blocks/technology/technology.html.twig' with {'technology': productCategory.technology} %}
                 </div>
 

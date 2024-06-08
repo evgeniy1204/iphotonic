@@ -2,6 +2,12 @@
 
 .listing {
   display: grid;
+  grid-auto-flow: column;
+  width: 320px;
+}
+
+.listing-grid {
+  display: grid;
 }
 
 .listing-card {
@@ -54,6 +60,30 @@
   line-height: 17px;
 }
 
+
+.listing-card-controls .swiper-button-prev,
+.listing-card-controls .swiper-button-next {
+  --swiper-navigation-size: 40px;
+  --swiper-navigation-color: var(--color-black);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 35px;
+  height: auto;
+  text-align: center;
+}
+
+.listing-card-controls .swiper-button-prev::after,
+.listing-card-controls .swiper-button-next::after {
+  width: var(--swiper-navigation-size);
+  height: var(--swiper-navigation-size);
+  background-color: rgba(255, 255, 255, 0.7);
+  font-size: 30px;
+  line-height: var(--swiper-navigation-size);
+  -webkit-backdrop-filter: blur(3.25px);
+  backdrop-filter: blur(3.25px);
+}
+
 @media (width < 960px) {
   .listing {
     gap: 16px;
@@ -67,6 +97,11 @@
 
 @media (width >= 960px) {
   .listing {
+    grid-template-columns: repeat(auto-fill, 320px);
+    gap: 24px;
+    margin-block: 32px;
+  }
+  .listing-grid {
     grid-template-columns: repeat(auto-fill, 302px);
     gap: 24px;
     margin-block: 32px;
