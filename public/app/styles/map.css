@@ -113,7 +113,6 @@
 
 .map-point .point-content-image {
     width: 70px;
-    height: 70px;
 }
 
 .map-point .point-content-image img {
@@ -158,12 +157,13 @@
         font-size: 10px;
     }
 
-    .map-point:hover .point-content-wrapper {
-        width: 340px;
+    .point-content-wrapper {
+        min-width: 360px;
         margin-left: 0;
         box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.1);
         border-radius: 0 0 10px 10px;
         transform: translateY(25px);
+        margin-top: -25px;
     }
     .map-point .point-content-wrapper {
         margin-left: 0;
