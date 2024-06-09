@@ -47,6 +47,9 @@
 .content a:not([class]):hover, .post-content a:not([class]):hover {
   color: var(--color-link-hover);
 }
+.content p:has(> img) {
+  overflow-x: auto;
+}
 
 @media (width < 960px) {
   .content {

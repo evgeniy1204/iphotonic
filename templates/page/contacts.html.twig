@@ -2,9 +2,6 @@
 
 {% block title %}Contacts{% endblock %}
 
-{% block left_sidebar %}
-{% endblock %}
-
 {% block body %}
     <main class="main">
         <div class="container">
@@ -26,8 +23,25 @@
                             </div>
                         </div>
                     </div>
-                    <div id="map" class="contacts-map">
-                        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAa8apZ1KI-NADzJFhak0WsMYNYAF2wUNs&q=Parko+g.+3,+Avižienių+k.+,+LT-14198,+Vilniaus+raj&zoom=10" width="100%" height="530" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="contacts-map">
+                        <div class="first-map map-level">
+                            <p class="map-title">Europe</p>
+                            <img src="{{ asset('images/map_europe.png') }}" alt="">
+                            {% for partner in partners %}
+                                {% if partner.map == 'europe' and partner.mapPositionTop and partner.mapPositionLeft %}
+                                    {% include 'blocks/map_point.html.twig' with {'partner': partner} %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="second-map map-level">
+                            <p class="map-title">Asia</p>
+                            <img src="{{ asset('images/map_asia.png') }}" alt="">
+                            {% for partner in partners %}
+                                {% if partner.map == 'asia' and partner.mapPositionTop and partner.mapPositionLeft %}
+                                    {% include 'blocks/map_point.html.twig' with {'partner': partner} %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
                 <div class="partners">

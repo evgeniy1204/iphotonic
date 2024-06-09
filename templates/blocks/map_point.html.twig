@@ -1,0 +1,13 @@
+<div class="point-wrapper">
+    <span class="point-title" style="top: {{ partner.mapPositionTop }}%; left: {{ partner.mapPositionLeft }}%">{{ partner.mapName }}</span>
+    <div class="map-point" style="top: {{ partner.mapPositionTop }}%; left: {{ partner.mapPositionLeft }}%">
+        <div class="point-content-wrapper">
+            <div class="point-content-image">
+                <img src="{{ asset('uploads/partner/' ~ partner.logo) }}" alt="{{ partner.name }}">
+            </div>
+            <div class="point-content">
+                {{ partner.contacts|raw }}
+            </div>
+        </div>
+    </div>
+</div>
