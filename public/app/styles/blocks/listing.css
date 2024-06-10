@@ -108,7 +108,6 @@
   .listing-grid {
     grid-template-columns: repeat(auto-fill, 302px);
     gap: 24px;
-    margin-block: 32px;
   }
 
   .featured .listing {
