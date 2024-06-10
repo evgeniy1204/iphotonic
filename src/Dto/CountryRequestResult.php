@@ -14,7 +14,7 @@ readonly class CountryRequestResult
 
 	public function isAllowed(): bool
 	{
-		if (!$this->countryIsoCode || !$this->allowedCountries) {
+		if (!$this->countryIsoCode || !array_filter($this->allowedCountries)) {
 			return true;
 		}
 

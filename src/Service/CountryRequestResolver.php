@@ -20,7 +20,7 @@ class CountryRequestResolver
 	public function resolveCountryByRequest(Request $request): ?CountryRequestResult
 	{
 		$ip = $request->getClientIp();
-		if ($ip) {
+		if ($ip && $this->sxGeoDbFile) {
 			$geo = new Geo($this->sxGeoDbFile);
 
 			return new CountryRequestResult(explode(',', $this->allowedCountries), $geo->getCountry($request->getClientIp()));
