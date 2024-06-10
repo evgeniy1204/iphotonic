@@ -15,7 +15,7 @@ readonly class CountryRequestResult
 	public function isBlocked(): bool
 	{
 		if (!$this->countryIsoCode || !array_filter($this->blockedCountries)) {
-			return true;
+			return false;
 		}
 
 		return in_array($this->countryIsoCode, $this->blockedCountries);
