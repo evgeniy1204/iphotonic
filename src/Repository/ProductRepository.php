@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use App\Entity\ProductCategory;
 use App\Entity\Technology;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -54,11 +53,10 @@ class ProductRepository extends ServiceEntityRepository
 
 	/**
 	 * @param int[] $productCategoryIds
-	 * @param int   $limit
 	 *
 	 * @return Product[]
 	 */
-    public function findByCategoryIds(array $productCategoryIds, int $limit = 4): array
+    public function findByCategoryIds(array $productCategoryIds): array
     {
 		$qb = $this->createQueryBuilder('Product');
 
@@ -66,8 +64,7 @@ class ProductRepository extends ServiceEntityRepository
 			->select('Product')
 			->andWhere('Product.active = TRUE')
 			->andWhere('Product.category IN (:productCategoryIds)')
-			->setParameter('productCategoryIds', $productCategoryIds)
-			->setMaxResults($limit);
+			->setParameter('productCategoryIds', $productCategoryIds);
 
 		return $qb->getQuery()->getResult();
     }

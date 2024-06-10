@@ -44,7 +44,7 @@ class ProductLandingController extends AbstractController
 		$productCategory = $productCategoryRepository->findOneBy(['slug' => $productSubCategorySlug ?? $productCategorySlug]);
 		if ($productCategory) {
 			$cards = [];
-			$products = $productRepository->findByCategoryIds([$productCategory->getId()], 100);
+			$products = $productRepository->findByCategoryIds([$productCategory->getId()]);
 			foreach ($productCategory->getChildren() as $productCategoryChild) {
 				$cards[] = new CardInfoDto(
 					$productCategoryChild->getPreviewImagePath(),

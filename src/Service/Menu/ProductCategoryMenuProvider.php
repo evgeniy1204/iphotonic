@@ -37,7 +37,7 @@ readonly class ProductCategoryMenuProvider
 			);
 			$menuItems[] = $item;
 
-			$products = $this->productRepository->findByCategoryIds([$productCategory->getId(), 100]);
+			$products = $this->productRepository->findByCategoryIds([$productCategory->getId()]);
 			foreach ($products as $product) {
 				$productItem = new MenuItemDto($product->getName(), $this->urlGenerator->generateProductUrl($product), $product->getMenuOrder());
 				$item->addChild($productItem);
@@ -58,7 +58,7 @@ readonly class ProductCategoryMenuProvider
 		}
 		foreach ($productCategory->getChildren() as $child) {
 			$item = new MenuItemDto($child->getName(), $this->urlGenerator->generateProductCategoryUrl($child), $child->getMenuOrder());
-			$products = $this->productRepository->findByCategoryIds([$child->getId(), 100]);
+			$products = $this->productRepository->findByCategoryIds([$child->getId()]);
 			foreach ($products as $product) {
 				$productItem = new MenuItemDto($product->getName(), $this->urlGenerator->generateProductUrl($product), $product->getMenuOrder());
 				$item->addChild($productItem);
