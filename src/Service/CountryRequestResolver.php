@@ -13,7 +13,7 @@ class CountryRequestResolver
 {
 	public function __construct(
 		#[Autowire('%env(IP_COUNTRIES_DB)%')] private string $sxGeoDbFile,
-		#[Autowire('%env(ALLOWED_COUNTRIES)%')] private string $allowedCountries,
+		#[Autowire('%env(BLOCKED_COUNTRIES)%')] private string $allowedCountries,
 	) {
 	}
 

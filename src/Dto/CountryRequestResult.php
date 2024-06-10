@@ -7,17 +7,17 @@ namespace App\Dto;
 readonly class CountryRequestResult
 {
 	public function __construct(
-		private array $allowedCountries,
+		private array   $blockedCountries,
 		private ?string $countryIsoCode
 	) {
 	}
 
-	public function isAllowed(): bool
+	public function isBlocked(): bool
 	{
-		if (!$this->countryIsoCode || !array_filter($this->allowedCountries)) {
+		if (!$this->countryIsoCode || !array_filter($this->blockedCountries)) {
 			return true;
 		}
 
-		return in_array($this->countryIsoCode, $this->allowedCountries);
+		return in_array($this->countryIsoCode, $this->blockedCountries);
 	}
 }
