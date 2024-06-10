@@ -56,8 +56,12 @@
 
 .point-title {
     position: absolute;
-    line-height: 13px;
+    line-height: 20px;
     width: 50px;
+    font-weight: bold;
+    font-size: 20px;
+    padding-bottom: 5px;
+    display: inline-block;
 }
 
 .point-title::before {
@@ -95,6 +99,8 @@
     max-width: 360px;
     border: 1px solid var(--color-background);
     font-size: 0.8em;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+    margin-top: -20px;
 }
 
 .point-content-wrapper a {
@@ -119,13 +125,6 @@
     max-width: 100%;
 }
 
-.point-title {
-    font-weight: bold;
-    font-size: 15px;
-    padding-bottom: 5px;
-    display: inline-block;
-}
-
 @media (width < 980px) {
     .contacts-map {
         display: grid;
@@ -143,8 +142,8 @@
     }
 
     .point-title {
-        font-size: 10px;
-        line-height: 13px;
+        font-size: 16px;
+        line-height: 16px;
     }
 
     .map-point {
@@ -160,10 +159,8 @@
     .point-content-wrapper {
         min-width: 360px;
         margin-left: 0;
-        box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.1);
-        border-radius: 0 0 10px 10px;
         transform: translateY(25px);
-        margin-top: -25px;
+
     }
     .map-point .point-content-wrapper {
         margin-left: 0;
