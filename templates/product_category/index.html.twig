@@ -39,8 +39,12 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        var slidePerView = 3;
+        if ($(window).width() < 980) {
+            slidePerView = 1;
+        }
         var swiper4 = new Swiper(".listing-slide", {
-            slidesPerView: 3,
+            slidesPerView: slidePerView,
             spaceBetween: 0,
             navigation: {
                 nextEl: ".swiper-button-next",
