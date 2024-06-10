@@ -101,7 +101,7 @@
 
 @media (width >= 960px) {
   .listing {
-    grid-template-columns: repeat(auto-fill, 320px);
+    grid-template-columns: repeat(auto-fill, 318px);
     gap: 24px;
     margin-block: 32px;
   }

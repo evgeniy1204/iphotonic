@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1a11e00e8275e543bead2fe86fdd2bb",
+    "content-hash": "e218e1ad9a637c7a48583f292b66e0d6",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -6588,6 +6588,43 @@
                 }
             ],
             "time": "2024-01-23T15:02:46+00:00"
+        },
+        {
+            "name": "sypex/geo",
+            "version": "0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gam6itko/sypex-geo.git",
+                "reference": "d8fb939f3f61c4c48755ec774d857f2f4cd1c781"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gam6itko/sypex-geo/zipball/d8fb939f3f61c4c48755ec774d857f2f4cd1c781",
+                "reference": "d8fb939f3f61c4c48755ec774d857f2f4cd1c781",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0 || ^10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sypex\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "Sypex deo actualized",
+            "support": {
+                "issues": "https://github.com/gam6itko/sypex-geo/issues",
+                "source": "https://github.com/gam6itko/sypex-geo/tree/0.3.0"
+            },
+            "time": "2024-05-14T09:55:31+00:00"
         },
         {
             "name": "twig/extra-bundle",
