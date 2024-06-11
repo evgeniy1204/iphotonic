@@ -95,8 +95,14 @@ class ProductLandingController extends AbstractController
 			throw new NotFoundHttpException();
 		}
 
-		$relationBlockTitle = $product->getRelationProducts()->first()?->getFirstCategory()->getName();
-		$relationSecondBlockTitle = $product->getRelationSecondProducts()->first()?->getFirstCategory()->getName();
+		$relationBlockTitle = '';
+		$relationSecondBlockTitle = '';
+		if ($product->getRelationProducts()->first()) {
+			$relationBlockTitle = $product->getRelationProducts()->first()?->getFirstCategory()->getName();
+		}
+		if ($product->getRelationSecondProducts()->first()) {
+			$relationSecondBlockTitle = $product->getRelationSecondProducts()->first()?->getFirstCategory()->getName();
+		}
 
 		return $this->render('product/item.html.twig', [
 			'product' => $product,
