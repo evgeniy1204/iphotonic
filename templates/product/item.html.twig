@@ -93,16 +93,15 @@
                         {% endfor %}
                     </div>
                 </div>
-                    <div class="modal-gallery-thumbs swiper js-modal-gallery-thumbs{% if product.images|length == 1 %} hide{% endif %}" thumbsSlider="">
-                        <div class="modal-gallery-thumbs-wrapper swiper-wrapper">
-                            {% for image in product.images %}
-                                <div class="gallery-thumb swiper-slide">
-                                    <img src="{{ asset('uploads/product/' ~ image) }}" width="40" height="40" alt="{{ image }}">
-                                </div>
-                            {% endfor %}
-                        </div>
+                <div class="modal-gallery-thumbs swiper js-modal-gallery-thumbs{% if product.images|length == 1 %} hide{% endif %}" thumbsSlider="">
+                    <div class="modal-gallery-thumbs-wrapper swiper-wrapper">
+                        {% for image in product.images %}
+                            <div class="gallery-thumb swiper-slide">
+                                <img src="{{ asset('uploads/product/' ~ image) }}" width="40" height="40" alt="{{ image }}">
+                            </div>
+                        {% endfor %}
                     </div>
-
+                </div>
             </div>
         </div>
         <div class="modal-gallery-controls{% if product.images|length == 1 %} hide{% endif %}">
