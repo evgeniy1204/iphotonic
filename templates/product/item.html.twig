@@ -123,32 +123,55 @@
             loop: true,
             centeredSlides: true,
             navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
+                nextEl: ".listing-card-controls .swiper-button-next",
+                prevEl: ".listing-card-controls .swiper-button-prev",
             },
         });
 
-        var swiper = new Swiper(".js-gallery-thumbs", {
+        var cardGalleryThumbs = new Swiper(".js-gallery-thumbs", {
             spaceBetween: 1,
             freeMode: true,
         });
-        var swiper2 = new Swiper(".js-gallery", {
+        var cardGallery = new Swiper(".js-gallery", {
             spaceBetween: 10,
             zoom: true,
             navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
+                nextEl: ".gallery-controls .swiper-button-next",
+                prevEl: ".gallery-controls .swiper-button-prev",
             },
             thumbs: {
-                swiper: swiper,
+                swiper: cardGalleryThumbs,
             },
         });
+        var modalCardGalleryThumbs = new Swiper(".js-modal-gallery-thumbs", {
+            spaceBetween: 1,
+            freeMode: true,
+        });
+        var modalCardGallery = new Swiper(".js-modal-gallery", {
+            spaceBetween: 10,
+            zoom: true,
+            navigation: {
+                nextEl: ".modal-gallery-controls .swiper-button-next",
+                prevEl: ".modal-gallery-controls .swiper-button-prev",
+            },
+            thumbs: {
+                swiper: modalCardGalleryThumbs,
+            },
+        });
+        modalCardGallery.on('slideChange', function ({realIndex:r, previousIndex:p}) {
+            cardGallery.slideTo(r, 1, false)
+        });
         if ($(window).width() >= 980) {
-            /*swiper4.on('slideChange', function ({realIndex:r, previousIndex:p}) {
-                swiper2.slideTo(r, 1, false)
-            });*/
+            $('.card-gallery .gallery-slide').on('click', function (e) {
+                page.classList.add('page--clip');
+                $('.card-modal-gallery').addClass('card-modal--active');
+
+                setTimeout(function(){
+                    modalCardGallery.slideTo(cardGallery.activeIndex, 1, false);
+                }, 80);
+            })
             $('.card-modal-gallery').on('click', (e) => {
-                if ($(e.target).hasClass('swiper-button-prev') || $(e.target).hasClass('swiper-button-next') || $(e.target).hasClass('modal-image')) {
+                if ($(e.target).hasClass('swiper-button-prev') || $(e.target).hasClass('swiper-button-next')) {
                     return;
                 }
                 if ($(e.target).closest('.modal-gallery-slide').length) {
@@ -160,29 +183,6 @@
                 page.classList.remove('page--clip');
                 document.querySelector('.card-modal-gallery').classList.remove('card-modal--active');
             });
-            $('.card-gallery .gallery-slide').on('click', function (e) {
-                page.classList.add('page--clip');
-                var swiper3 = new Swiper(".js-modal-gallery-thumbs", {
-                    spaceBetween: 1,
-                    freeMode: true,
-                    activeIndex: 2
-                });
-                var swiper4 = new Swiper(".js-modal-gallery", {
-                    spaceBetween: 10,
-                    zoom: true,
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                    },
-                    thumbs: {
-                        swiper: swiper3,
-                    },
-                });
-                //console.log(swiper2.activeIndex);
-                //swiper4.slideTo(swiper2.activeIndex, 3, false)
-                //swiper3.slideTo(swiper2.activeIndex, 1, false)
-                $('.card-modal-gallery').addClass('card-modal--active');
-            })
         }
     </script>
 
