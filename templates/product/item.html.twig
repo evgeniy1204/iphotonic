@@ -119,7 +119,7 @@
         if ($(window).width() < 980) {
             slidePerView = 1;
         }
-        var swiper4 = new Swiper(".listing-slide", {
+        var swiperListing = new Swiper(".listing-slide", {
             slidesPerView: slidePerView,
             loop: true,
             centeredSlides: true,
@@ -128,9 +128,7 @@
                 prevEl: ".swiper-button-prev",
             },
         });
-    </script>
-    <!-- Initialize Swiper -->
-    <script>
+
         var swiper = new Swiper(".js-gallery-thumbs", {
             spaceBetween: 1,
             freeMode: true,
@@ -147,24 +145,9 @@
             },
         });
         if ($(window).width() >= 980) {
-            var swiper3 = new Swiper(".js-modal-gallery-thumbs", {
-                spaceBetween: 1,
-                freeMode: true,
-            });
-            var swiper4 = new Swiper(".js-modal-gallery", {
-                spaceBetween: 10,
-                zoom: true,
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-                thumbs: {
-                    swiper: swiper3,
-                },
-            });
-            swiper4.on('slideChange', function ({realIndex:r, previousIndex:p}) {
+            /*swiper4.on('slideChange', function ({realIndex:r, previousIndex:p}) {
                 swiper2.slideTo(r, 1, false)
-            });
+            });*/
             $('.card-modal-gallery').on('click', (e) => {
                 if ($(e.target).hasClass('swiper-button-prev') || $(e.target).hasClass('swiper-button-next') || $(e.target).hasClass('modal-image')) {
                     return;
@@ -180,9 +163,25 @@
             });
             $('.card-gallery .gallery-slide').on('click', function (e) {
                 page.classList.add('page--clip');
-                $('.card-modal-gallery').addClass('card-modal--active');
+                var swiper3 = new Swiper(".js-modal-gallery-thumbs", {
+                    spaceBetween: 1,
+                    freeMode: true,
+                    activeIndex: 2
+                });
+                var swiper4 = new Swiper(".js-modal-gallery", {
+                    spaceBetween: 10,
+                    zoom: true,
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                    thumbs: {
+                        swiper: swiper3,
+                    },
+                });
                 swiper4.slideTo(swiper2.activeIndex, 1, false)
                 swiper3.slideTo(swiper2.activeIndex, 1, false)
+                $('.card-modal-gallery').addClass('card-modal--active');
             })
         }
     </script>
