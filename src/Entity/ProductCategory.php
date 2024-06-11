@@ -222,6 +222,15 @@ class ProductCategory implements BreadcrumbAwareInterface
 		return $this->previewImage;
 	}
 
+	public function getFirstCategory(?ProductCategory $productCategory): ?ProductCategory
+	{
+		if ($productCategory?->getParent()) {
+			return $this->getFirstCategory($productCategory->getParent());
+		}
+
+		return $productCategory;
+	}
+
 	public function setPreviewImage(?string $previewImage): void
 	{
 		$this->previewImage = $previewImage;

@@ -41,6 +41,9 @@ class Partner
     #[ORM\Column(name: 'contacts', type: Types::TEXT, nullable: true)]
     private ?string $contacts;
 
+	#[ORM\Column(name: 'show_partner_card', type: Types::BOOLEAN)]
+	private bool $showPartnerCard;
+
 	public function __construct()
 	{
 		$this->id = 0;
@@ -51,6 +54,7 @@ class Partner
 		$this->mapPositionLeft = null;
 		$this->mapPositionTop = null;
 		$this->contacts = null;
+		$this->showPartnerCard = true;
 	}
 
 	public function getId(): int
@@ -132,5 +136,15 @@ class Partner
 	public function setMap(?string $map): void
 	{
 		$this->map = $map;
+	}
+
+	public function isShowPartnerCard(): bool
+	{
+		return $this->showPartnerCard;
+	}
+
+	public function setShowPartnerCard(bool $showPartnerCard): void
+	{
+		$this->showPartnerCard = $showPartnerCard;
 	}
 }

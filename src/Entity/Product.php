@@ -128,6 +128,11 @@ class Product implements SearchResultAwareInterface, BreadcrumbAwareInterface
         return $this->category;
     }
 
+	public function getFirstCategory(): ?ProductCategory
+	{
+		return $this->category->getFirstCategory($this->category);
+	}
+
     public function setCategory(?ProductCategory $category): static
     {
         $this->category = $category;

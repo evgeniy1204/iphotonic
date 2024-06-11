@@ -95,26 +95,8 @@ class ProductLandingController extends AbstractController
 			throw new NotFoundHttpException();
 		}
 
-		$relationBlockTitle = '';
-		$relationProductCategories = [];
-		foreach ($product->getRelationProducts() as $relationProduct) {
-			$relationProductCategories[] = $relationProduct->getCategory()->getName();
-		}
-		$relationProductCategories = array_unique($relationProductCategories);
-		$relationBlockTitle = count($relationProductCategories) === 1 ? $relationProductCategories[0] : $relationBlockTitle;
-
-		$relationSecondBlockTitle = '';
-		$relationSecondProductCategories = [];
-		foreach ($product->getRelationSecondProducts() as $relationSecondProduct) {
-			$relationSecondProductCategories[] = $relationSecondProduct->getCategory()->getName();
-		}
-		$relationSecondProductCategories = array_unique($relationSecondProductCategories);
-		$relationSecondBlockTitle = count($relationSecondProductCategories) === 1 ? $relationSecondProductCategories[0] : $relationSecondBlockTitle;
-		if (!$relationSecondBlockTitle) {
-			if ($firstProduct = $product->getRelationSecondProducts()->first()) {
-				$relationSecondBlockTitle = $firstProduct->getCategory()?->getName();
-			}
-		}
+		$relationBlockTitle = $product->getRelationProducts()->first()?->getFirstCategory()->getName();
+		$relationSecondBlockTitle = $product->getRelationSecondProducts()->first()?->getFirstCategory()->getName();
 
 		return $this->render('product/item.html.twig', [
 			'product' => $product,
