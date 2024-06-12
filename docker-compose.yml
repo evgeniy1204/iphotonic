@@ -7,12 +7,10 @@ services:
             - '443:443'
         volumes:
             - './:/var/www/app'
-            - '${SSL_CERT}:/etc/nginx/ssl/fullchain.pem'
-            - '${SSL_PRIVATE_KEY}:/etc/nginx/ssl/privkey.pem'
         networks:
             - iphotonic_network
         environment:
-            - DOMAIN
+            - DOMAIN=${DOCKER_DOMAIN}
         depends_on:
             - php_fpm
 
@@ -34,11 +32,9 @@ services:
             - ./:/var/www/app
         container_name: ${PROJECT_NAME}-php-cli
         environment:
-            - APP_ENV=${API_APP_ENV}
-            - APP_DEBUG=${API_APP_DEBUG}
+            - APP_ENV=${APP_ENV}
+            - APP_DEBUG=${APP_DEBUG}
             - APP_SECRET=${APP_SECRET}
-            - API_HOST=${DOMAIN}
-            - WEB_BASE_HOST=${DOMAIN}
         networks:
             - iphotonic_network
 

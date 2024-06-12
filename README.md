@@ -18,8 +18,16 @@ To apply changes run source `source $HOME/.profile`
 
 4. Run `docker-compose up -d --build`
 
-Go to: `127.0.0.1`
+Go to: ENV(`DOCKER_DOMAIN`)
 
 Example shortcuts:
 
 `php-with-prod-env bin/console c:c` - clear cache for prod env
+
+Install static with styles:
+
+```
+cd static
+npm install
+npm run build
+```

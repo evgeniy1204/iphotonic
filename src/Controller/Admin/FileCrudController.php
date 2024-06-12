@@ -5,8 +5,6 @@ namespace App\Controller\Admin;
 use App\Constants;
 use App\Entity\File;
 use App\Trait\SeoFieldsTrait;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -16,10 +14,6 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class FileCrudController extends AbstractCrudController
 {
 	use SeoFieldsTrait;
-
-	public function __construct(#[Autowire('%env(BASE_DOMAIN)%')] private string $baseDomain)
-	{
-	}
 
 	public static function getEntityFqcn(): string
     {
