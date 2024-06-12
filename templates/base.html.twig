@@ -8,14 +8,14 @@
         {% endblock %}
         <title>{% block title %}I-Photonics{% endblock %}</title>
         <link rel="shortcut icon" href="{{ asset('images/fav.ico') }}" type="image/x-icon">
-        <link rel="stylesheet" href="{{ asset('app/styles/base.css') }}">
-        <link rel="stylesheet" href="{{ asset('app/styles/search-result.css') }}">
-        <link rel="stylesheet" href="{{ asset('app/styles/partner.css') }}">
-        <link rel="stylesheet" href="{{ asset('app/styles/membership-logos.css') }}">
-        <link rel="stylesheet" href="{{ asset('app/styles/card-modal.css') }}">
+        <link rel="stylesheet" href="{{ asset('styles/base.css') }}">
+        <link rel="stylesheet" href="{{ asset('styles/search-result.css') }}">
+        <link rel="stylesheet" href="{{ asset('styles/partner.css') }}">
+        <link rel="stylesheet" href="{{ asset('styles/membership-logos.css') }}">
+        <link rel="stylesheet" href="{{ asset('styles/card-modal.css') }}">
         {% block stylesheets %}
         {% endblock %}
-        <link rel="stylesheet" href="{{ asset('app/styles/index.css') }}">
+        <link rel="stylesheet" href="{{ asset('styles/index.css') }}">
     </head>
     <body class="page-body">
         {% set menu = generate_product_category_menu() %}
@@ -30,8 +30,8 @@
         {% endblock %}
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         {% include 'blocks/modal.html.twig' %}
-        <script src="{{ asset('app/scripts/index.js') }}"></script>
-        <script src="{{ asset('app/scripts/tabs.js') }}"></script>
+        <script src="{{ asset('scripts/index.js') }}"></script>
+        <script src="{{ asset('scripts/tabs.js') }}"></script>
         {% block javascripts %}
         {% endblock %}
     </body>
