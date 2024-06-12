@@ -12,6 +12,7 @@
 docker-compose.override.yml
 .env
 .htaccess
+static/node_modules
 public/uploads/application/*
 !public/uploads/application/.gitkeeper
 public/uploads/event_preview/*

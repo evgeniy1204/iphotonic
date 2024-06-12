@@ -1,0 +1,33 @@
+.page {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%
+}
+
+.page-body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-black);
+  font-family: 'Trebuchet MS', sans-serif;
+  line-height: var(--page-line-height);
+}
+
+.page--clip {
+  overflow: clip;
+}
+
+@media (width < 960px) {
+  .page-body {
+    --page-line-height: 25px;
+    font-size: 16px;
+  }
+}
+
+@media (width >= 960px) {
+  .page-body {
+    --page-line-height: 27px;
+    font-size: 18px;
+  }
+}

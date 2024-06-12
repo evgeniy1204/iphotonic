@@ -1,0 +1,140 @@
+/* Sidenav */
+
+.sidenav {
+  margin-top: -6px;
+  padding-right: 8px;
+  border-right: 1px solid var(--color-separator);
+}
+
+/* List */
+
+.sidenav-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style-type: '';
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 28px;
+}
+
+.sidenav-sublist-item:hover::after {
+  background-color: var(--color-blue-primary);
+  opacity: 0.1;
+}
+
+.sidenav-list .sidenav-link:hover:hover .sidenav-link[aria-current='page']::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-blue-primary);
+  border-radius: 4px;
+  opacity: 0.1;
+  content: '';
+}
+
+/* Item */
+
+.sidenav-item {
+  display: grid;
+  gap: 2px;
+}
+
+/* Wrapper */
+
+.sidenav-wrapper {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+}
+
+.sidenav-wrapper:hover {
+  background-color: #dfe7ed;
+}
+
+/* Link */
+
+.sidenav-link {
+  flex: 1;
+  padding: 6px 32px 6px 10px;
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+.sidenav-link[aria-current='page']::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-blue-primary);
+  border-radius: 4px;
+  opacity: 0.1;
+  content: '';
+}
+
+.sidenav-sublist .sidenav-link {
+  padding: 4px 0 4px 10px;
+}
+
+/* Toggle */
+
+.sidenav-toggle {
+  position: relative;
+  width: 35px;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.sidenav-toggle:hover {
+  opacity: 0.9;
+}
+
+.sidenav-toggle::after {
+  position: absolute;
+  inset: 0;
+  background: url('/images/arrow-down.svg') no-repeat center/24px 24px;
+  opacity: 0.5;
+  content: '';
+  pointer-events: none;
+}
+
+.sidenav-toggle[aria-expanded='true']::after {
+  background-image: url('/images/arrow-up.svg');
+}
+
+.sidenav-toggle:hover::after {
+  opacity: 1;
+}
+
+/* Sublist */
+
+.sidenav-sublist {
+  display: none;
+  margin: 0;
+  padding: 0;
+  list-style-type: '';
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 27px;
+}
+
+.sidenav-sublist.is-active {
+  display: block;
+}
+
+.sidenav-sublist .sidenav-sublist {
+  padding-left: 8px;
+}
+
+/* Mobile */
+
+@media (width < 960px) {
+  .sidenav {
+    display: none;
+  }
+}

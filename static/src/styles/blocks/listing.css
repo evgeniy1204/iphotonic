@@ -1,0 +1,143 @@
+/* Listing */
+
+.listing {
+  display: grid;
+  grid-auto-flow: column;
+  width: 320px;
+}
+
+.listing-grid {
+  display: grid;
+}
+
+.listing-card {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  padding: 8px 8px 24px;
+  background-color: #fff;
+}
+
+.listing-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.listing-card-title {
+  margin: 8px 0 0;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 28px;
+}
+
+.listing-card-link {
+  outline: none;
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+.listing-card-link::before {
+  position: absolute;
+  inset: 0;
+  content: '';
+}
+
+.listing-card-link:focus-visible::before {
+  outline: 2px solid var(--color-link-hover);
+  outline-offset: 2px;
+}
+
+.listing-card-link:hover,
+.listing-card-link:focus-visible {
+  color: var(--color-link-hover);
+}
+
+.listing-card-desc {
+  color: var(--color-gray-200);
+  font-size: 12px;
+  line-height: 17px;
+}
+
+
+.listing-card-controls .swiper-button-prev,
+.listing-card-controls .swiper-button-next {
+  --swiper-navigation-size: 40px;
+  --swiper-navigation-color: var(--color-black);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 35px;
+  height: auto;
+  text-align: center;
+}
+
+.listing-card-controls .swiper-button-prev::after,
+.listing-card-controls .swiper-button-next::after {
+  width: var(--swiper-navigation-size);
+  height: var(--swiper-navigation-size);
+  background-color: rgba(255, 255, 255, 0.7);
+  font-size: 30px;
+  line-height: var(--swiper-navigation-size);
+  -webkit-backdrop-filter: blur(3.25px);
+  backdrop-filter: blur(3.25px);
+}
+
+@media (width < 960px) {
+  .listing {
+    gap: 16px;
+    margin-block: 28px;
+  }
+  .listing-grid {
+    gap: 16px;
+    margin-block: 28px;
+  }
+
+  .featured .listing {
+    margin: 0;
+  }
+}
+
+@media (width >= 960px) {
+  .listing {
+    grid-template-columns: repeat(auto-fill, 318px);
+    gap: 24px;
+    margin-block: 32px;
+  }
+  .listing-grid {
+    grid-template-columns: repeat(auto-fill, 302px);
+    gap: 24px;
+  }
+
+  .featured .listing {
+    margin: 0;
+  }
+
+  .featured .listing-card:only-child {
+    display: grid;
+    grid-column: span 3;
+    grid-template-areas:
+      'i t'
+      'i d';
+    grid-template-columns: 286px 1fr;
+    column-gap: 32px;
+    padding: 16px 16px 18px;
+  }
+
+  .featured .listing-card:only-child .listing-card-image {
+    grid-area: i;
+  }
+
+  .featured .listing-card:only-child .listing-card-title {
+    grid-area: t;
+    align-self: end;
+    max-width: 390px;
+  }
+
+  .featured .listing-card:only-child .listing-card-desc {
+    grid-area: d;
+    max-width: 390px;
+    padding-bottom: 45px;
+  }
+}

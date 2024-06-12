@@ -1,0 +1,41 @@
+/* Button */
+
+.button {
+  display: inline-block;
+  margin: 0;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button--primary {
+  background:
+    var(--color-blue-primary)
+    radial-gradient(76% 213% at 2% 14%, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0));
+  color: #fff;
+}
+
+.button--primary:hover {
+  background:
+    var(--color-blue-primary)
+    radial-gradient(76% 100% at 2% 14%, rgba(255, 255, 255, 0.24), rgba(47, 129, 192, 1));
+}
+
+.button--secondary {
+  background: radial-gradient(75.97% 213.04% at 2.33% 14.13%, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(0deg, rgba(47, 129, 192, 0.2), rgba(47, 129, 192, 0.2)), #FFFFFF;
+  color: var(--color-text);
+}
+
+.button--secondary:hover {
+  background: radial-gradient(75.97% 213.04% at 2.33% 14.13%, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(0deg, rgba(47, 129, 192, 0.2), rgba(47, 129, 192, 0.3)), #FFFFFF;
+}
+
+.button--block {
+  width: 100%;
+}

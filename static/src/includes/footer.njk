@@ -1,0 +1,80 @@
+<footer class="footer">
+  <div class="footer-box">
+    <div class="footer-container footer-container--primary">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <img src="/images/logo-footer.svg" width="237" height="48" alt="I-Photonics logo">
+        </div>
+
+        <div class="footer-contacts">
+          <div class="footer-contacts-text">Parko g.3, Avižienių k., LT-14198, Vilniaus raj</div>
+          <a class="footer-contacts-link" href="mailto:info@i-photonics.lt">info@i-photonics.lt</a>
+        </div>
+
+        <div class="footer-social social">
+          <a class="social-link social-link--linkedin" href="#" aria-label="LinkedIn" target="_blank"></a>
+          <a class="social-link social-link--instagram" href="#" aria-label="Instagram" target="_blank"></a>
+          <a class="social-link social-link--youtube" href="#" aria-label="YouTube" target="_blank"></a>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <div class="footer-nav-title">Catalog</div>
+        <ul class="footer-nav-list">
+          <li>
+            <a class="footer-link" href="#">Vacuum Coating Equipment</a>
+            <ul class="footer-nav-sublist">
+              <li><a href="#">ORTUS platform</a></li>
+              <li><a href="#">LIDIZ platform</a></li>
+              <li><a href="#">MERIDIAN</a></li>
+              <li><a href="#">IZOMET</a></li>
+              <li><a href="#">DIAMANTA</a></li>
+              <li><a href="#">ASTRA platform</a></li>
+              <li><a href="#">AURORA platform</a></li>
+              <li><a href="#">Customized equipment</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="footer-link" href="#">OEM components</a>
+            <ul class="footer-nav-sublist">
+              <li><a href="#">Optical filters</a></li>
+              <li><a href="#">Optical mirrors</a></li>
+              <li><a href="#">Beamsplitters</a></li>
+              <li><a href="#">AR coatings</a></li>
+              <li><a href="#">Display glasses</a></li>
+              <li><a href="#">DLC coating</a></li>
+              <li><a href="#">Transparent conductive coatings</a></li>
+              <li><a href="#">Hydrophobic and oleophobic coatings</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="footer-link" href="#">Thin film coating</a>
+            <ul class="footer-nav-sublist">
+              <li><a href="#">OCP Optical Monitoring System</a></li>
+              <li><a href="#">Ion Sources</a></li>
+              <li><a href="#">Magnetrons</a></li>
+              <li><a href="#">Neutralizer</a></li>
+              <li><a href="#">Automatic matching load</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-container footer-container--secondary">
+    <div class="footer-extra-nav">
+      <a class="footer-extra-nav-contact" href="#">Contact Us</a>
+      <ul class="footer-extra-nav-list">
+        {% for item in extranav %}
+          <li><a class="footer-link" href="{{ item.link }}">{{- item.title -}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="footer-awards">
+      <img src="/images/award.png" width="80" height="80" alt="">
+      <img src="/images/award.png" width="80" height="80" alt="">
+    </div>
+  </div>
+</footer>

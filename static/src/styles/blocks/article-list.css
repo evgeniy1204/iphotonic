@@ -1,0 +1,18 @@
+/* Article List */
+
+.article-list {
+  display: grid;
+}
+
+@media (width < 960px) {
+  .article-list {
+    gap: 32px;
+  }
+}
+
+@media (width >= 960px) {
+  .article-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}

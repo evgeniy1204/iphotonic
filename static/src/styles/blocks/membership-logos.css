@@ -1,0 +1,21 @@
+.membership-title-controls {
+    display: flex;
+}
+.membership-title-controls .logos-controls {
+    position: relative;
+    width: 70px;
+    margin-bottom: 25px;
+}
+
+.membership-title-controls .logos-controls .swiper-button-next, .logos-controls .swiper-button-prev {
+    color: var(--color-black);
+}
+
+.membership-title-controls .logos-controls .swiper-button-next:after, .logos-controls .swiper-button-prev:after {
+    font-size: 15px;
+}
+
+.logos-item:hover {
+    opacity: .5;
+    transition: all .2s;
+}

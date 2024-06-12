@@ -1,0 +1,414 @@
+<main class="main">
+  <div class="container">
+
+    {# Hero #}
+
+    <div class="hero">
+      <div class="hero-about">
+        <div class="hero-logo">
+          <img src="/images/logo-text.svg" width="252" height="33" alt="I–Photonics">
+        </div>
+
+        <div class="hero-description">
+          Designing and manufacturing of vacuum coating equipment for: optoelectronics, microelectronics, photovoltaic, thermal processing in vacuum.
+          <br>
+          <button class="js-modal-button" type="button">Open modal</button>
+        </div>
+      </div>
+
+      <div class="hero-features">
+        <div class="hero-feature hero-feature--primary">
+          <h4 class="hero-feature-title">
+            <a class="hero-feature-link" href="#">Vacuum coating systems</a>
+          </h4>
+
+          <div class="hero-feature-info">
+            <span>Today I-Photonics offers a range of batch and INLINE coaters families with various technologies</span>
+
+            <img src="/images/_temp/hero-primary.png" alt="">
+          </div>
+        </div>
+
+        <div class="hero-feature hero-feature--secondary">
+          <h4 class="hero-feature-title">
+            <a class="hero-feature-link" href="#">Thin-film coatings</a>
+          </h4>
+
+          <div class="hero-feature-info">
+            <span>More than 20 years of experience in the production of optical filters for photonics, avionics, medicine, sensor, space and display industries</span>
+
+            <img src="/images/_temp/hero-secondary.jpg" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# Our Products #}
+
+    <section class="section-products">
+      <h2 class="section-title">Our Products</h2>
+
+      <div class="tabs">
+        <div class="tabs-primary" role="tablist">
+          <div class="tabs-primary-list">
+            <button class="tabs-primary-button" id="tab-primary-1" type="button" role="tab" aria-selected="true" aria-controls="tab-panel-primary-1">
+              Vacuum Coating Equipment
+            </button>
+
+            <button class="tabs-primary-button" id="tab-primary-2" type="button" role="tab" aria-selected="false" aria-controls="tab-panel-primary-2" tabindex="-1">
+              OEM components
+            </button>
+
+            <button class="tabs-primary-button" id="tab-primary-3" type="button" role="tab" aria-selected="false" aria-controls="tab-panel-primary-3" tabindex="-1">
+              Thin film coating
+            </button>
+          </div>
+        </div>
+
+        <div id="tab-panel-primary-1" role="tabpanel" aria-labelledby="tab-primary-1">
+
+          <div class="tabs-secondary" role="tablist">
+            <div class="tabs-secondary-list">
+              <button class="tabs-secondary-button" id="tab-secondary-1" type="button" role="tab" aria-selected="true" aria-controls="tab-panel-secondary-1">
+                ORTUS platform
+              </button>
+
+              <button class="tabs-secondary-button" id="tab-secondary-2" type="button" role="tab" aria-selected="false" aria-controls="tab-panel-secondary-2" tabindex="-1">
+                LIDIZ platform
+              </button>
+            </div>
+          </div>
+
+          <div id="tab-panel-secondary-1" role="tabpanel" aria-labelledby="tab-secondary-1">
+            {% include 'product-cards.njk' %}
+          </div>
+
+          <div id="tab-panel-secondary-2" role="tabpanel" aria-labelledby="tab-2-secondary" hidden>
+            Secondary panel 2
+          </div>
+
+        </div>
+
+        <div id="tab-panel-primary-2" role="tabpanel" aria-labelledby="tab-primary-2" hidden>
+          Primary panel 2
+        </div>
+
+        <div id="tab-panel-primary-3" role="tabpanel" aria-labelledby="tab-3-primary" hidden>
+          Primary panel 3
+        </div>
+      </div>
+    </section>
+
+    {# Upcoming events #}
+
+    <section class="section-events">
+      <h2 class="section-title">Upcoming events</h2>
+
+      <div class="swiper event-cards">
+        <div class="swiper-wrapper event-cards-wrapper">
+          <div class="swiper-slide event-card">
+            <div class="event-card-image">
+              <img src="/images/_temp/event-1.jpg" width="620" height="504" alt="" loading="lazy">
+            </div>
+
+            <div class="event-card-info">
+              <h2 class="event-card-title">
+                <a class="event-card-link" href="#">W3+Fair Wetzlar 2024</a>
+              </h2>
+
+              <div class="event-card-desc">
+                <p class="event-card-text">
+                  Wetzlar, Germany. We know our products and services are substantial key for the growth of the business of our clients and are working constantly to provide turn key solutions to share our enthusiasm to our customers.
+                </p>
+
+                <p class="event-card-date">13 - 14 March 2024</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide event-card">
+            <div class="event-card-image">
+              <img src="/images/_temp/event-1.jpg" width="620" height="504" alt="" loading="lazy">
+            </div>
+
+            <div class="event-card-info">
+              <h2 class="event-card-title">
+                <a class="event-card-link" href="#">W3+Fair Wetzlar 2024</a>
+              </h2>
+
+              <div class="event-card-desc">
+                <p class="event-card-text">
+                  Wetzlar, Germany. We know our products and services are substantial key for the growth of the business of our clients and are working constantly to provide turn key solutions to share our enthusiasm to our customers.
+                </p>
+
+                <p class="event-card-date">13 - 14 March 2024</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide event-card">
+            <div class="event-card-image">
+              <img src="/images/_temp/event-1.jpg" width="620" height="504" alt="" loading="lazy">
+            </div>
+
+            <div class="event-card-info">
+              <h2 class="event-card-title">
+                <a class="event-card-link" href="#">W3+Fair Wetzlar 2024</a>
+              </h2>
+
+              <div class="event-card-desc">
+                <p class="event-card-text">
+                  Wetzlar, Germany. We know our products and services are substantial key for the growth of the business of our clients and are working constantly to provide turn key solutions to share our enthusiasm to our customers.
+                </p>
+
+                <p class="event-card-date">13 - 14 March 2024</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-cards-controls">
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+
+        <div class="swiper-pagination event-cards-pagination"></div>
+      </div>
+    </section>
+
+    {# News #}
+
+    <section class="section-news">
+      <h2 class="section-title">Company News</h2>
+
+      <div class="article-list">
+
+        <article class="article">
+          <div class="article-image">
+            <img src="/images/_temp/news-1.jpg" alt="">
+          </div>
+
+          <div class="article-info">
+            <h3 class="article-title">
+              <a class="article-link" href="#">
+                The 11th International Symposium on Optronics in Defense & Security
+              </a>
+            </h3>
+            <p class="article-desc">
+              Amidst the year-end hustle, let's take a moment to appreciate the highs and relish the successes that have defined our journey journey
+            </p>
+            <time class="article-date" datetime="2024-01-24">
+              24.01.2024
+            </time>
+          </div>
+        </article>
+
+        <article class="article">
+          <div class="article-image">
+            <img src="/images/_temp/news-2.jpg" alt="">
+          </div>
+
+          <div class="article-info">
+            <h3 class="article-title">
+              <a class="article-link" href="#">
+                The 11th International Symposium on Optronics in Defense & Security
+              </a>
+            </h3>
+            <p class="article-desc">
+              Amidst the year-end hustle, let's take a moment to appreciate the highs and relish the successes that have defined our journey journey
+            </p>
+            <time class="article-date" datetime="2024-01-24">
+              24.01.2024
+            </time>
+          </div>
+        </article>
+
+        <article class="article">
+          <div class="article-image">
+            <img src="/images/_temp/news-3.jpg" alt="">
+          </div>
+
+          <div class="article-info">
+            <h3 class="article-title">
+              <a class="article-link" href="#">
+                The 11th International Symposium on Optronics in Defense & Security
+              </a>
+            </h3>
+            <p class="article-desc">
+              Amidst the year-end hustle, let's take a moment to appreciate the highs and relish the successes that have defined our journey journey
+            </p>
+            <time class="article-date" datetime="2024-01-24">
+              24.01.2024
+            </time>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </div>
+
+  <section class="section-membership">
+    <div class="container">
+      <h2 class="section-title">Membership</h2>
+
+      <div class="logos">
+        <div class="logos-list">
+          <div class="logos-item">
+            <a class="logos-link" href="#">
+              <img src="/images/_temp/logo-1.jpg" alt="">
+            </a>
+          </div>
+          <div class="logos-item">
+            <a class="logos-link" href="#">
+              <img src="/images/_temp/logo-2.jpg" alt="">
+            </a>
+          </div>
+          <div class="logos-item">
+            <a class="logos-link" href="#">
+              <img src="/images/_temp/logo-3.jpg" alt="">
+            </a>
+          </div>
+          <div class="logos-item">
+            <a class="logos-link" href="#">
+              <img src="/images/_temp/logo-4.jpg" alt="">
+            </a>
+          </div>
+          <div class="logos-item">
+            <a class="logos-link" href="#">
+              <img src="/images/_temp/logo-5.jpg" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal js-modal">
+    <div class="modal-window">
+      <button class="modal-close js-modal-close">
+        <svg class="header-icon-close" width="26" height="26" aria-hidden="true">
+          <use href="/images/icons.svg#close"></use>
+        </svg>
+      </button>
+
+      <div class="modal-caption">Make an order</div>
+
+      <div class="modal-title">Narrowband filters</div>
+
+      <form class="form form--modal">
+        <div class="form-item">
+          <label class="form-control">
+            <span class="form-label">Your name</span>
+
+            <input class="form-input" type="text">
+          </label>
+        </div>
+
+        <div class="form-item">
+          <label class="form-control">
+            <span class="form-label">Your E-mail</span>
+
+            <input class="form-input form-input--error" type="text" inputmode="email">
+          </label>
+
+          <div class="form-error">Incorrect mail format</div>
+        </div>
+
+        <div class="form-item">
+          <label class="form-control">
+            <span class="form-label">Message</span>
+
+            <textarea class="form-input"></textarea>
+          </label>
+        </div>
+
+        <div class="form-submit">
+          <button class="button button--primary button--block" type="submit">Send</button>
+        </div>
+      </form>
+    </div>
+
+    <br>
+
+    <div class="modal-window">
+      <button class="modal-close js-modal-close">
+        <svg class="header-icon-close" width="26" height="26" aria-hidden="true">
+          <use href="/images/icons.svg#close"></use>
+        </svg>
+      </button>
+
+      <div class="modal-thank">
+        <div class="modal-thank-title">Thank You!</div>
+        <div class="modal-thank-desc">form submitted successfully</div>
+      </div>
+
+      <div class="modal-note">
+        <b>Phone:</b><br>
+        + 370 668 90702<br>
+        + 49 1732918891
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Swiper JS -->
+<script src="/scripts/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  (function() {
+    'use strict';
+
+    const breakpoint = window.matchMedia( '(min-width: 960px)' );
+
+    let eventSwiper;
+
+    const breakpointChecker = function() {
+      if ( breakpoint.matches === true ) {
+        return enableSwiper();
+      } else if ( breakpoint.matches === false ) {
+        if ( eventSwiper !== undefined ) eventSwiper.destroy( true, true );
+        return;
+      }
+    };
+
+    const enableSwiper = function() {
+      eventSwiper = new Swiper('.event-cards', {
+        slidesPerView: 'auto',
+        spaceBetween: 0,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    };
+
+    breakpoint.addEventListener('change', (event) => {
+      if (event.matches) {
+        breakpointChecker();
+      }
+    });
+
+    breakpointChecker();
+  })();
+</script>
+
+<script>
+  const modalButton = document.querySelector('.js-modal-button');
+  const modalClose = document.querySelector('.js-modal-close');
+
+  modalButton.addEventListener('click', () => {
+    page.classList.add('page--clip');
+    document.querySelector('.js-modal').classList.add('modal--active');
+  });
+
+  modalClose.addEventListener('click', () => {
+    page.classList.remove('page--clip');
+    document.querySelector('.js-modal').classList.remove('modal--active');
+  });
+</script>

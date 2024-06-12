@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html class="page" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{{ global.title }}</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="/styles/index.css">
+
+  <link rel="icon" href="/images/favicon/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/images/favicon/any.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/images/favicon/180.png">
+  <link rel="manifest" href="/manifest.json">
+</head>
+<body class="page-body">
+  {% include 'header.njk' %}
+
+  {{ content | safe }}
+
+  {% include 'footer.njk' %}
+
+  <script src="/scripts/index.js"></script>
+  <script src="/scripts/tabs.js"></script>
+</body>
+</html>

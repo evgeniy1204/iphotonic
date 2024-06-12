@@ -1,0 +1,32 @@
+/* Article Grid */
+
+.article-grid {
+  display: grid;
+}
+
+@media (width < 960px) {
+  .article-grid {
+    gap: 32px;
+  }
+
+  .article-list ~ .article-grid {
+    margin-top: 32px;
+  }
+}
+
+@media (width >= 960px) {
+  .article-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .article-grid--alt {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content min-content 1fr;
+    gap: 49px 72px;
+  }
+
+  .article-list ~ .article-grid {
+    margin-top: 50px;
+  }
+}

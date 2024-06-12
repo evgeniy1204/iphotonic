@@ -1,0 +1,36 @@
+/* Layout */
+
+@media (width < 960px) {
+  .layout {
+    padding-top: 6px;
+  }
+
+  .layout-full {
+    padding-top: 24px;
+  }
+
+  .layout-sidebar {
+    display: none;
+  }
+}
+
+@media (width >= 960px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 232px 1fr;
+    gap: 40px;
+    padding-top: 34px;
+  }
+
+  .layout-full {
+    padding-top: 32px;
+  }
+
+  .layout-content {
+    order: 2;
+  }
+
+  .layout-sidebar {
+    order: 1;
+  }
+}
