@@ -11,7 +11,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class AboutUsCrudController extends AbstractCrudController
 {
@@ -20,8 +19,7 @@ class AboutUsCrudController extends AbstractCrudController
 	public function __construct(
 		private readonly AdminUrlGenerator $adminUrlGenerator,
 		private readonly AboutUsRepository $aboutUsRepository,
-		#[Autowire('%env(TINY_MCE_JS_URL)%')] private readonly string $tinyMceJsUrl
-	) {
+	){
 	}
 
 	public static function getEntityFqcn(): string
@@ -49,7 +47,7 @@ class AboutUsCrudController extends AbstractCrudController
     {
 		return [
 			FormField::addTab('General fields'),
-            TinyMCEField::new('content')->addJsFiles($this->tinyMceJsUrl),
+            TinyMCEField::new('content'),
 			...$this->getSeoFields(),
 		];
     }

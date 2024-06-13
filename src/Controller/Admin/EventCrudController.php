@@ -11,14 +11,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class EventCrudController extends AbstractCrudController
 {
-	public function __construct(#[Autowire('%env(TINY_MCE_JS_URL)%')] private readonly string $tinyMceJsUrl)
-	{
-	}
-
     public static function getEntityFqcn(): string
     {
         return Event::class;
@@ -49,7 +44,7 @@ class EventCrudController extends AbstractCrudController
             DateTimeField::new('createdAt')
 				->setRequired(true)
                 ->setTimezone($this->getParameter('app.timezone_id')),
-			TinyMCEField::new('text')->hideOnIndex()->addJsFiles($this->tinyMceJsUrl),
+			TinyMCEField::new('text')->hideOnIndex(),
 			BooleanField::new('active')
         ];
     }

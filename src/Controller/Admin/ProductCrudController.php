@@ -15,15 +15,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 class ProductCrudController extends AbstractCrudController
 {
 	use SeoFieldsTrait;
-
-	public function __construct(#[Autowire('%env(TINY_MCE_JS_URL)%')] private readonly string $tinyMceJsUrl)
-	{
-	}
 
 	public static function getEntityFqcn(): string
 	{
@@ -51,7 +47,7 @@ class ProductCrudController extends AbstractCrudController
 				->setFormTypeOption('multiple', true)
 				->setRequired(false)
 				->hideOnIndex(),
-			TinyMCEField::new('text')->hideOnIndex()->addJsFiles($this->tinyMceJsUrl),
+			TinyMCEField::new('text')->hideOnIndex(),
 			AssociationField::new('relationProducts')
 				->setLabel('Select products for first block')
 				->hideOnIndex(),

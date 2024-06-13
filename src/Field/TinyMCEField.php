@@ -19,6 +19,7 @@ final class TinyMCEField implements FieldInterface
 			->setLabel($label)
 			->setFormType(TextareaType::class)
 			->addCssClass('field-tiny-editor')
+			->addJsFiles('https://cdn.tiny.cloud/1/ixvc0l7tbwt2huihvu5t0n5w6u6v6ow9uebmu27mwguaaylr/tinymce/6/tinymce.min.js')
 			->addJsFiles('scripts/tiny_mce_app.js');
 	}
 }

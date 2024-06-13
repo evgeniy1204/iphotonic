@@ -16,7 +16,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class SettingCrudController extends AbstractCrudController
 {
@@ -24,8 +23,7 @@ class SettingCrudController extends AbstractCrudController
 
 	public function __construct(
 		private readonly AdminUrlGenerator $adminUrlGenerator,
-		private readonly SettingRepository $settingRepository,
-		#[Autowire('%env(TINY_MCE_JS_URL)%')] private readonly string $tinyMceJsUrl
+		private readonly SettingRepository $settingRepository
 	) {
 	}
 
@@ -56,12 +54,12 @@ class SettingCrudController extends AbstractCrudController
 			FormField::addTab('Site'),
 			TextField::new('email')->setHelp('Header email'),
 			TextareaField::new('address')->setHelp('Footer address'),
-			TinyMCEField::new('phones')->setHelp('Phones for thank you form')->addJsFiles($this->tinyMceJsUrl),
+			TinyMCEField::new('phones')->setHelp('Phones for thank you form'),
 			UrlField::new('linkedIn'),
 			UrlField::new('youtube'),
 			UrlField::new('instagram'),
 			FormField::addTab('Contacts'),
-			TinyMCEField::new('contacts')->addJsFiles($this->tinyMceJsUrl),
+			TinyMCEField::new('contacts'),
 			TextareaField::new('aboutUs'),
 			FormField::addTab('Main page'),
 			TextField::new('mainLeftBlockTitle'),
@@ -81,7 +79,7 @@ class SettingCrudController extends AbstractCrudController
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
 				->setRequired(false),
 			FormField::addTab('Technology'),
-			TinyMCEField::new('technologyContent')->hideOnIndex()->addJsFiles($this->tinyMceJsUrl),
+			TinyMCEField::new('technologyContent')->hideOnIndex(),
 			...$this->getSeoFields(),
 		];
 	}
