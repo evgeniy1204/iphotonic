@@ -15,10 +15,15 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class TechnologyCrudController extends AbstractCrudController
 {
 	use SeoFieldsTrait;
+
+	public function __construct(#[Autowire('%env(TINY_MCE_JS_URL)%')] private readonly string $tinyMceJsUrl)
+	{
+	}
 
     public static function getEntityFqcn(): string
     {
@@ -41,7 +46,7 @@ class TechnologyCrudController extends AbstractCrudController
 				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Technology::TECHNOLOGY_IMAGES_FOLDER)
 				->setRequired(false),
 			TextField::new('imageShortDescription')->hideOnIndex(),
-			TinyMCEField::new('content')->hideOnIndex(),
+			TinyMCEField::new('content')->hideOnIndex()->addJsFiles($this->tinyMceJsUrl),
 			BooleanField::new('active'),
 			...$this->getSeoFields(),
         ];

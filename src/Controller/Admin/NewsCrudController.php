@@ -11,9 +11,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class NewsCrudController extends AbstractCrudController
 {
+	public function __construct(#[Autowire('%env(TINY_MCE_JS_URL)%')] private readonly string $tinyMceJsUrl)
+	{
+	}
+
     public static function getEntityFqcn(): string
     {
         return News::class;
@@ -36,7 +41,8 @@ class NewsCrudController extends AbstractCrudController
                 ->setTimezone($this->getParameter('app.timezone_id')),
 			TextareaField::new('summary')->hideOnIndex(),
 			TinyMCEField::new('text')
-                ->hideOnIndex(),
+                ->hideOnIndex()
+				->addJsFiles($this->tinyMceJsUrl),
 			BooleanField::new('active')
         ];
     }

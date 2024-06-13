@@ -10,9 +10,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class ProductCategoryCrudController extends AbstractCrudController
 {
+	public function __construct(#[Autowire('%env(TINY_MCE_JS_URL)%')] private readonly string $tinyMceJsUrl)
+	{
+	}
+
     public static function getEntityFqcn(): string
     {
         return ProductCategory::class;
@@ -37,12 +42,14 @@ class ProductCategoryCrudController extends AbstractCrudController
 				->hideOnIndex(),
             TinyMCEField::new('summary')
 				->setRequired(false)
-				->hideOnIndex(),
+				->hideOnIndex()
+				->addJsFiles($this->tinyMceJsUrl),
 			AssociationField::new('equipments')
 				->hideOnIndex(),
             TinyMCEField::new('description')
 				->setRequired(false)
-				->hideOnIndex(),
+				->hideOnIndex()
+				->addJsFiles($this->tinyMceJsUrl),
         ];
     }
 }
