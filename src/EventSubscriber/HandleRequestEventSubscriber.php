@@ -31,7 +31,7 @@ readonly class HandleRequestEventSubscriber implements EventSubscriberInterface
 
 		$countryRequestResult = $this->requestCountryResolver?->resolveCountryByRequest($event->getRequest());
 		if ($countryRequestResult->isBlocked()) {
-			throw new LockedHttpException();
+			die;
 		}
 	}
 }
