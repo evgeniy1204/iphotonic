@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html class="page" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}I-Photonics{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('images/fav.ico') }}" type="image/x-icon">
+        <link rel="stylesheet" href="{{ asset('styles/app/index.css') }}">
+    </head>
+    <body class="page-body">
+        <main class="main">
+            <div class="container">
+                <div class="layout-full">
+                    <div class="error-status">
+                        <h1 class="error-status-title">404</h1>
+                        <div class="error-status-text">
+                            <p>Blocked</p>
+                            <p>The requested page does not exist or has been deleted.</p>
+                        </div>
+                        <a class="button button--primary" href="/">Go to main</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
