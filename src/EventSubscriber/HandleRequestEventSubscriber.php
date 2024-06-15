@@ -31,8 +31,7 @@ readonly class HandleRequestEventSubscriber implements EventSubscriberInterface
 
 		$countryRequestResult = $this->requestCountryResolver?->resolveCountryByRequest($event->getRequest());
 		if ($countryRequestResult->isBlocked()) {
-			echo 'Page is blocked';
-			die;
+			throw new LockedHttpException();
 		}
 	}
 }
