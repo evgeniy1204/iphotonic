@@ -114,14 +114,14 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        var slidePerView = 4;
+        var slidePerView = 3;
         if ($(window).width() < 980) {
             slidePerView = 1;
         }
         var swiperListing = new Swiper(".listing-slide", {
             slidesPerView: slidePerView,
             loop: true,
-            centeredSlides: true,
+            spaceBetween: 0,
             navigation: {
                 nextEl: ".listing-card-controls .swiper-button-next",
                 prevEl: ".listing-card-controls .swiper-button-prev",
