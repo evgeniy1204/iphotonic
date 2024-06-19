@@ -56,7 +56,7 @@
                     <div class="tabs-primary" role="tablist">
                         <div class="tabs-primary-list">
                             {% for name, productsData in data.productsWithCategory %}
-                                <button class="tabs-primary-button" id="tab-primary-{{ loop.index }}" type="button" role="tab" aria-selected="true" aria-controls="tab-panel-primary-{{ loop.index }}">
+                                <button class="tabs-primary-button" id="tab-primary-{{ loop.index }}" type="button" role="tab" aria-selected="{% if loop.index == 1 %}true{% else %}false{% endif %}" aria-controls="tab-panel-primary-{{ loop.index }}">
                                     {{ name }}
                                 </button>
                             {% endfor %}
@@ -67,7 +67,7 @@
                             <div class="tabs-secondary" role="tablist">
                                 <div class="tabs-secondary-list">
                                     {% for childProductsData in productsData %}
-                                        <button class="tabs-secondary-button" id="tab-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}" type="button" role="tab" aria-selected="true" aria-controls="tab-panel-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}">
+                                        <button class="tabs-secondary-button" id="tab-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}" type="button" role="tab" aria-selected="{% if loop.index == 1 %}true{% else %}false{% endif %}" aria-controls="tab-panel-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}">
                                             {{ childProductsData.productCategory.name }}
                                         </button>
                                     {% endfor %}
