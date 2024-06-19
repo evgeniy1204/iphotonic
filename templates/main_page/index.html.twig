@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     {% for name, productsData in data.productsWithCategory %}
-                        <div id="tab-panel-primary-{{ loop.index }}" {% if loop.index == 1 %}{% else %}hidden{% endif %}  role="tabpanel" aria-labelledby="tab-primary-{{ loop.index }}">
+                        <div id="tab-panel-primary-{{ loop.index }}" {% if loop.index == 1 %}{% else %}hidden{% endif %} role="tabpanel" aria-labelledby="tab-primary-{{ loop.index }}">
                             <div class="tabs-secondary" role="tablist">
                                 <div class="tabs-secondary-list">
                                     {% for childProductsData in productsData %}
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             {% for childProductsData in productsData %}
-                            <div id="tab-panel-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}" role="tabpanel" aria-labelledby="tab-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}">
+                            <div id="tab-panel-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}" {% if loop.index == 1 %}{% else %}hidden{% endif %} role="tabpanel" aria-labelledby="tab-secondary-{{ loop.index }}-{{ childProductsData.productCategory.id }}">
                                 {% include 'blocks/cards/cards_block.html.twig' with {'cards': childProductsData.productCards} %}
                             </div>
                             {% endfor %}
