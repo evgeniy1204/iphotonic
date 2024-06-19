@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     {% for name, productsData in data.productsWithCategory %}
-                        <div id="tab-panel-primary-{{ loop.index }}" role="tabpanel" aria-labelledby="tab-primary-{{ loop.index }}">
+                        <div id="tab-panel-primary-{{ loop.index }}" {% if loop.index == 1 %}{% else %}hidden{% endif %}  role="tabpanel" aria-labelledby="tab-primary-{{ loop.index }}">
                             <div class="tabs-secondary" role="tablist">
                                 <div class="tabs-secondary-list">
                                     {% for childProductsData in productsData %}
