@@ -12,6 +12,7 @@ readonly class SocialNetworksDto
 		private string $linkedIn,
 		private string $youtube,
 		private string $instagram,
+		private string $twitter,
 	) {
 	}
 
@@ -20,7 +21,8 @@ readonly class SocialNetworksDto
 		return new self(
 			$setting->getLinkedIn() ?? '',
 			$setting->getInstagram() ?? '',
-			$setting->getYoutube() ?? ''
+			$setting->getYoutube() ?? '',
+			$setting->getTwitter() ?? ''
 		);
 	}
 
@@ -37,5 +39,10 @@ readonly class SocialNetworksDto
 	public function getInstagram(): string
 	{
 		return $this->instagram;
+	}
+
+	public function getTwitter(): string
+	{
+		return $this->twitter;
 	}
 }

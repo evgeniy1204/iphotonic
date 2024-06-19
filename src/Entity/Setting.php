@@ -34,6 +34,9 @@ class Setting
     #[ORM\Column(name: 'instagram', type: Types::STRING, length: 255, nullable: true)]
     private ?string $instagram;
 
+	#[ORM\Column(name: 'twitter', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $twitter;
+
 	#[ORM\Column(name: 'contacts', type: Types::TEXT, nullable: true)]
 	private ?string $contacts;
 
@@ -82,6 +85,7 @@ class Setting
 		$this->linkedIn = null;
 		$this->youtube = null;
 		$this->instagram = null;
+		$this->twitter = null;
 		$this->contacts = null;
 		$this->aboutUs = null;
 		$this->email = null;
@@ -275,5 +279,15 @@ class Setting
 	public function setMainRightBlockImage(?string $mainRightBlockImage): void
 	{
 		$this->mainRightBlockImage = $mainRightBlockImage;
+	}
+
+	public function getTwitter(): ?string
+	{
+		return $this->twitter;
+	}
+
+	public function setTwitter(?string $twitter): void
+	{
+		$this->twitter = $twitter;
 	}
 }

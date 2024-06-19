@@ -261,6 +261,10 @@
   background-image: url('/images/social/youtube.svg');
 }
 
+.social-link--twitter {
+  background-image: url('/images/social/twitter.svg');
+}
+
 @media (width < 960px) {
   .social {
     gap: 32px;

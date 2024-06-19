@@ -58,6 +58,7 @@ class SettingCrudController extends AbstractCrudController
 			UrlField::new('linkedIn'),
 			UrlField::new('youtube'),
 			UrlField::new('instagram'),
+			UrlField::new('twitter'),
 			FormField::addTab('Contacts'),
 			TinyMCEField::new('contacts'),
 			TextareaField::new('aboutUs'),
