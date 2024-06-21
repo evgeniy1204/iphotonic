@@ -6,27 +6,33 @@ namespace App\Service\Email;
 
 use App\Service\Search\SettingsProvider;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\Email;
 
 readonly class EmailSender
 {
 	public function __construct(
-		private MailerInterface $mailer,
 		#[Autowire('%env(EMAIL_SENDER)%')]
 		private string $emailSender,
+		#[Autowire('%env(MAILER_DSN)%')]
+		private string $dsn,
 		private SettingsProvider $settingsProvider,
 	) {
 	}
 
 	public function send(EmailInterface $email): void
 	{
+		$transport = Transport::fromDsn($this->dsn);
+		$mailer = new Mailer($transport);
+
 		$email = (new Email())
 			->from($this->emailSender)
 			->to($this->settingsProvider->getEmail() ?? '')
 			->subject($email->getSubject())
-			->text($email->getText());
+			->html($email->getText());
 
-		$this->mailer->send($email);
+		$mailer->send($email);
 	}
 }
