@@ -23,7 +23,7 @@ readonly class EmailSender
 	{
 		$email = (new Email())
 			->from($this->emailSender)
-			->to('kuzmich.zhek@gmail.com')
+			->to($this->settingsProvider->getEmail() ?? '')
 			->subject($email->getSubject())
 			->html($email->getText());
 
