@@ -25,7 +25,7 @@ readonly class EmailSender
 			->from($this->emailSender)
 			->to($this->settingsProvider->getEmail() ?? '')
 			->subject($email->getSubject())
-			->html($email->getText());
+			->text($email->getText());
 
 		$this->mailer->send($email);
 	}
