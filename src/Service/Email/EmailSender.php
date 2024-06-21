@@ -19,12 +19,13 @@ readonly class EmailSender
 		#[Autowire('%env(MAILER_DSN)%')]
 		private string $dsn,
 		private SettingsProvider $settingsProvider,
+		private MailTransportFactory $mailTransportFactory,
 	) {
 	}
 
 	public function send(EmailInterface $email): void
 	{
-		$transport = Transport::fromDsn($this->dsn);
+		$transport = $this->mailTransportFactory->create(Transport\Dsn::fromString($this->dsn));
 		$mailer = new Mailer($transport);
 
 		$email = (new Email())
