@@ -22,6 +22,7 @@ readonly class EmailSender
 	public function send(EmailInterface $email): void
 	{
 		$email = (new Email())
+			->from($this->emailSender)
 			->to($this->settingsProvider->getEmail() ?? '')
 			->subject($email->getSubject())
 			->html($email->getText());
