@@ -28,4 +28,10 @@ class EmailRequest
 	public string $message;
 
 	public string $product;
+
+	#[
+		Assert\IsNull,
+		Assert\Blank,
+	]
+	public ?string $check;
 }
