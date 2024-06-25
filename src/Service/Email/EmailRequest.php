@@ -29,9 +29,5 @@ class EmailRequest
 
 	public string $product;
 
-	#[
-		Assert\IsNull,
-		Assert\Blank,
-	]
 	public ?string $check;
 }
