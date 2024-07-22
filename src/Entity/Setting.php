@@ -79,6 +79,12 @@ class Setting
 	#[ORM\Column(name: 'address', type: Types::STRING, length: 255, nullable: true)]
 	private ?string $address;
 
+	#[ORM\Column(name: 'map_asia', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $mapAsia;
+
+	#[ORM\Column(name: 'map_europe', type: Types::STRING, length: 255, nullable: true)]
+	private ?string $mapEurope;
+
 	public function __construct()
 	{
 		$this->id = 0;
@@ -97,6 +103,8 @@ class Setting
 		$this->mainRightBlockSummary = null;
 		$this->mainLeftBlockTitleUrl = null;
 		$this->mainRightBlockTitleUrl = null;
+		$this->mapEurope = null;
+		$this->mapAsia = null;
 		$this->seo = new SeoEmbed();
 	}
 
@@ -289,5 +297,25 @@ class Setting
 	public function setTwitter(?string $twitter): void
 	{
 		$this->twitter = $twitter;
+	}
+
+	public function getMapAsia(): ?string
+	{
+		return $this->mapAsia;
+	}
+
+	public function setMapAsia(?string $mapAsia): void
+	{
+		$this->mapAsia = $mapAsia;
+	}
+
+	public function getMapEurope(): ?string
+	{
+		return $this->mapEurope;
+	}
+
+	public function setMapEurope(?string $mapEurope): void
+	{
+		$this->mapEurope = $mapEurope;
 	}
 }

@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libmcrypt-dev \
     libicu-dev \
-    libzip-dev
+    libzip-dev \
+    sendmail
 
 
 RUN docker-php-ext-configure intl && \

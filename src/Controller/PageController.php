@@ -36,6 +36,8 @@ class PageController extends AbstractController
 			'about' => $settingsProvider->getAboutUsContent(),
 			'contacts' => $settingsProvider->getContacts(),
 			'socialLinks' => $settingsProvider->getSocialLinks(),
+			'mapAsia' => $settingsProvider->getMapAsia(),
+			'mapEurope' => $settingsProvider->getMapEurope(),
 			'partnerPoints' => $partnerRepository->findAll(),
 			'partners' => $partnerRepository->findBy(['showPartnerCard' => true]),
 		]);

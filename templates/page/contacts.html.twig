@@ -24,24 +24,28 @@
                         </div>
                     </div>
                     <div class="contacts-map">
-                        <div class="first-map map-level">
-                            <p class="map-title">Europe</p>
-                            <img src="{{ asset('images/map_europe.png') }}" alt="">
-                            {% for partner in partnerPoints %}
-                                {% if partner.map == 'europe' and partner.mapPositionTop and partner.mapPositionLeft %}
-                                    {% include 'blocks/map_point.html.twig' with {'partner': partner} %}
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <div class="second-map map-level">
-                            <p class="map-title">Asia</p>
-                            <img src="{{ asset('images/map_asia.png') }}" alt="">
-                            {% for partner in partnerPoints %}
-                                {% if partner.map == 'asia' and partner.mapPositionTop and partner.mapPositionLeft %}
-                                    {% include 'blocks/map_point.html.twig' with {'partner': partner} %}
-                                {% endif %}
-                            {% endfor %}
-                        </div>
+                        {% if mapEurope %}
+                            <div class="first-map map-level">
+                                <p class="map-title">Europe</p>
+                                <img src="{{ asset('images/' ~ mapEurope) }}" alt="">
+                                {% for partner in partnerPoints %}
+                                    {% if partner.map == 'europe' and partner.mapPositionTop and partner.mapPositionLeft %}
+                                        {% include 'blocks/map_point.html.twig' with {'partner': partner} %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if mapAsia %}
+                            <div class="second-map map-level">
+                                <p class="map-title">Asia</p>
+                                <img src="{{ asset('images/' ~ mapAsia) }}" alt="">
+                                {% for partner in partnerPoints %}
+                                    {% if partner.map == 'asia' and partner.mapPositionTop and partner.mapPositionLeft %}
+                                        {% include 'blocks/map_point.html.twig' with {'partner': partner} %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="partners">

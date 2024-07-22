@@ -61,4 +61,14 @@ readonly class SettingsProvider
 	{
 		return SocialNetworksDto::fromSetting($this->getSettings());
 	}
+
+	public function getMapAsia(): ?string
+	{
+		return $this->getSettings()->getMapAsia();
+	}
+
+	public function getMapEurope(): ?string
+	{
+		return $this->getSettings()->getMapEurope();
+	}
 }

@@ -7,6 +7,8 @@ services:
             - '443:443'
         volumes:
             - './:/var/www/app'
+            - '${SSL_CERT}:/etc/nginx/ssl/fullchain.pem'
+            - '${SSL_PRIVATE_KEY}:/etc/nginx/ssl/privkey.pem'
         networks:
             - iphotonic_network
         environment:

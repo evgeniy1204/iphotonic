@@ -60,6 +60,16 @@ class SettingCrudController extends AbstractCrudController
 			UrlField::new('instagram'),
 			UrlField::new('twitter'),
 			FormField::addTab('Contacts'),
+			ImageField::new('mapEurope')
+				->hideOnIndex()
+				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
+				->setRequired(false),
+			ImageField::new('mapAsia')
+				->hideOnIndex()
+				->setBasePath(Constants::ADMIN_ROOT_READ_IMAGES_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
+				->setUploadDir(Constants::ADMIN_ROOT_UPLOADS_DIR . Setting::MAIN_BLOCK_IMAGES_FOLDER)
+				->setRequired(false),
 			TinyMCEField::new('contacts'),
 			TextareaField::new('aboutUs'),
 			FormField::addTab('Main page'),
