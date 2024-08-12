@@ -23,7 +23,7 @@ class MailerController extends AbstractController
 		EmailSender $emailSender,
 		ProductEmailBuilder $productEmailBuilder
 	): Response {
-		if (!$emailRequest->check) {
+		if (!$emailRequest->check && $emailRequest->product) {
 			$emailSender->send($productEmailBuilder->buildEmail(
 				$emailRequest->product,
 				new EmailDto($emailRequest->product, $emailRequest->name, $emailRequest->email, $emailRequest->message)
